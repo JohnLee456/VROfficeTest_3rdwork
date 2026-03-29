@@ -1,0 +1,2 @@
+C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonUnityNetworking.Utilities.csproj.AssemblyReference.cache
+C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonUnityNetworking.Utilities.csproj.CoreCompileInputs.cache

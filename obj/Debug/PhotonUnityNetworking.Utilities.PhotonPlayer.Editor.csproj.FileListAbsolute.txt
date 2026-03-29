@@ -1,0 +1,1 @@
+C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj.CoreCompileInputs.cache

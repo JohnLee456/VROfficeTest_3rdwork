@@ -67,3 +67,21 @@ The following packages were updated:
   com.unity.ide.visualstudio from version 2.0.14 to 2.0.18
   com.unity.test-framework from version 1.1.31 to 1.1.33
   com.unity.xr.oculus from version 1.12.0 to 1.13.1
+
+=== Wed Apr 22 15:48:26 2026
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were added:
+  com.unity.ai.navigation@1.1.6
+The following packages were updated:
+  com.unity.animation.rigging from version 1.0.3 to 1.2.1
+  com.unity.collab-proxy from version 2.0.4 to 2.7.1
+  com.unity.ide.rider from version 3.0.21 to 3.0.36
+  com.unity.ide.visualstudio from version 2.0.18 to 2.0.22
+  com.unity.textmeshpro from version 3.0.6 to 3.0.7
+  com.unity.timeline from version 1.4.8 to 1.7.7
+  com.unity.xr.interaction.toolkit from version 2.0.1 to 2.6.4
+  com.unity.xr.management from version 4.2.1 to 4.4.0
+  com.unity.xr.oculus from version 1.13.1 to 4.5.1

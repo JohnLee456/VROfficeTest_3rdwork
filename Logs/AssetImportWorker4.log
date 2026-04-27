@@ -1,0 +1,1327 @@
+Using pre-set license
+Built from '2022.3/respin/2022.3.62f2-4af31df585-v2' branch; Version is '2022.3.62f3 (96770f904ca7) revision 9860879'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 11  (10.0.26200) 64bit Core' Language: 'zh' Physical Memory: 16094 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker4
+-projectPath
+C:/demo/VROfficeTest_3rdwork
+-logFile
+Logs/AssetImportWorker4.log
+-srvPort
+63953
+Successfully changed project path to: C:/demo/VROfficeTest_3rdwork
+C:/demo/VROfficeTest_3rdwork
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [21548]  Target information:
+
+Player connection [21548]  * "[IP] 192.168.16.112 [Port] 0 [Flags] 2 [Guid] 497649042 [EditorId] 497649042 [Version] 1048832 [Id] WindowsEditor(7,CY) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [21548] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [21548] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+Refreshing native plugins compatible for Editor in 12.35 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 0.44 ms.
+Initialize engine version: 2022.3.62f3 (96770f904ca7)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/demo/VROfficeTest_3rdwork/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 4070 Ti (ID=0x2782)
+    Vendor:   NVIDIA
+    VRAM:     11994 MB
+    Driver:   32.0.15.9186
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56440
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.003076 seconds.
+- Loaded All Assemblies, in  0.200 seconds
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.150 seconds
+Domain Reload Profiling: 349ms
+	BeginReloadAssembly (62ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (19ms)
+	RebuildNativeTypeToScriptingClass (6ms)
+	initialDomainReloadingComplete (32ms)
+	LoadAllAssembliesAndSetupDomain (80ms)
+		LoadAssemblies (60ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (79ms)
+			TypeCache.Refresh (79ms)
+				TypeCache.ScanAssembly (71ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (0ms)
+	FinalizeReload (150ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (124ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (1ms)
+			ProcessInitializeOnLoadAttributes (85ms)
+			ProcessInitializeOnLoadMethodAttributes (28ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Caller must complete domain reload
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.382 seconds
+Native extension for WindowsStandalone target not found
+Error saving file Library/StateCache/LayerSettings/9e/9ecc5c3c162a7aba29bafa64c8b94b7c.json. Error: System.IO.IOException: Sharing violation on path C:\demo\VROfficeTest_3rdwork\Library\StateCache\LayerSettings\9e\9ecc5c3c162a7aba29bafa64c8b94b7c.json
+  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share, System.Int32 bufferSize, System.Boolean anonymous, System.IO.FileOptions options) [0x0019e] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share, System.Int32 bufferSize, System.IO.FileOptions options) [0x00000] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.FileStream..ctor(string,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,int,System.IO.FileOptions)
+  at System.IO.StreamWriter..ctor (System.String path, System.Boolean append, System.Text.Encoding encoding, System.Int32 bufferSize) [0x00055] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at System.IO.StreamWriter..ctor (System.String path, System.Boolean append, System.Text.Encoding encoding) [0x00000] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.StreamWriter..ctor(string,bool,System.Text.Encoding)
+  at System.IO.File.WriteAllText (System.String path, System.String contents, System.Text.Encoding encoding) [0x00034] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at UnityEditor.StateCache`1[T].SetState (UnityEngine.Hash128 key, T obj) [0x0004b] in <4b8f645257c94d1296f440a10c6f388e>:0 
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.StateCache`1<UnityEditor.Tools/LayerSettings>:SetState (UnityEngine.Hash128,UnityEditor.Tools/LayerSettings)
+UnityEditor.Tools:set_lockedLayers (int)
+UnityEditor.Tools:OnEnable ()
+UnityEngine.ScriptableObject:CreateInstance (System.Type)
+UnityEngine.ScriptableObject:CreateInstance<UnityEditor.Tools> ()
+UnityEditor.Tools:get_get ()
+UnityEditor.Tools:get_visibleLayers ()
+UnityEditor.Animations.Rigging.BoneRendererUtils:.cctor () (at ./Library/PackageCache/com.unity.animation.rigging@1.2.1/Editor/Utils/BoneRendererUtils.cs:121)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.unity.animation.rigging@1.2.1/Editor/Utils/BoneRendererUtils.cs Line: 121)
+
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-SimulationExperiment
+Package Manager log level set to [2]
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x0003d] in .\Library\PackageCache\com.unity.xr.oculus@4.5.1\Runtime\OculusLoader.cs:312 
+  at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x0008c] in .\Library\PackageCache\com.unity.xr.oculus@4.5.1\Runtime\OculusLoader.cs:297 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <1071a2cb0cb3433aae80a793c277a048>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at UnityEditor.EditorAssemblies.ProcessInitializeOnLoadMethodAttributes () [0x000a5] in <4b8f645257c94d1296f440a10c6f388e>:0 
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadMethodAttributes ()
+
+Mono: successfully reloaded assembly
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+- Finished resetting the current domain, in  0.400 seconds
+Domain Reload Profiling: 780ms
+	BeginReloadAssembly (83ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (11ms)
+	RebuildCommonClasses (19ms)
+	RebuildNativeTypeToScriptingClass (6ms)
+	initialDomainReloadingComplete (24ms)
+	LoadAllAssembliesAndSetupDomain (248ms)
+		LoadAssemblies (195ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (103ms)
+			TypeCache.Refresh (82ms)
+				TypeCache.ScanAssembly (68ms)
+			ScanForSourceGeneratedMonoScriptInfo (13ms)
+			ResolveRequiredComponents (6ms)
+	FinalizeReload (400ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (309ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (2ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (39ms)
+			ProcessInitializeOnLoadAttributes (236ms)
+			ProcessInitializeOnLoadMethodAttributes (27ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 8.98 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 0.08 ms.
+Unloading 3938 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 94 unused Assets / (92.3 KB). Loaded Objects now: 4338.
+Memory consumption went from 150.4 MB to 150.3 MB.
+Total: 2.317900 ms (FindLiveObjects: 0.150100 ms CreateObjectMapping: 0.048700 ms MarkObjects: 2.010000 ms  DeleteObjects: 0.108400 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 248026.364884 seconds.
+  path: Assets/VR Models/flash_bot.glb
+  artifactKey: Guid(591589e87d7768544b2907e4960ed1c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Models/flash_bot.glb using Guid(591589e87d7768544b2907e4960ed1c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '01fa700831e530551b6be8973a3d6596') in 0.324408 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 116
+========================================================================
+Received Import Request.
+  Time since last request: 0.241498 seconds.
+  path: Assets/VR Office/TagManager.preset
+  artifactKey: Guid(1c272885650c91f4a9ef8e1761b322e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/TagManager.preset using Guid(1c272885650c91f4a9ef8e1761b322e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8c32d6e37d41f47e99606362f64ed248') in 0.001102 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000122 seconds.
+  path: Assets/VR Office/XRI Default Snap Turn.preset
+  artifactKey: Guid(18697d253d848974aa7052cba872c9f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/XRI Default Snap Turn.preset using Guid(18697d253d848974aa7052cba872c9f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '582504d13513fee2edf0d8f3fc3c814a') in 0.003263 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 5
+========================================================================
+Received Import Request.
+  Time since last request: 1.750370 seconds.
+  path: Assets/XR/XRGeneralSettings.asset
+  artifactKey: Guid(95dc5fad287160046900d391440e83c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/XR/XRGeneralSettings.asset using Guid(95dc5fad287160046900d391440e83c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8a0e27071f95f61d9c64739551ef52b3') in 0.005958 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 32.144430 seconds.
+  path: Assets/GLTFUtility-master/LICENSE.md
+  artifactKey: Guid(ca65d0aa5bb2e65498951bbd71d21ace) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GLTFUtility-master/LICENSE.md using Guid(ca65d0aa5bb2e65498951bbd71d21ace) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ed5772fe48fe0dd4b27997cf7445e809') in 0.000793 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 1.108016 seconds.
+  path: Assets/GLTFUtility-master/Plugins
+  artifactKey: Guid(f283c8997fa8bd642a4f133b1578d516) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GLTFUtility-master/Plugins using Guid(f283c8997fa8bd642a4f133b1578d516) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a9d9c1221003ed0237fc928e641ef34c') in 0.000361 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.510854 seconds.
+  path: Assets/GLTFUtility-master/Materials
+  artifactKey: Guid(a2fe38d9088987d48b9638b57e27df0c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GLTFUtility-master/Materials using Guid(a2fe38d9088987d48b9638b57e27df0c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1eba25b031a55566babba97b8345e98d') in 0.000416 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.767043 seconds.
+  path: Assets/GLTFUtility-master/Scripts
+  artifactKey: Guid(1a53c6d71b38ddd45974d563dc47f847) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GLTFUtility-master/Scripts using Guid(1a53c6d71b38ddd45974d563dc47f847) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6557fab1b3259bb15b5a1aac288d311b') in 0.000355 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 1.224472 seconds.
+  path: Assets/My Material/Line Material.mat
+  artifactKey: Guid(ee915ffdc5626ee45b498d7c248bc09e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/My Material/Line Material.mat using Guid(ee915ffdc5626ee45b498d7c248bc09e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a213c2b761f7336717f62245122adc9c') in 0.124493 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 6.717137 seconds.
+  path: Assets/Scenes/SampleScene.unity
+  artifactKey: Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/SampleScene.unity using Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '584243cc530d5ad891a1a78c2b23a72e') in 0.000356 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 8.689266 seconds.
+  path: Assets/VR Prefab/XR Rig.prefab
+  artifactKey: Guid(5ec26b5a9b2ac2046b38cfe8a5482ac7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Prefab/XR Rig.prefab using Guid(5ec26b5a9b2ac2046b38cfe8a5482ac7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '77d9f358fcb63a20a9ae2112d1c6c44c') in 0.027931 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 76
+========================================================================
+Received Import Request.
+  Time since last request: 1.809598 seconds.
+  path: Assets/VR Office/Animation
+  artifactKey: Guid(ea6d1c5038d4f314887728195127c3e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Animation using Guid(ea6d1c5038d4f314887728195127c3e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f21b586ffb4aa01033e19ed33299c6d0') in 0.000368 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.655784 seconds.
+  path: Assets/VR Office/Animation/Hand
+  artifactKey: Guid(093f973d608ced84ba8969d6f69a9892) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Animation/Hand using Guid(093f973d608ced84ba8969d6f69a9892) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '4d623e25916923bd4b4d49196db1e6cc') in 0.000345 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.078550 seconds.
+  path: Assets/VR Office/Animation/Hand/AN_CloseHand.fbx
+  artifactKey: Guid(e343ee005322a2b479892c283d16a8d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Animation/Hand/AN_CloseHand.fbx using Guid(e343ee005322a2b479892c283d16a8d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd506a7b233bfebcbc9ec1ffed8e65631') in 0.002823 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 55
+========================================================================
+Received Import Request.
+  Time since last request: 1.735771 seconds.
+  path: Assets/VR Office/Materials
+  artifactKey: Guid(e301bf2a083f5ff4dbcf84884080d4cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Materials using Guid(e301bf2a083f5ff4dbcf84884080d4cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0250609c356ab0a99d99ae99dd9d7e0c') in 0.000341 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.055242 seconds.
+  path: Assets/VR Office/Materials/Avatar.mat
+  artifactKey: Guid(fde670cb77445734abe569a0c852f4c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Materials/Avatar.mat using Guid(fde670cb77445734abe569a0c852f4c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '22d1cf854aefd6f42e41853e0dd61e59') in 0.047373 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/VR Office/Materials/Green.mat
+  artifactKey: Guid(1131ffeca95c2af4a9f4b305df2fe548) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Materials/Green.mat using Guid(1131ffeca95c2af4a9f4b305df2fe548) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '393e334ebf6274aed8443654990b8e0f') in 0.104583 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/VR Office/Materials/Red.mat
+  artifactKey: Guid(ed9ae9aa16afd6b4596d61d39a492677) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Materials/Red.mat using Guid(ed9ae9aa16afd6b4596d61d39a492677) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '90c3a71cc15e52a6018d6defdd702057') in 0.005239 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/VR Office/Materials/EmissiveWhiteLight.mat
+  artifactKey: Guid(b7d8f1c14df0b6447855017879156d78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Materials/EmissiveWhiteLight.mat using Guid(b7d8f1c14df0b6447855017879156d78) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f2846358097dc0a48a459c547dfc217d') in 0.063505 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000076 seconds.
+  path: Assets/VR Office/Materials/Fade.mat
+  artifactKey: Guid(0b5df83d5f67923408e4d8545e08091b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Materials/Fade.mat using Guid(0b5df83d5f67923408e4d8545e08091b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '516864e59664f280751aa88392808b03') in 0.004307 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 1.170571 seconds.
+  path: Assets/VR Office/Meshes
+  artifactKey: Guid(2a77dba4e07a01f47ba2464457145dc8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Meshes using Guid(2a77dba4e07a01f47ba2464457145dc8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e1437c33105d0c166d1095dca3c59b5f') in 0.000361 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.077721 seconds.
+  path: Assets/VR Office/Meshes/HeadBust.fbx
+  artifactKey: Guid(051402f24d06e9048a62fc4a5e20ed91) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Meshes/HeadBust.fbx using Guid(051402f24d06e9048a62fc4a5e20ed91) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'edae2584be1d9a39080c931b6980e1f3') in 0.015546 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 8
+========================================================================
+Received Import Request.
+  Time since last request: 7.827372 seconds.
+  path: Assets/Simple Helvetica/Editor
+  artifactKey: Guid(2a5ce73f2283e664ab4bbe29ced720d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Helvetica/Editor using Guid(2a5ce73f2283e664ab4bbe29ced720d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '18715e6279aa88bfc9f7e02f3f69b4a4') in 0.000394 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.859586 seconds.
+  path: Assets/Simple Helvetica/ExampleScene.unity
+  artifactKey: Guid(65f8f5d76af6945fb9de8797ca354f02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Helvetica/ExampleScene.unity using Guid(65f8f5d76af6945fb9de8797ca354f02) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'de5885f18bd0273402c16f47a99b1cfb') in 0.000354 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 4.738152 seconds.
+  path: Assets/Simple Helvetica/Materials
+  artifactKey: Guid(6a868d3bb7da16d42b9229e5a6e4b988) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Helvetica/Materials using Guid(6a868d3bb7da16d42b9229e5a6e4b988) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '38e255d8629aeae216c14272bce45cf1') in 0.000358 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.464736 seconds.
+  path: Assets/Simple Helvetica/Models
+  artifactKey: Guid(d76ae676c0bc6244da92295c31f61a85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Helvetica/Models using Guid(d76ae676c0bc6244da92295c31f61a85) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a0dbffe2f1fd95e3fe254584fb2427b2') in 0.000333 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.054030 seconds.
+  path: Assets/Simple Helvetica/Models/_Alphabets.fbx
+  artifactKey: Guid(83e5ddd5977f64451bf5d8f291b767be) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Helvetica/Models/_Alphabets.fbx using Guid(83e5ddd5977f64451bf5d8f291b767be) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7ba383d00ae8b57da4f2caf7c8bfbe29') in 0.466919 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 476
+========================================================================
+Received Import Request.
+  Time since last request: 0.947932 seconds.
+  path: Assets/Simple Helvetica/Images
+  artifactKey: Guid(08529b262f25a5440ab484c977d4daa4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Helvetica/Images using Guid(08529b262f25a5440ab484c977d4daa4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0266c1f1ddb4edcc51d988fbc660f549') in 0.000742 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.055392 seconds.
+  path: Assets/Simple Helvetica/Images/Pepwuper_icon.gif
+  artifactKey: Guid(fd46e94725684474eabe4b864e99477c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Helvetica/Images/Pepwuper_icon.gif using Guid(fd46e94725684474eabe4b864e99477c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'bc6195219726f29f97e4bb8361ec9dda') in 0.011336 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 202.394781 seconds.
+  path: Assets/Myscripts/framwork
+  artifactKey: Guid(6aed33cd5f9d5e743a72d1c90e6d4e89) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Myscripts/framwork using Guid(6aed33cd5f9d5e743a72d1c90e6d4e89) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a67c3f2543bf7260fcad5663493f7175') in 0.000522 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 1.416414 seconds.
+  path: Assets/Myscripts/Panel
+  artifactKey: Guid(d7f69a5a4826172478a5bae0219487c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Myscripts/Panel using Guid(d7f69a5a4826172478a5bae0219487c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '76edf70cfe6ab3f51ab8b3c84c09bb8a') in 0.000356 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 4.566996 seconds.
+  path: Assets/Resources/ReplayData
+  artifactKey: Guid(8187bb59f38b78c42a74e6f51b9d39af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/ReplayData using Guid(8187bb59f38b78c42a74e6f51b9d39af) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '92e988954e87bc9f0faedd0d1a3f3696') in 0.000430 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 1.725045 seconds.
+  path: Assets/Resources/icon/face.png
+  artifactKey: Guid(f2029b3543fb75f4ebb5f84bdfac7f1f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/icon/face.png using Guid(f2029b3543fb75f4ebb5f84bdfac7f1f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '675f9cb901d18085b7e1b6aebcb06e67') in 0.017700 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000422 seconds.
+  path: Assets/Resources/icon/speaking.png
+  artifactKey: Guid(d42226a5db28bc6479fc60ba1bc6a66f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/icon/speaking.png using Guid(d42226a5db28bc6479fc60ba1bc6a66f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1e8090e9d9810f5b316b036aa84e8e3e') in 0.008813 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/icon/脸部背景.png
+  artifactKey: Guid(3562cbcd926f9804e819c5a59995669f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/icon/脸部背景.png using Guid(3562cbcd926f9804e819c5a59995669f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'dc2dbbb8266bb5c6dc569cdcb79e9c9e') in 0.031638 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Resources/icon/进度条框.png
+  artifactKey: Guid(7deb5946ef2acd545899c6a10c26ecf5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/icon/进度条框.png using Guid(7deb5946ef2acd545899c6a10c26ecf5) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '824ca425fc4026510ceb6750fe002e91') in 0.035144 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Resources/icon/头部.png
+  artifactKey: Guid(51d33e0628b177247bdee04623fc5776) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/icon/头部.png using Guid(51d33e0628b177247bdee04623fc5776) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '12221fe6deb92218ce353578fcdeec7d') in 0.030102 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Resources/icon/icons8-happy-96.png
+  artifactKey: Guid(6e1e0ddc03c75e044a2e631990db8cb7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/icon/icons8-happy-96.png using Guid(6e1e0ddc03c75e044a2e631990db8cb7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '658afba6131e413a6b13b185181449e9') in 0.022117 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Resources/icon/进度条背景.png
+  artifactKey: Guid(06604f1edc628e24c8286b2b39a39f06) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/icon/进度条背景.png using Guid(06604f1edc628e24c8286b2b39a39f06) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0e73435ef8150529b262576745d77242') in 0.005158 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 9.458991 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos
+  artifactKey: Guid(cb8ec42b3fa78bd4f9a20b7de289d9cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos using Guid(cb8ec42b3fa78bd4f9a20b7de289d9cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '64e166bada1d5631dca9c79d79887d91') in 0.000511 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.080378 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/PhotonUnityNetworking.Demos.asmdef
+  artifactKey: Guid(35cc2632df2760540bcc67312740008b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/PhotonUnityNetworking.Demos.asmdef using Guid(35cc2632df2760540bcc67312740008b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'bb7db8a28d4d73b8948a1cee735944f1') in 0.000438 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 16.516262 seconds.
+  path: Assets/Simple Helvetica/Materials/Default.mat
+  artifactKey: Guid(50ee2aadb83dc4201b39d480ac08e8c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Helvetica/Materials/Default.mat using Guid(50ee2aadb83dc4201b39d480ac08e8c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '13628594daf03d940b4374bdf8e425be') in 0.007916 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 11.666784 seconds.
+  path: Assets/Simple Helvetica/readme.txt
+  artifactKey: Guid(4655d62285a3c4237b3f1515d2b15e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Helvetica/readme.txt using Guid(4655d62285a3c4237b3f1515d2b15e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '2e5cb8428c5b36dae3ae3362b2a68767') in 0.000704 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 5.020611 seconds.
+  path: Assets/UIKits/Demo
+  artifactKey: Guid(262cb6a196175654ea3b83dcde0048a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo using Guid(262cb6a196175654ea3b83dcde0048a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'df543b322aa0614bcd1bc0527c8fc945') in 0.000352 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 1.727860 seconds.
+  path: Assets/UIKits/Demo/Gaze.unity
+  artifactKey: Guid(8411852f3440d304fa8ef391e4cab0de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/Gaze.unity using Guid(8411852f3440d304fa8ef391e4cab0de) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'bb4c590156b1d0cb07df8990f6eaafdf') in 0.000375 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 2.524064 seconds.
+  path: Assets/UIKits/Demo/GazePreview(NoHeadset).unity
+  artifactKey: Guid(27a6a43c1ec08e14885489b8166f07b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/GazePreview(NoHeadset).unity using Guid(27a6a43c1ec08e14885489b8166f07b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a199d2d8026385b83c97d7e9b384378a') in 0.000376 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 3.617001 seconds.
+  path: Assets/UIKits/Demo/Mouse.unity
+  artifactKey: Guid(062c98c771dc233449214e9db3a9d00c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/Mouse.unity using Guid(062c98c771dc233449214e9db3a9d00c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6378f9a634f0d2eeb83cbac181d6e99b') in 0.000416 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.599057 seconds.
+  path: Assets/UIKits/Demo/OculusLaserDemo.unity
+  artifactKey: Guid(2e35d68ecf4404d47a41523a8c935621) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/OculusLaserDemo.unity using Guid(2e35d68ecf4404d47a41523a8c935621) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '9f80d3ebe5cedd8bdbf69c74d69cd928') in 0.000376 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 2.448025 seconds.
+  path: Assets/UIKits/Prefabs/GazePointer.prefab
+  artifactKey: Guid(40dbd7f8980a0324ca9eb13b9352f15c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Prefabs/GazePointer.prefab using Guid(40dbd7f8980a0324ca9eb13b9352f15c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'afc9d59d9e66d32f1deac26662a23507') in 0.004518 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 16
+========================================================================
+Received Import Request.
+  Time since last request: 2.333187 seconds.
+  path: Assets/UIKits/Content/UIKitSprites.spriteatlas
+  artifactKey: Guid(af8d2e99a5742b0428720ad64669556b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Content/UIKitSprites.spriteatlas using Guid(af8d2e99a5742b0428720ad64669556b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '66ba9bec505945e01f8a804614de97ec') in 0.001238 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 4.084202 seconds.
+  path: Assets/UIKits/Demo/XRLaserDemo.unity
+  artifactKey: Guid(fbba4809f2c43df47a68dfc4c10a65ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/XRLaserDemo.unity using Guid(fbba4809f2c43df47a68dfc4c10a65ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a7bfe52fc8c725cef196cf5d80902e84') in 0.000382 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.829051 seconds.
+  path: Assets/UIKits/Demo/XRLaserDemo(OculusQuest).unity
+  artifactKey: Guid(94eb54db5a7fec24bb359d16bfa9645f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/XRLaserDemo(OculusQuest).unity using Guid(94eb54db5a7fec24bb359d16bfa9645f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '878d83609f5b4ad0767be35a13436314') in 0.000434 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.796678 seconds.
+  path: Assets/UIKits/Demo/VivePlayerDemo(SteamVR2).unity
+  artifactKey: Guid(7bef7b0b74ab55e4fa45e5ddcd99d0ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/VivePlayerDemo(SteamVR2).unity using Guid(7bef7b0b74ab55e4fa45e5ddcd99d0ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'da3a06ae19626b8d6bbb34902f1ecb0e') in 0.000377 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 4.888441 seconds.
+  path: Assets/UIKits/Demo/Textures
+  artifactKey: Guid(ca932aff94b8fbc44b0b97fab56af5ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/Textures using Guid(ca932aff94b8fbc44b0b97fab56af5ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0ae52a84f2933bf4806d39e21c1e8c14') in 0.000349 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.118245 seconds.
+  path: Assets/UIKits/Demo/Textures/cancel-button.png
+  artifactKey: Guid(f2afbac113a9b45459a36910e7f85031) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/Textures/cancel-button.png using Guid(f2afbac113a9b45459a36910e7f85031) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '2aeb2f1f3b9658c01918dc97e96c1263') in 0.018885 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 1.357760 seconds.
+  path: Assets/UIKits/Demo/Materials
+  artifactKey: Guid(e2d12d38fa6bbfd479a08852f55518f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/Materials using Guid(e2d12d38fa6bbfd479a08852f55518f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '500aa9ce1dfd5bb29dfc3007a8612472') in 0.000418 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.074275 seconds.
+  path: Assets/UIKits/Demo/Materials/Black.mat
+  artifactKey: Guid(594137943bee5784baced7f523dfc4ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/Materials/Black.mat using Guid(594137943bee5784baced7f523dfc4ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '12cb4d59ac772293ac1459ef4a13c8cb') in 0.023251 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 1.053276 seconds.
+  path: Assets/UIKits/Demo/Prefabs
+  artifactKey: Guid(f786a0ec44689fc4e9eaa1deb3be298b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/Prefabs using Guid(f786a0ec44689fc4e9eaa1deb3be298b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '97e2de76d52141dc5eeb08bcbf11a917') in 0.000383 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.075163 seconds.
+  path: Assets/UIKits/Demo/Prefabs/Hint.prefab
+  artifactKey: Guid(d315e47bdc8d890418c78e735eb2ea76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/Prefabs/Hint.prefab using Guid(d315e47bdc8d890418c78e735eb2ea76) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '49b117388801cb8f0ec700267ca453dd') in 0.010552 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 21
+========================================================================
+Received Import Request.
+  Time since last request: 0.861154 seconds.
+  path: Assets/UIKits/Demo/ExampleScripts
+  artifactKey: Guid(5d511553ba98c634a8226bd6c1eae49f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UIKits/Demo/ExampleScripts using Guid(5d511553ba98c634a8226bd6c1eae49f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8fabd541b5255eb256cb427028399183') in 0.000406 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 10.744726 seconds.
+  path: Assets/VR Office/Resources
+  artifactKey: Guid(33f0ad34f7c5dda47baa466c98e7a4fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Resources using Guid(33f0ad34f7c5dda47baa466c98e7a4fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7394cc656b09fd36da9204550e2a0ed3') in 0.000371 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.083150 seconds.
+  path: Assets/VR Office/Resources/Screen Body.prefab
+  artifactKey: Guid(38c35990c8a71d844b4037e4e8104c8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Resources/Screen Body.prefab using Guid(38c35990c8a71d844b4037e4e8104c8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '2dd4aad44f414f4a403231fbde86a833') in 0.073860 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 29
+========================================================================
+Received Import Request.
+  Time since last request: 1.233283 seconds.
+  path: Assets/VR Office/Scenes
+  artifactKey: Guid(9b63bbd83adf1484ebe167f996ae0ac9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes using Guid(9b63bbd83adf1484ebe167f996ae0ac9) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '9f273f279664ba8d6b8005828c74a532') in 0.000562 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 1.344912 seconds.
+  path: Assets/VR Office/Scenes/Lobby.unity
+  artifactKey: Guid(9f293561f632038428d57a97dc3a6b3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes/Lobby.unity using Guid(9f293561f632038428d57a97dc3a6b3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '703f63e1cfc79e9e070397f5fd98b1f2') in 0.000439 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.354660 seconds.
+  path: Assets/VR Office/Scenes/Scripts
+  artifactKey: Guid(91831b85d91399b41a42e9e8c61d1322) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes/Scripts using Guid(91831b85d91399b41a42e9e8c61d1322) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '218f1f28bf8b70935ed8beaab9f46e95') in 0.000405 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.543576 seconds.
+  path: Assets/VR Office/Scenes/Office
+  artifactKey: Guid(aab37ff0bc6cdc14b899d52865ee08d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes/Office using Guid(aab37ff0bc6cdc14b899d52865ee08d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '28e361be7069a1ae06a0f81175d42969') in 0.000351 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.077102 seconds.
+  path: Assets/VR Office/Scenes/Office/LightingData.asset
+  artifactKey: Guid(948be99eeb3d95b40a9426986b9a8735) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes/Office/LightingData.asset using Guid(948be99eeb3d95b40a9426986b9a8735) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '332a639125a59b4b0db8a9b5964e4cbe') in 0.000839 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.004531 seconds.
+  path: Assets/VR Office/Scenes/Office/Lightmap-0_comp_dir.png
+  artifactKey: Guid(0bf13fe8247acb54280e60c864ea6d57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes/Office/Lightmap-0_comp_dir.png using Guid(0bf13fe8247acb54280e60c864ea6d57) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c5ddc1d5f4006a04725488e2b01b1406') in 0.006814 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000226 seconds.
+  path: Assets/VR Office/Scenes/Office/Lightmap-3_comp_dir.png
+  artifactKey: Guid(b362bbee9278cfd4c8b390baf01844b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes/Office/Lightmap-3_comp_dir.png using Guid(b362bbee9278cfd4c8b390baf01844b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b9054808f7f52366452f1a5b0c28b135') in 0.006183 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/VR Office/Scenes/Office/Lightmap-2_comp_dir.png
+  artifactKey: Guid(43aaa2553bc241244b79fe14cedeb5a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes/Office/Lightmap-2_comp_dir.png using Guid(43aaa2553bc241244b79fe14cedeb5a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '493f68f15deddd2c7a1a96d75ba0ed91') in 0.014568 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 2.576396 seconds.
+  path: Assets/VR Office/Scenes/Scripts/Prefabs
+  artifactKey: Guid(9610dd4549edb4c4a8cac251ef3b86bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes/Scripts/Prefabs using Guid(9610dd4549edb4c4a8cac251ef3b86bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b4288c3345b4e48c7176bd1853330874') in 0.000464 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.066872 seconds.
+  path: Assets/VR Office/Scenes/Scripts/Prefabs/Avatar.prefab
+  artifactKey: Guid(ffaa8062ded39f74fa92338ca1a7a52a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes/Scripts/Prefabs/Avatar.prefab using Guid(ffaa8062ded39f74fa92338ca1a7a52a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '17b0406a1767252f7e5df7e695164672') in 0.041494 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 104
+========================================================================
+Received Import Request.
+  Time since last request: 4.084765 seconds.
+  path: Assets/VR Office/Scenes/Office.unity
+  artifactKey: Guid(46d48157db53b1b4786da2f23a8e4933) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes/Office.unity using Guid(46d48157db53b1b4786da2f23a8e4933) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e5f9b3c65a47b2c572c2e8805cc6a120') in 0.000476 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 1.418875 seconds.
+  path: Assets/VR Office/Scenes/Office Simulation.unity
+  artifactKey: Guid(c1e3ac63ab92a4541b34ad559bca7cdb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Scenes/Office Simulation.unity using Guid(c1e3ac63ab92a4541b34ad559bca7cdb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0c52c0a2f569800b015813dd1f14a713') in 0.000381 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 21.972650 seconds.
+  path: Assets/VR Office/Textures/TexturesCom_Marble_SlabWhite_1K_albedo.tif
+  artifactKey: Guid(d62ccdfc9be713f44a8fdf28b91f0960) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VR Office/Textures/TexturesCom_Marble_SlabWhite_1K_albedo.tif using Guid(d62ccdfc9be713f44a8fdf28b91f0960) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1bbf87635611da08d710501e3f8bbe05') in 0.008169 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Prepare
+Caller must complete domain reload
+Begin MonoManager ReloadAssembly
+Duplicate assembly 'Newtonsoft.Json.dll' with different versions detected, using 'Packages/com.unity.nuget.newtonsoft-json/Runtime/Newtonsoft.Json.dll, AssemblyName=Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed' and ignoring 'Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll, AssemblyName=Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=null'.Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.362 seconds
+Native extension for WindowsStandalone target not found
+Error loading file Library/StateCache/LayerSettings/9e/9ecc5c3c162a7aba29bafa64c8b94b7c.json. Error: System.IO.IOException: Sharing violation on path C:\demo\VROfficeTest_3rdwork\Library\StateCache\LayerSettings\9e\9ecc5c3c162a7aba29bafa64c8b94b7c.json
+  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share, System.Int32 bufferSize, System.Boolean anonymous, System.IO.FileOptions options) [0x0019e] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share, System.Int32 bufferSize, System.IO.FileOptions options) [0x00000] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.FileStream..ctor(string,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,int,System.IO.FileOptions)
+  at System.IO.StreamReader..ctor (System.String path, System.Text.Encoding encoding, System.Boolean detectEncodingFromByteOrderMarks, System.Int32 bufferSize) [0x00055] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at System.IO.StreamReader..ctor (System.String path, System.Text.Encoding encoding, System.Boolean detectEncodingFromByteOrderMarks) [0x00000] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.StreamReader..ctor(string,System.Text.Encoding,bool)
+  at System.IO.File.InternalReadAllText (System.String path, System.Text.Encoding encoding) [0x00000] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at System.IO.File.ReadAllText (System.String path, System.Text.Encoding encoding) [0x00034] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at UnityEditor.StateCache`1[T].GetState (UnityEngine.Hash128 key, T defaultValue) [0x00041] in <4b8f645257c94d1296f440a10c6f388e>:0 
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.StateCache`1<UnityEditor.Tools/LayerSettings>:GetState (UnityEngine.Hash128,UnityEditor.Tools/LayerSettings)
+UnityEditor.Tools:OnEnable ()
+UnityEngine.ScriptableObject:CreateInstance (System.Type)
+UnityEngine.ScriptableObject:CreateInstance<UnityEditor.Tools> ()
+UnityEditor.Tools:get_get ()
+UnityEditor.Tools:get_visibleLayers ()
+UnityEditor.Animations.Rigging.BoneRendererUtils:.cctor () (at ./Library/PackageCache/com.unity.animation.rigging@1.2.1/Editor/Utils/BoneRendererUtils.cs:121)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.unity.animation.rigging@1.2.1/Editor/Utils/BoneRendererUtils.cs Line: 121)
+
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-SimulationExperiment
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x0003d] in .\Library\PackageCache\com.unity.xr.oculus@4.5.1\Runtime\OculusLoader.cs:312 
+  at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x0008c] in .\Library\PackageCache\com.unity.xr.oculus@4.5.1\Runtime\OculusLoader.cs:297 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <1071a2cb0cb3433aae80a793c277a048>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <1071a2cb0cb3433aae80a793c277a048>:0 
+  at UnityEditor.EditorAssemblies.ProcessInitializeOnLoadMethodAttributes () [0x000a5] in <4b8f645257c94d1296f440a10c6f388e>:0 
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadMethodAttributes ()
+
+Mono: successfully reloaded assembly
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+- Finished resetting the current domain, in  0.594 seconds
+Domain Reload Profiling: 955ms
+	BeginReloadAssembly (103ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (4ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (29ms)
+	RebuildCommonClasses (19ms)
+	RebuildNativeTypeToScriptingClass (6ms)
+	initialDomainReloadingComplete (19ms)
+	LoadAllAssembliesAndSetupDomain (214ms)
+		LoadAssemblies (198ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (65ms)
+			TypeCache.Refresh (48ms)
+				TypeCache.ScanAssembly (39ms)
+			ScanForSourceGeneratedMonoScriptInfo (10ms)
+			ResolveRequiredComponents (6ms)
+	FinalizeReload (595ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (388ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (2ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (40ms)
+			ProcessInitializeOnLoadAttributes (291ms)
+			ProcessInitializeOnLoadMethodAttributes (48ms)
+			AfterProcessingInitializeOnLoad (4ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (4ms)
+Refreshing native plugins compatible for Editor in 6.94 ms, found 9 plugins.
+Preloading 1 native plugins for Editor in 0.06 ms.
+Unloading 4002 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 93 unused Assets / (96.2 KB). Loaded Objects now: 4490.
+Memory consumption went from 153.2 MB to 153.1 MB.
+Total: 2.427300 ms (FindLiveObjects: 0.160000 ms CreateObjectMapping: 0.048500 ms MarkObjects: 2.064500 ms  DeleteObjects: 0.153400 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:scripting/monoscript/fileName/NetcodeSkills.cs: ebc5eb31ad9b2645b1bc72be112eff7d -> 
+  custom:scripting/monoscript/fileName/YooAssetSkills.cs: 159e47d7965075e32dfe34e9846ce07f -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/OptimizationSkills.cs: 07db880a648f3627f34be65e248d7fad -> 
+  custom:scripting/monoscript/fileName/URPSkills.cs: 575cf475b62486f42eb0379bd40e5483 -> 
+  custom:scripting/monoscript/fileName/NavMeshSkills.cs: a48b17ae3e2bae19f5f627c32719ad40 -> 
+  custom:scripting/monoscript/fileName/CinemachineSkills.cs: 9823b2f156c7a512a217a9f8e24eab6c -> 
+  custom:scripting/monoscript/fileName/AssetSkills.cs: 88f1712225648639d94af2a96361fcd5 -> 
+  custom:scripting/monoscript/fileName/GameObjectFinder.cs: 7f08b0b79addd40aaa9733d5c5d2db27 -> 
+  custom:scripting/monoscript/fileName/UnitySkillsWindow.cs: 54de46641ea8590b5209bb892c1b02f6 -> 
+  custom:scripting/monoscript/fileName/VolumeSkills.cs: 7735c26e1722f559945b5c87687da138 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:scripting/monoscript/fileName/PackageSkills.cs: 0965696e9e3b42c6413c7ec25ddb9d63 -> 
+  custom:scripting/monoscript/fileName/SceneSkills.cs: 916a9f87d40f78c77407a9bd0040a3e8 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:scripting/monoscript/fileName/BatchJobService.cs: 36ef9e1d974be2dafac8e59123cd523e -> 
+  custom:scripting/monoscript/fileName/SmartSkills.cs: d39f8f80893cbdfc6d0f0a1975d14289 -> 
+  custom:scripting/monoscript/fileName/DOTweenSkills.cs: e39f34ff90e9c15f5a59a8becb572c1f -> 
+  custom:scripting/monoscript/fileName/AssetImportSkills.cs: 2205c1d15dd89cbae46e1c9ad7c56900 -> 
+  custom:scripting/monoscript/fileName/AudioSkills.cs: a2a29c82b6fc4d03b6fd86a46e66b11b -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/BatchPersistence.cs: cd5ba61ee9419c69633964cef28b31e6 -> 
+  custom:scripting/monoscript/fileName/DOTweenReflectionHelper.cs: 79d0d51c569bd0fa4bd72f47931b2570 -> 
+  custom:scripting/monoscript/fileName/ModelSkills.cs: 8d6372eb588910c6a7355b0f9ac49877 -> 
+  custom:scripting/precompiled-assembly-types:Newtonsoft.Json: a784019f7e79cf0f65e748d41d4ceb44 -> 61a2e3f5b8336b09c8e0aeef656637eb
+  custom:scripting/monoscript/fileName/ProBuilderSkills.cs: 7eed15349a743da15aca4ecb62e0d748 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:scripting/monoscript/fileName/ProfilerSkills.cs: ecd1986f5327c730d7e32d6e8e411d66 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/XRReflectionHelper.cs: 5e4ab307670aaa7efafaa124b4c816a8 -> 
+  custom:scripting/monoscript/fileName/PrefabSkills.cs: 0a945de58b117af1cb766422eb1a19ed -> 
+  custom:scripting/monoscript/fileName/ShaderSkills.cs: b57028604192d14271e38ccbc7056830 -> 
+  custom:scripting/precompiled-assembly-types:UnitySkills.Editor: 76904c2178a1809727bfb4fbc0275c5b -> 
+  custom:scripting/monoscript/fileName/PackageManagerHelper.cs: caaa7ccee71f7809c16ea3cc534dea93 -> 
+  custom:scripting/monoscript/fileName/EditorSkills.cs: f0f2e4acbc7c3c7965a58d34caa6e8e5 -> 
+  custom:scripting/monoscript/fileName/LightSkills.cs: fb6b310b0020d77f48a4e128c652e42e -> 
+  custom:scripting/monoscript/fileName/BatchExecutor.cs: 181af9f60fe78c618f6661dc054e4a00 -> 
+  custom:scripting/monoscript/fileName/ScriptSkills.cs: 68140561d07feddc8ee03f14548de2f3 -> 
+  custom:scripting/monoscript/fileName/TerrainSkills.cs: d908e7ac712cdfcefffc8b30fefe3b91 -> 
+  custom:scripting/monoscript/fileName/UnitySkillAttribute.cs: 954b0d61493f31fe09bc0b7e453f3618 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:scripting/monoscript/fileName/SampleSkills.cs: 260ef878e2515eb36de7d07327e86ae6 -> 
+  custom:scripting/monoscript/fileName/ComponentSkills.cs: e23758e147b6819760bcea6df4130e40 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:scripting/monoscript/fileName/EventSkills.cs: 8faec7e59957f57f80d7075fe60589fb -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/RenderPipelineSkillsCommon.cs: 4c1ba90cb74bae1d6cb094d44c57831a -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:scripting/monoscript/fileName/ShaderGraphReflectionHelper.cs: 8748652bc6868fc5f132045e5684d765 -> 
+  custom:scripting/monoscript/fileName/UISkills.cs: 0411c4a51861673d1ed8c162723be8e4 -> 
+  custom:scripting/monoscript/fileName/ScriptableObjectSkills.cs: 988fb3747724dca78c3191a7441ea068 -> 
+  custom:scripting/monoscript/fileName/BatchSkills.cs: 93848052361b77c0e2b27119dd053f82 -> 
+  custom:scripting/monoscript/fileName/Localization.cs: 71ae681302dd3e422fb191fdb911d981 -> 
+  custom:scripting/monoscript/fileName/WorkflowManager.cs: 5bc796ab84ca2309fe6dc5ba2f4b5e48 -> 
+  custom:scripting/monoscript/fileName/ProjectSkills.cs: 04584e14302d7342ace1c915c73fcae9 -> 
+  custom:scripting/monoscript/fileName/GameObjectSkills.cs: 049bc75d202ac629e8d6d61bdd422ef6 -> 
+  custom:scripting/monoscript/fileName/CameraSkills.cs: cc43ffb0e6ec17a5f41320b3e30a5ea1 -> 
+  custom:scripting/monoscript/fileName/TextureSkills.cs: a0032c60c77eedb56d8c03baf72394a1 -> 
+  custom:scripting/monoscript/fileName/UIToolkitSkills.cs: 39e2e448cfc6c6afce5e3c0956c8faa8 -> 
+  custom:scripting/monoscript/fileName/XRSkills.cs: 3fd22828fc32679fdf802da2babec51e -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:scripting/monoscript/fileName/PhysicsSkills.cs: f961f64860200689b0c96b9e89cc9276 -> 
+  custom:scripting/monoscript/fileName/SkillRouter.cs: 5d0e5bd0916febe85ef37251c432932a -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/DecalSkills.cs: dfd9204414aea696ae91b92494095772 -> 
+  custom:scripting/monoscript/fileName/SkillsHttpServer.cs: 15a380f0faeb8d8a1047a917ced0f73b -> 
+  custom:scripting/monoscript/fileName/ShaderGraphNodeRegistry.cs: 840cff3f384f5609d0e9398148359102 -> 
+  custom:scripting/monoscript/fileName/CleanerSkills.cs: 2e6d306fc026c11056819f34955c8e00 -> 
+  custom:scripting/monoscript/fileName/ConsoleSkills.cs: 483b8169a4373614d19dfa645b9e003c -> 
+  custom:scripting/monoscript/fileName/WorkflowSkills.cs: 13f2c3708ea9322d63a6a2ec75ab7423 -> 
+  custom:scripting/monoscript/fileName/AsyncJobService.cs: 5d503a19bd8b56803ed519776e369cb6 -> 
+  custom:scripting/monoscript/fileName/DebugSkills.cs: f1f4cfb53c041b35053d10daa2a33a78 -> 
+  custom:scripting/monoscript/fileName/TimelineSkills.cs: 6bc11184d0d2531523ed4cc35933c389 -> 
+  custom:scripting/monoscript/fileName/ServerAvailabilityHelper.cs: 4b592cc73f952b635806300d78936b5f -> 
+  custom:scripting/monoscript/fileName/TestSkills.cs: 0d71dd6093a86f9785cdf838e3376414 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/ValidationSkills.cs: be0cd779aaa0d1337e08b91cc2f992d9 -> 
+  custom:scripting/monoscript/fileName/BatchModels.cs: 292d750b310bc03bd0348e8b6081306b -> 
+  custom:scripting/monoscript/fileName/PostProcessSkills.cs: 09afef365213a889fcfa93e75f472ec5 -> 
+  custom:scripting/monoscript/fileName/SkillPlanningService.cs: ad711200e389208ae19d50fab3a37715 -> 
+  custom:scripting/monoscript/fileName/PerceptionSkills.cs: 8228fa1a2d7379f07cb4a70d8a2de39a -> 
+  custom:scripting/monoscript/fileName/AnimatorSkills.cs: e22cec7d99e567c0df6c503a90669199 -> 
+  custom:scripting/monoscript/fileName/SkillInstaller.cs: e2344a772e66a25c70bb54529b36027a -> 
+  custom:scripting/monoscript/fileName/GraphicsSkills.cs: fd8b49c642b89721b49d22bef2f89f29 -> 
+  custom:scripting/monoscript/fileName/WorkflowModels.cs: c96f7f21d5e894d4cdf1d4ff80211b27 -> 
+  custom:scripting/monoscript/fileName/RegistryService.cs: e340098b7dec5a0da50e0e6ad5b8d0f5 -> 
+  custom:scripting/monoscript/fileName/ShaderGraphSkills.cs: c3bde8927ac43531c260f8d06e42d67f -> 
+  custom:scripting/monoscript/fileName/MaterialSkills.cs: ce82f3ebb520920ac9d2bcbabdee4ec4 -> 
+  custom:scripting/monoscript/fileName/SkillsLogger.cs: 1862aeb7cf647e449a6daef5a5f1ca10 -> 
+  custom:scripting/monoscript/fileName/DOTweenPresenceDetector.cs: 53fd08b6160810ce8ca1a6420a40ac8e -> 

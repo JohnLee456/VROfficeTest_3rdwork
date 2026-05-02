@@ -33,6 +33,7 @@ public static class PanelManager
     {
         root = null;
         canvas = null;
+        panels.Clear();
         layers.Remove(Layer.Panel);
         layers.Remove(Layer.Tip);
     }

@@ -1,2 +1,13 @@
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonVoice.PUN.csproj.AssemblyReference.cache
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonVoice.PUN.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonVoice.PUN.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonVoice.PUN.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonVoice.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonRealtime.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonVoice.API.pdb
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.csproj.AssemblyReference.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVo.FC8069D7.Up2Date
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.dll
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.pdb

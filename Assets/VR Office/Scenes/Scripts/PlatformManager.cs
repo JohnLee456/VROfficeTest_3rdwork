@@ -45,16 +45,28 @@ namespace ChiliGames.VROffice
         //Singleton to access this script from everywhere.
         public static PlatformManager instance;
 
+        private bool IsLocalLoginScene
+        {
+            get { return SceneManager.GetActiveScene().name == "OfficeLoggedIn"; }
+        }
+
         void Awake()
         {
             //If not connected go to lobby to connect
             if (!PhotonNetwork.IsConnected)
             {
-                SceneManager.LoadScene(0);
+                if (!IsLocalLoginScene)
+                {
+                    SceneManager.LoadScene(0);
+                    return;
+                }
+
+                Debug.Log("OfficeLoggedIn opened without Photon connection for local login test.");
             }
+
             instance = this;
-            actorNum = PhotonNetwork.LocalPlayer.ActorNumber;
-            nickName = PhotonNetwork.LocalPlayer.NickName;
+            actorNum = PhotonNetwork.IsConnected ? PhotonNetwork.LocalPlayer.ActorNumber : 0;
+            nickName = PhotonNetwork.IsConnected ? PhotonNetwork.LocalPlayer.NickName : PlayerPrefs.GetString("LobbyUserName", "LocalUser");
             Debug.Log("User's nickname:" + nickName + ".");
 
             //If student connecting from phone, limit the fps to save battery. Also avoid sleep.
@@ -75,6 +87,12 @@ namespace ChiliGames.VROffice
 
         private void Start()
         {
+            if (!PhotonNetwork.IsConnected && IsLocalLoginScene)
+            {
+                StartLocalLoginMode();
+                return;
+            }
+
             //if this is the first player to connect, initialize the students list
             if (PhotonNetwork.IsMasterClient && !initialized)
             {
@@ -107,6 +125,37 @@ namespace ChiliGames.VROffice
                     SetPosition(GetFreePosition());
                 }
             }
+        }
+
+        private void StartLocalLoginMode()
+        {
+            if (mode == Mode.VR)
+            {
+                vrRig.SetActive(true);
+                if (observerPositions != null)
+                {
+                    vrRig.transform.position = observerPositions.position;
+                    vrRig.transform.rotation = observerPositions.rotation;
+                }
+                else if (startingPositions != null && startingPositions.Length > 0)
+                {
+                    vrRig.transform.position = startingPositions[0].position;
+                    vrRig.transform.rotation = startingPositions[0].rotation;
+                }
+            }
+            else if (mode == Mode.Screen)
+            {
+                screenRig.SetActive(true);
+                if (startingPositions != null && startingPositions.Length > 0)
+                {
+                    screenRig.transform.position = startingPositions[0].position;
+                    screenRig.transform.rotation = startingPositions[0].rotation;
+                }
+            }
+
+            initialized = true;
+            seated = true;
+            Debug.Log("OfficeLoggedIn local login mode initialized.");
         }
 
         void CreateVRBody()

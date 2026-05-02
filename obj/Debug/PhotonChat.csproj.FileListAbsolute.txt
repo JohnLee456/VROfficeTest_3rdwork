@@ -288,3 +288,9 @@ C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonChat.csproj.CoreCompile
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonChat.csproj.CopyComplete
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonChat.dll
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonChat.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonChat.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonChat.pdb
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonChat.csproj.AssemblyReference.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonChat.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonChat.dll
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonChat.pdb

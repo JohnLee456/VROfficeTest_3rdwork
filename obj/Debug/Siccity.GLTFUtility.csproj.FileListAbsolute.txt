@@ -1,0 +1,8 @@
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\Siccity.GLTFUtility.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\Siccity.GLTFUtility.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\Dracodec.pdb
+D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.csproj.AssemblyReference.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity..F711583F.Up2Date
+D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.dll
+D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.pdb

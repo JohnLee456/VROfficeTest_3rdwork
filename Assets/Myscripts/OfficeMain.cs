@@ -4,11 +4,14 @@ using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
 using proto.RoomMsg;
+using UnityEngine.SceneManagement;
 
 public class OfficeMain : MonoBehaviour
 {
 
     public GameObject userMenu;
+    private bool localLoginMode;
+    private bool netListenerRegistered;
 
 
     //为了处理无法在主线程之外创建模板的问题 这里主要用于OnClose()
@@ -27,6 +30,13 @@ public class OfficeMain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        localLoginMode = SceneManager.GetActiveScene().name == "OfficeLoggedIn" && !PhotonNetwork.IsConnected;
+        if (localLoginMode)
+        {
+            Debug.Log("OfficeMain running in OfficeLoggedIn local test mode.");
+            return;
+        }
+
         PanelManager.Init();
         PanelManager.Open<UserMenuPanel>();
 
@@ -37,6 +47,7 @@ public class OfficeMain : MonoBehaviour
 
         //注册Close事件，用来监听掉线或服务器关闭
         NetManager.AddEventListener(NetManager.NetEvent.Close, OnConnectClose);
+        netListenerRegistered = true;
 
         ////test
         //string text = "Set from Photon";
@@ -47,6 +58,11 @@ public class OfficeMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (localLoginMode)
+        {
+            return;
+        }
+
         if (toDoActionList.Count > 0)
         {
             lock (toDoActionList)
@@ -66,8 +82,15 @@ public class OfficeMain : MonoBehaviour
 
     private void OnDisable()
     {
-        PanelManager.DeInit();
-        NetManager.RemoveEventListener(NetManager.NetEvent.Close, OnConnectClose);
+        if (!localLoginMode)
+        {
+            PanelManager.DeInit();
+        }
+
+        if (netListenerRegistered)
+        {
+            NetManager.RemoveEventListener(NetManager.NetEvent.Close, OnConnectClose);
+        }
     }
 
 

@@ -1,2 +1,16 @@
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PunDemos.DemoSlotcarEditor.csproj.AssemblyReference.cache
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PunDemos.DemoSlotcarEditor.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PunDemos.DemoSlotcarEditor.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PunDemos.DemoSlotcarEditor.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonRealtime.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.Utilities.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.Demos.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonRealtime.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.Utilities.pdb
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoSlotcarEditor.csproj.AssemblyReference.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoSlotcarEditor.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.72AEB034.Up2Date
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoSlotcarEditor.dll
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoSlotcarEditor.pdb

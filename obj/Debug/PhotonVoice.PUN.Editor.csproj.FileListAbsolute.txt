@@ -1,2 +1,16 @@
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonVoice.PUN.Editor.csproj.AssemblyReference.cache
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonVoice.PUN.Editor.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonVoice.PUN.Editor.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonVoice.PUN.Editor.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonVoice.API.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonVoice.PUN.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonVoice.Editor.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonVoice.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonRealtime.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonVoice.API.pdb
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.Editor.csproj.AssemblyReference.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.Editor.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVo.BACB507A.Up2Date
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.Editor.dll
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.Editor.pdb

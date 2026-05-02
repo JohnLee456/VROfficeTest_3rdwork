@@ -1,1 +1,12 @@
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonRealtime.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.Utilities.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.Editor.pdb
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj.AssemblyReference.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonUn.B7293062.Up2Date
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.dll
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.pdb

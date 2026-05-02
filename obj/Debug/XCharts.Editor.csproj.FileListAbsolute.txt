@@ -1,0 +1,8 @@
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\XCharts.Editor.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\XCharts.Editor.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\XCharts.Runtime.pdb
+D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Editor.csproj.AssemblyReference.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Editor.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts..339DCEFF.Up2Date
+D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Editor.dll
+D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Editor.pdb

@@ -30,7 +30,7 @@ public class LobbyMain : MonoBehaviour
     void Start()
     {
         PanelManager.Init();
-        PanelManager.Open<StartPanel>();
+        PanelManager.Open<LoginPanel>();
         //PanelManager.Open<TipPanel>("User Name is wrong!");
 
         //注册Close事件

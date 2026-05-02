@@ -1,2 +1,11 @@
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PunDemos.DemoHubEditor.csproj.AssemblyReference.cache
 C:\WorkSpace\Projects\Unity\VROfficeTest\obj\Debug\PunDemos.DemoHubEditor.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PunDemos.DemoHubEditor.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PunDemos.DemoHubEditor.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonUnityNetworking.pdb
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PhotonRealtime.pdb
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoHubEditor.csproj.AssemblyReference.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoHubEditor.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.E3DD541D.Up2Date
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoHubEditor.dll
+D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoHubEditor.pdb

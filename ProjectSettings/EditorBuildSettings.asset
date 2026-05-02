@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/VR Office/Scenes/Lobby.unity
     guid: 9f293561f632038428d57a97dc3a6b3d
-  - enabled: 0
+  - enabled: 1
     path: Assets/VR Office/Scenes/Office.unity
     guid: 46d48157db53b1b4786da2f23a8e4933
+  - enabled: 1
+    path: Assets/VR Office/Scenes/OfficeLoggedIn.unity
+    guid: 42c055e393ec4213934e17084f933088
   - enabled: 0
     path: Assets/UIKits/Demo/XRLaserDemo(OculusQuest).unity
     guid: 94eb54db5a7fec24bb359d16bfa9645f

@@ -1,0 +1,6 @@
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\Dracodec.dll
+D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\Dracodec.pdb
+D:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.csproj.AssemblyReference.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.csproj.CoreCompileInputs.cache
+D:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.dll
+D:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.pdb

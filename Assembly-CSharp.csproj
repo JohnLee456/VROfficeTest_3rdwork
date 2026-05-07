@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
+    <Compile Include="Assets\Myscripts\ZJRSpeakingIntentionController.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoiceUI\Scripts\RemoteSpeakerUI.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\PlaySoundsFromList.cs" />
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\MouseLook.cs" />
@@ -94,11 +95,13 @@
     <Compile Include="Assets\Simple Helvetica\SimpleHelvetica.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleInterface.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\AppSettingsExtensions.cs" />
+    <Compile Include="Assets\Myscripts\SpeakingIntentionBulb.cs" />
     <Compile Include="Assets\Myscripts\proto\LoginMsg.cs" />
     <Compile Include="Assets\Myscripts\ControllerButtonFunction.cs" />
     <Compile Include="Assets\UIKits\Scripts\InputModule\Pointer\UIKitPointer.cs" />
     <Compile Include="Assets\Myscripts\GenerateText.cs" />
     <Compile Include="Assets\UIKits\Scripts\InputModule\MouseInputModule.cs" />
+    <Compile Include="Assets\Myscripts\DiskSelectorController.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoiceUI\Scripts\MicrophoneDropdownFiller.cs" />
     <Compile Include="Assets\Myscripts\Panel\StartPanel.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\CardList\CardItem.cs" />
@@ -133,6 +136,7 @@
     <Compile Include="Assets\VR Office\Scenes\Scripts\VRBody.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Testing\DisplayFPS.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Keyboard\Keys\Key.cs" />
+    <Compile Include="Assets\Myscripts\ProbabilityHaloDisplayManager.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\PlayVideo.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\RotateObject.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Keyboard\Suggestions\SuggestionButton.cs" />
@@ -234,6 +238,7 @@
     <Compile Include="Assets\VR Office\Scenes\Scripts\OnTouchTrigger.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Pagination\Pagination.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Options\OptionsManager.cs" />
+    <Compile Include="Assets\Myscripts\SpeakingIntention.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleParticle.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ConvertValueToHue.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Testing\Notes.cs" />

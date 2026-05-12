@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ProbabilityHaloDisplayManager : MonoBehaviour
 {
     private const string DisplayRootName = "Probability Halo Dialog";
+    private const string ControlledPlayerName = "GCHbot";
 
     [SerializeField] private Vector3 headLocalOffset = new Vector3(0f, 0.82f, 0f);
     [SerializeField] private Vector2 dialogSize = new Vector2(260f, 96f);
@@ -54,10 +55,11 @@ public class ProbabilityHaloDisplayManager : MonoBehaviour
 
             if (display.Root.activeSelf != shouldShow)
             {
-                display.Root.SetActive(shouldShow);
+            display.Root.SetActive(shouldShow);
             }
 
             display.Text.text = $"{Mathf.RoundToInt(display.Intention.speaking_intention)}%";
+            ApplyReadableWhiteText(display.Text);
 
             if (shouldShow && cachedCamera != null)
             {
@@ -76,7 +78,7 @@ public class ProbabilityHaloDisplayManager : MonoBehaviour
         SpeakingIntention[] intentions = FindObjectsOfType<SpeakingIntention>();
         for (int i = 0; i < intentions.Length; i++)
         {
-            if (intentions[i] == null)
+            if (intentions[i] == null || IsControlledPlayer(intentions[i]))
             {
                 continue;
             }
@@ -133,8 +135,8 @@ public class ProbabilityHaloDisplayManager : MonoBehaviour
         label.alignment = TextAlignmentOptions.Center;
         label.fontSize = 48f;
         label.fontStyle = FontStyles.Bold;
-        label.color = new Color(0.82f, 0.95f, 1f, 1f);
         label.raycastTarget = false;
+        ApplyReadableWhiteText(label);
 
         GameObject tail = CreateRect("Tail", root.transform);
         RectTransform tailRect = tail.GetComponent<RectTransform>();
@@ -172,6 +174,34 @@ public class ProbabilityHaloDisplayManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    private static bool IsControlledPlayer(SpeakingIntention intention)
+    {
+        return intention != null && intention.gameObject.name == ControlledPlayerName;
+    }
+
+    private static void ApplyReadableWhiteText(TextMeshProUGUI label)
+    {
+        if (label == null)
+        {
+            return;
+        }
+
+        label.color = Color.white;
+        label.faceColor = Color.white;
+        label.outlineColor = new Color(0f, 0f, 0f, 0.72f);
+        label.outlineWidth = 0.12f;
+        label.enableVertexGradient = false;
+        label.overrideColorTags = true;
+
+        if (label.fontSharedMaterial != null)
+        {
+            label.fontMaterial = new Material(label.fontSharedMaterial);
+            label.fontMaterial.SetColor(ShaderUtilities.ID_FaceColor, Color.white);
+            label.fontMaterial.SetColor(ShaderUtilities.ID_OutlineColor, new Color(0f, 0f, 0f, 0.72f));
+            label.fontMaterial.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.12f);
+        }
     }
 
     private static GameObject CreateRect(string objectName, Transform parent)

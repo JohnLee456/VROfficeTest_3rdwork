@@ -9,17 +9,21 @@ using UnityEditor;
 public class DiskSelectorController : MonoBehaviour
 {
     public const string BinaryHaloOption = "Binary Halo";
+    public const string GradedHaloOption = "Graded Halo";
+    public const string LegacyGrandeHaloOption = "Grande Halo";
     public const string ProbabilityHaloOption = "Probability Halo";
+    public const string RepeatAttemptDashboardOption = "Repeat Attempt Dashboard";
+    public const string TimelineDashboardOption = "Timeline Dashboard";
 
     [SerializeField] private KeyCode toggleKey = KeyCode.J;
     [SerializeField] private string[] options =
     {
         BinaryHaloOption,
-        "Grande Halo",
+        GradedHaloOption,
         ProbabilityHaloOption,
         "Directional Peripheral Halo",
-        "Repeat Attempt Dashboard",
-        "Timeline Dashboard",
+        RepeatAttemptDashboardOption,
+        TimelineDashboardOption,
         "Arousal Dashboard"
     };
 
@@ -36,7 +40,10 @@ public class DiskSelectorController : MonoBehaviour
 
     public static string ActiveSelection { get; private set; } = BinaryHaloOption;
     public static bool IsBinaryHaloSelected => ActiveSelection == BinaryHaloOption;
+    public static bool IsGradedHaloSelected => ActiveSelection == GradedHaloOption || ActiveSelection == LegacyGrandeHaloOption;
     public static bool IsProbabilityHaloSelected => ActiveSelection == ProbabilityHaloOption;
+    public static bool IsRepeatAttemptDashboardSelected => ActiveSelection == RepeatAttemptDashboardOption;
+    public static bool IsTimelineDashboardSelected => ActiveSelection == TimelineDashboardOption;
 
     public string CurrentSelection
     {
@@ -82,11 +89,11 @@ public class DiskSelectorController : MonoBehaviour
             options = new[]
             {
                 BinaryHaloOption,
-                "Grande Halo",
+                GradedHaloOption,
                 ProbabilityHaloOption,
                 "Directional Peripheral Halo",
-                "Repeat Attempt Dashboard",
-                "Timeline Dashboard",
+                RepeatAttemptDashboardOption,
+                TimelineDashboardOption,
                 "Arousal Dashboard"
             };
         }

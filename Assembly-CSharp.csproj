@@ -189,6 +189,7 @@
     <Compile Include="Assets\UIKits\Scripts\Effects\TextHoverScale.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Keyboard\Keys\Symbol.cs" />
     <Compile Include="Assets\Myscripts\GCHBotController.cs" />
+    <Compile Include="Assets\Myscripts\TimelineDashboardManager.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoiceUI\Scripts\BackgroundMusicController.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnButtonPress.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\Finger.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Assets\_Course Library\Scripts\Actions\SetLightColor.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\VoiceDemoUI.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
+    <Compile Include="Assets\Myscripts\GradedHaloDisplayManager.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\RadialMenu\RadialMenuManager.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\MouseLookHelper.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnTilt.cs" />
@@ -264,6 +266,7 @@
     <Compile Include="Assets\_Course Library\Scripts\Actions\SetMaterialColor.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\CreateTrail.cs" />
+    <Compile Include="Assets\Myscripts\RepeatAttemptDashboardManager.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\ExampleOptionControl.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\MenuTab\ListSelectionHelper.cs" />

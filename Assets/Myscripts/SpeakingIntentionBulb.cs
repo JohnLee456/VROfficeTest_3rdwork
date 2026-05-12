@@ -28,7 +28,7 @@ public class SpeakingIntentionBulb : MonoBehaviour
     private void Update()
     {
         bool shouldBeVisible = DiskSelectorController.IsBinaryHaloSelected;
-        bool shouldBeOn = speakingIntention != null && speakingIntention.speaking_intention > onThreshold;
+        bool shouldBeOn = speakingIntention != null && speakingIntention.speaking_intention >= onThreshold;
         if (shouldBeOn != isOn || shouldBeVisible != isVisibleForCurrentMode)
         {
             ApplyState(shouldBeOn, shouldBeVisible);
@@ -39,6 +39,7 @@ public class SpeakingIntentionBulb : MonoBehaviour
     {
         isOn = turnOn;
         isVisibleForCurrentMode = visible;
+        bool shouldShowBulb = visible && turnOn;
         Color baseColor = turnOn ? onColor : offColor;
         Color emissionColor = turnOn ? onColor * onEmissionIntensity : Color.black;
 
@@ -50,7 +51,7 @@ public class SpeakingIntentionBulb : MonoBehaviour
                 continue;
             }
 
-            targetRenderer.enabled = visible;
+            targetRenderer.enabled = shouldShowBulb;
             Material material = targetRenderer.material;
             material.color = baseColor;
             material.SetColor("_EmissionColor", emissionColor);
@@ -69,7 +70,7 @@ public class SpeakingIntentionBulb : MonoBehaviour
         {
             if (lights[i] != null)
             {
-                lights[i].enabled = visible && turnOn;
+                lights[i].enabled = shouldShowBulb;
             }
         }
     }

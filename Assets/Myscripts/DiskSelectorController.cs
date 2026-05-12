@@ -12,6 +12,7 @@ public class DiskSelectorController : MonoBehaviour
     public const string GradedHaloOption = "Graded Halo";
     public const string LegacyGrandeHaloOption = "Grande Halo";
     public const string ProbabilityHaloOption = "Probability Halo";
+    public const string DirectionalPeripheralHaloOption = "Directional Peripheral Halo";
     public const string RepeatAttemptDashboardOption = "Repeat Attempt Dashboard";
     public const string TimelineDashboardOption = "Timeline Dashboard";
     public const string ArousalDashboardOption = "Arousal Dashboard";
@@ -22,7 +23,7 @@ public class DiskSelectorController : MonoBehaviour
         BinaryHaloOption,
         GradedHaloOption,
         ProbabilityHaloOption,
-        "Directional Peripheral Halo",
+        DirectionalPeripheralHaloOption,
         RepeatAttemptDashboardOption,
         TimelineDashboardOption,
         ArousalDashboardOption
@@ -43,6 +44,7 @@ public class DiskSelectorController : MonoBehaviour
     public static bool IsBinaryHaloSelected => ActiveSelection == BinaryHaloOption;
     public static bool IsGradedHaloSelected => ActiveSelection == GradedHaloOption || ActiveSelection == LegacyGrandeHaloOption;
     public static bool IsProbabilityHaloSelected => ActiveSelection == ProbabilityHaloOption;
+    public static bool IsDirectionalPeripheralHaloSelected => ActiveSelection == DirectionalPeripheralHaloOption;
     public static bool IsRepeatAttemptDashboardSelected => ActiveSelection == RepeatAttemptDashboardOption;
     public static bool IsTimelineDashboardSelected => ActiveSelection == TimelineDashboardOption;
     public static bool IsArousalDashboardSelected => ActiveSelection == ArousalDashboardOption;
@@ -93,7 +95,7 @@ public class DiskSelectorController : MonoBehaviour
                 BinaryHaloOption,
                 GradedHaloOption,
                 ProbabilityHaloOption,
-                "Directional Peripheral Halo",
+                DirectionalPeripheralHaloOption,
                 RepeatAttemptDashboardOption,
                 TimelineDashboardOption,
                 ArousalDashboardOption

@@ -117,7 +117,7 @@ public class TimelineDashboardManager : MonoBehaviour
         dashboardRoot = new GameObject("Timeline Dashboard", typeof(RectTransform));
         Canvas canvas = dashboardRoot.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
-        canvas.sortingOrder = 630;
+        DashboardOverlayRendering.ConfigureCanvas(canvas, 630);
         dashboardRoot.AddComponent<CanvasScaler>().dynamicPixelsPerUnit = 12f;
 
         RectTransform canvasRect = dashboardRoot.GetComponent<RectTransform>();
@@ -136,6 +136,7 @@ public class TimelineDashboardManager : MonoBehaviour
         shadow.sprite = roundedFillSprite;
         shadow.color = new Color(0f, 0f, 0f, 0.36f);
         shadow.raycastTarget = false;
+        DashboardOverlayRendering.ApplyToGraphic(shadow);
 
         GameObject panelObject = CreateRectObject("Panel", dashboardRoot.transform);
         panelRect = panelObject.GetComponent<RectTransform>();
@@ -148,6 +149,7 @@ public class TimelineDashboardManager : MonoBehaviour
         panel.sprite = roundedFillSprite;
         panel.color = new Color(0.055f, 0.068f, 0.085f, 0.94f);
         panel.raycastTarget = false;
+        DashboardOverlayRendering.ApplyToGraphic(panel);
 
         Image frame = CreateImage("Frame", panelRect, Vector2.zero, panelSize + new Vector2(6f, 6f), roundedFrameSprite, new Color(0.62f, 0.72f, 0.86f, 0.5f));
         frame.raycastTarget = false;
@@ -214,6 +216,7 @@ public class TimelineDashboardManager : MonoBehaviour
         }
 
         dashboardRoot.SetActive(false);
+        DashboardOverlayRendering.ApplyToRoot(dashboardRoot);
     }
 
     private static float GetTimelineBoundaryX(int blockIndex, float timelineStartX, float blockSize, float blockSpacing)
@@ -377,6 +380,7 @@ public class TimelineDashboardManager : MonoBehaviour
         image.sprite = sprite;
         image.color = color;
         image.raycastTarget = false;
+        DashboardOverlayRendering.ApplyToGraphic(image);
         return image;
     }
 
@@ -398,6 +402,7 @@ public class TimelineDashboardManager : MonoBehaviour
         label.enableWordWrapping = false;
         label.raycastTarget = false;
         ApplyReadableWhiteText(label);
+        DashboardOverlayRendering.ApplyToText(label);
         return label;
     }
 
@@ -422,6 +427,8 @@ public class TimelineDashboardManager : MonoBehaviour
             label.fontMaterial.SetColor(ShaderUtilities.ID_OutlineColor, new Color(0f, 0f, 0f, 0.72f));
             label.fontMaterial.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.1f);
         }
+
+        DashboardOverlayRendering.ApplyToText(label);
     }
 
     private static GameObject CreateRectObject(string objectName, Transform parent)

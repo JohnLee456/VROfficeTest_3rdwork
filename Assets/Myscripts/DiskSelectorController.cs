@@ -14,6 +14,7 @@ public class DiskSelectorController : MonoBehaviour
     public const string ProbabilityHaloOption = "Probability Halo";
     public const string RepeatAttemptDashboardOption = "Repeat Attempt Dashboard";
     public const string TimelineDashboardOption = "Timeline Dashboard";
+    public const string ArousalDashboardOption = "Arousal Dashboard";
 
     [SerializeField] private KeyCode toggleKey = KeyCode.J;
     [SerializeField] private string[] options =
@@ -24,7 +25,7 @@ public class DiskSelectorController : MonoBehaviour
         "Directional Peripheral Halo",
         RepeatAttemptDashboardOption,
         TimelineDashboardOption,
-        "Arousal Dashboard"
+        ArousalDashboardOption
     };
 
     [SerializeField] private int selectedIndex;
@@ -44,6 +45,7 @@ public class DiskSelectorController : MonoBehaviour
     public static bool IsProbabilityHaloSelected => ActiveSelection == ProbabilityHaloOption;
     public static bool IsRepeatAttemptDashboardSelected => ActiveSelection == RepeatAttemptDashboardOption;
     public static bool IsTimelineDashboardSelected => ActiveSelection == TimelineDashboardOption;
+    public static bool IsArousalDashboardSelected => ActiveSelection == ArousalDashboardOption;
 
     public string CurrentSelection
     {
@@ -94,7 +96,7 @@ public class DiskSelectorController : MonoBehaviour
                 "Directional Peripheral Halo",
                 RepeatAttemptDashboardOption,
                 TimelineDashboardOption,
-                "Arousal Dashboard"
+                ArousalDashboardOption
             };
         }
 

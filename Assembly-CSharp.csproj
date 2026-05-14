@@ -73,6 +73,7 @@
     <Compile Include="Assets\UIKits\Scripts\Effects\ImageHoverOutline.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SetLightIntensity.cs" />
     <Compile Include="Assets\Myscripts\ColorChanger.cs" />
+    <Compile Include="Assets\Myscripts\SpeakingIntentionScenarioOne.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\CardList\CardListManager.cs" />
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\ExampleDynamicCardList.cs" />
     <Compile Include="Assets\UIKits\Scripts\InputModule\UIKitInputModule.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Assets\Myscripts\LineConnector.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnTimedInterval.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Standard Assets\CrossPlatformInput\Scripts\InputAxisScrollbar.cs" />
+    <Compile Include="Assets\Myscripts\TableSeatingInitializer.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoProximityVoiceChat\Scripts\PointersController.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnCollision.cs" />
     <Compile Include="Assets\Myscripts\ArousalDashboardManager.cs" />
@@ -131,8 +133,10 @@
     <Compile Include="Assets\UIKits\Scripts\UI\Inputs\UIKitInputField.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\AskForMic.cs" />
     <Compile Include="Assets\Myscripts\AnimetionTest.cs" />
+    <Compile Include="Assets\Myscripts\BotSpeakingGestureLoopController.cs" />
     <Compile Include="Assets\Myscripts\Panel\RegisterPanel.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoiceUI\Scripts\DemoVoiceUI.cs" />
+    <Compile Include="Assets\Myscripts\DirectionalPeripheralHaloDisplayManager.cs" />
     <Compile Include="Assets\Myscripts\PlaySound.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\VRBody.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Testing\DisplayFPS.cs" />
@@ -141,7 +145,9 @@
     <Compile Include="Assets\_Course Library\Scripts\Actions\PlayVideo.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\RotateObject.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Keyboard\Suggestions\SuggestionButton.cs" />
+    <Compile Include="Assets\Myscripts\SpeakingIntentionScenarioTwo.cs" />
     <Compile Include="Assets\Myscripts\Panel\JoinRoomPanel.cs" />
+    <Compile Include="Assets\Myscripts\SpeakingIntentionScenarioLoopController.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatGui.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\ProgressBar\SliderProgressBar.cs" />
@@ -170,10 +176,12 @@
     <Compile Include="Assets\UIKits\Scripts\UI\Keyboard\Keys\Alphabet.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\Whiteboard.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\ScreenFade.cs" />
+    <Compile Include="Assets\Myscripts\DashboardOverlayRendering.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnTrigger.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\ThirdPersonController.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\Marker.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\PlayContinuousSound.cs" />
+    <Compile Include="Assets\Myscripts\SpeakingIntentionScenarioThree.cs" />
     <Compile Include="Assets\Myscripts\UIFaceCamera.cs" />
     <Compile Include="Assets\UIKits\Scripts\Utility\Util.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SetInteractionLayer.cs" />

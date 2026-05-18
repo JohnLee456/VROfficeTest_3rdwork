@@ -4,3 +4,7 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.csproj.AssemblyReference.cache
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.csproj.CoreCompileInputs.cache
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.csproj.AssemblyReference.cache
+C:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.csproj.CoreCompileInputs.cache
+C:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\Dracodec.pdb

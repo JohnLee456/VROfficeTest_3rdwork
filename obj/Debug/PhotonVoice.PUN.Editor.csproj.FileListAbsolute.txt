@@ -14,3 +14,5 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.Editor.csproj.CoreCompile
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVo.BACB507A.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.Editor.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.Editor.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.Editor.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.Editor.pdb

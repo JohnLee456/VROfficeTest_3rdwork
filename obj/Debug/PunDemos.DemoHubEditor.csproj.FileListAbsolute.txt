@@ -9,3 +9,5 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoHubEditor.csproj.CoreCompile
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.E3DD541D.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoHubEditor.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoHubEditor.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoHubEditor.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoHubEditor.pdb

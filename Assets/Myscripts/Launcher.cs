@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
+    private const string TargetSceneName = "OfficeLoggedIn";
+
     #region Private Fields
 
     /// <summary>
@@ -132,14 +134,14 @@ public class Launcher : MonoBehaviourPunCallbacks
         //    Debug.Log("Key: "+ entry.Key + "    Value: " + entry.Value.NickName);
         //}
 
-        SceneManager.LoadScene("Office");
+        SceneManager.LoadScene(TargetSceneName);
 
         //if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         //{
         //    // #Critical: We only load if we are the first player, else we rely on `PhotonNetwork.AutomaticallySyncScene` to sync our instance scene.
-        //    Debug.Log("We load the 'Office'");
+        //    Debug.Log("We load the target office scene");
 
-        //    SceneManager.LoadScene("Office");
+        //    SceneManager.LoadScene(TargetSceneName);
         //}
     }
 

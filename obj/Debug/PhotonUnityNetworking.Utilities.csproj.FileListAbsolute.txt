@@ -9,3 +9,5 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonUnityNetworking.Utilities.csproj.Co
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonUn.69A9EAC1.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonUnityNetworking.Utilities.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonUnityNetworking.Utilities.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonUnityNetworking.Utilities.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonUnityNetworking.Utilities.pdb

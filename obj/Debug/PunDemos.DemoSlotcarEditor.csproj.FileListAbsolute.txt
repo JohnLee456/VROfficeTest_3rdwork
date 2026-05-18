@@ -14,3 +14,5 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoSlotcarEditor.csproj.CoreCom
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.72AEB034.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoSlotcarEditor.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoSlotcarEditor.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoSlotcarEditor.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PunDemos.DemoSlotcarEditor.pdb

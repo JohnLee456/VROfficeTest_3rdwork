@@ -29,3 +29,5 @@ D:\demo\VROfficeTest_3rdwork\Temp\bin\Debug\PunDemos.DemoHubEditor.pdb
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Assembly.44154EF1.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Assembly-CSharp.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Assembly-CSharp.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\Assembly-CSharp.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\Assembly-CSharp.pdb

@@ -11,3 +11,5 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.Utilities.Editor.csproj.CoreC
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVo.A047AE8A.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.Utilities.Editor.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.Utilities.Editor.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.Utilities.Editor.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.Utilities.Editor.pdb

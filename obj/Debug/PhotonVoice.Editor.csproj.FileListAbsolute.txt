@@ -10,3 +10,5 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.Editor.csproj.CoreCompileInpu
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVo.3623EF34.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.Editor.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.Editor.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.Editor.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.Editor.pdb

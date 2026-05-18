@@ -8,3 +8,5 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.csproj.CoreCompileInputs.cach
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVo.22B1BCD4.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.pdb

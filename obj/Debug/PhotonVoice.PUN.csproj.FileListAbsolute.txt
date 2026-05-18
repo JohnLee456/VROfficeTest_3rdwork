@@ -11,3 +11,5 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.csproj.CoreCompileInputs.
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVo.FC8069D7.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\PhotonVoice.PUN.pdb

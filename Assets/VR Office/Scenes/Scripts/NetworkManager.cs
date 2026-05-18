@@ -9,6 +9,8 @@ namespace ChiliGames.VROffice
     //This script connects to PHOTON servers and creates a room if there is none, then automatically joins
     public class NetworkManager : MonoBehaviourPunCallbacks
     {
+        private const string TargetSceneName = "OfficeLoggedIn";
+
         bool triesToConnectToMaster = false;
         bool triesToConnectToRoom = false;
 
@@ -81,7 +83,7 @@ namespace ChiliGames.VROffice
             base.OnJoinedRoom();
             Debug.Log("Master: " + PhotonNetwork.IsMasterClient + " | Players In Room: " + PhotonNetwork.CurrentRoom.PlayerCount + " | RoomName: " + PhotonNetwork.CurrentRoom.Name + " Region: " + PhotonNetwork.CloudRegion);
             
-            SceneManager.LoadScene("Office"); //go to the room scene
+            SceneManager.LoadScene(TargetSceneName); //go to the room scene
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)

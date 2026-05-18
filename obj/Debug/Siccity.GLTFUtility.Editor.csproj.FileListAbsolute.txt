@@ -8,3 +8,5 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.Editor.csproj.CoreCom
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity..35A2065E.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.Editor.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.Editor.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.Editor.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.Editor.pdb

@@ -6,3 +6,5 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Examples.csproj.CoreCompileInputs
 D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts..B800B30C.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Examples.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Examples.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Examples.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Examples.pdb

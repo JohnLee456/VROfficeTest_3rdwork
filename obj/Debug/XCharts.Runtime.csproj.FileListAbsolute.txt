@@ -4,3 +4,7 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Runtime.csproj.AssemblyReference.
 D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Runtime.csproj.CoreCompileInputs.cache
 D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Runtime.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Runtime.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Runtime.csproj.AssemblyReference.cache
+C:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Runtime.csproj.CoreCompileInputs.cache
+C:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Runtime.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\XCharts.Runtime.pdb

@@ -30,9 +30,10 @@ public class DiskSelectorController : MonoBehaviour
     };
 
     [SerializeField] private int selectedIndex;
-    [SerializeField] private float optionRadius = 210f;
-    [SerializeField] private float optionSize = 112f;
-    [SerializeField] private float centerSize = 128f;
+    [SerializeField] private float diskSize = 450f;
+    [SerializeField] private float optionRadius = 154f;
+    [SerializeField] private float optionSize = 82f;
+    [SerializeField] private float centerSize = 94f;
 
     private Canvas canvas;
     private RectTransform root;
@@ -124,7 +125,7 @@ public class DiskSelectorController : MonoBehaviour
         root.anchorMax = new Vector2(0.5f, 0.5f);
         root.pivot = new Vector2(0.5f, 0.5f);
         root.anchoredPosition = Vector2.zero;
-        root.sizeDelta = new Vector2(620f, 620f);
+        root.sizeDelta = new Vector2(diskSize, diskSize);
 
         Image backdrop = rootObject.AddComponent<Image>();
         backdrop.sprite = circleSprite;
@@ -152,11 +153,11 @@ public class DiskSelectorController : MonoBehaviour
         labelRect.anchorMin = new Vector2(0.5f, 0.5f);
         labelRect.anchorMax = new Vector2(0.5f, 0.5f);
         labelRect.pivot = new Vector2(0.5f, 0.5f);
-        labelRect.anchoredPosition = new Vector2(0f, -300f);
-        labelRect.sizeDelta = new Vector2(420f, 44f);
+        labelRect.anchoredPosition = new Vector2(0f, -218f);
+        labelRect.sizeDelta = new Vector2(320f, 36f);
         currentLabel = labelObject.AddComponent<TextMeshProUGUI>();
         currentLabel.alignment = TextAlignmentOptions.Center;
-        currentLabel.fontSize = 24f;
+        currentLabel.fontSize = 18f;
         currentLabel.color = Color.white;
         currentLabel.raycastTarget = false;
     }
@@ -223,7 +224,7 @@ public class DiskSelectorController : MonoBehaviour
         TextMeshProUGUI label = textObject.AddComponent<TextMeshProUGUI>();
         label.text = text;
         label.alignment = TextAlignmentOptions.Center;
-        label.fontSize = size > 120f ? 25f : 17f;
+        label.fontSize = text == "Next" ? 19f : 13f;
         label.enableWordWrapping = true;
         label.color = Color.white;
         label.raycastTarget = false;

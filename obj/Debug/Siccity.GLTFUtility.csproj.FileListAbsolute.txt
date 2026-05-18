@@ -6,3 +6,5 @@ D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.csproj.CoreCompileInp
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity..F711583F.Up2Date
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.dll
 D:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.pdb
+C:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.dll
+C:\demo\VROfficeTest_3rdwork\obj\Debug\Siccity.GLTFUtility.pdb

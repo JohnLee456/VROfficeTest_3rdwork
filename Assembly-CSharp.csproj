@@ -152,6 +152,7 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatGui.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\ProgressBar\SliderProgressBar.cs" />
     <Compile Include="Assets\Myscripts\rotate.cs" />
+    <Compile Include="Assets\Myscripts\OfficeLoggedInUiManagerBootstrap.cs" />
     <Compile Include="Assets\Myscripts\DataReplayer.cs" />
     <Compile Include="Assets\Myscripts\Panel\LoginPanel.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ManuallySelectObject.cs" />

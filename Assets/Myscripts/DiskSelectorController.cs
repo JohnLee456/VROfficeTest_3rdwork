@@ -18,6 +18,9 @@ public class DiskSelectorController : MonoBehaviour
     public const string ArousalDashboardOption = "Arousal Dashboard";
 
     [SerializeField] private KeyCode toggleKey = KeyCode.J;
+    [SerializeField] private KeyCode previousOptionKey = KeyCode.LeftArrow;
+    [SerializeField] private KeyCode nextOptionKey = KeyCode.RightArrow;
+    [SerializeField] private KeyCode closeKey = KeyCode.Return;
     [SerializeField] private string[] options =
     {
         BinaryHaloOption,
@@ -81,9 +84,41 @@ public class DiskSelectorController : MonoBehaviour
             SetVisible(!canvas.gameObject.activeSelf);
         }
 
-        if (canvas.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        if (!canvas.gameObject.activeSelf)
+        {
+            return;
+        }
+
+        HandleKeyboardSelection();
+
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(closeKey) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             SetVisible(false);
+        }
+    }
+
+    private void HandleKeyboardSelection()
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            KeyCode alphaKey = (KeyCode)((int)KeyCode.Alpha1 + i);
+            KeyCode keypadKey = (KeyCode)((int)KeyCode.Keypad1 + i);
+            if (Input.GetKeyDown(alphaKey) || Input.GetKeyDown(keypadKey))
+            {
+                SelectOption(i);
+                return;
+            }
+        }
+
+        if (Input.GetKeyDown(nextOptionKey) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            SelectOption((selectedIndex + 1) % options.Length);
+            return;
+        }
+
+        if (Input.GetKeyDown(previousOptionKey) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            SelectOption((selectedIndex - 1 + options.Length) % options.Length);
         }
     }
 

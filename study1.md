@@ -26,10 +26,11 @@
 #### Probability Halo
 直接显示数值变化
 #### Directional Peripheral Halo
+一个蓝色箭头指向不在视野里有SpeakingIntention大于70的bot的方向。
 #### Repeat Attempt Dashboard
 Attemps是Speaking达到70的次数，RecentLevel和gradedHalo中的方块颜色一致
 #### Timeline Dashboard
-50-70，70-80，80-90，90-100分别为四个档次，低于50的情况则为黑色
+0-40，40-60，60-70，70-80，80-90，90-100的档次
 #### Arousal Dashboard
 左半部分和前面做的repeated dashboard一致，但是右边要加一个状态判断，判断依据是过去20s的speakingIntention的变化，如果增加了30以上为Active，如果减少了30以上为Negtive，如果变化少于30大于10为Calm，如果少于10为Stable
 ### 会议室部分

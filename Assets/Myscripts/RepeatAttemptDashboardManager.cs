@@ -232,7 +232,7 @@ public class RepeatAttemptDashboardManager : MonoBehaviour
         member.AttemptsText.text = member.Attempts.ToString();
         ApplyReadableWhiteText(member.AttemptsText);
         ApplyReadableWhiteText(member.NameText);
-        member.RecentLevelImage.color = new Color(levelColor.r, levelColor.g, levelColor.b, 0.94f);
+        member.RecentLevelImage.color = levelColor;
         member.RecentLevelText.text = GetLevelLabel(value);
         ApplyReadableWhiteText(member.RecentLevelText);
     }

@@ -328,8 +328,7 @@ public class TimelineDashboardManager : MonoBehaviour
             {
                 if (member.Blocks[j] != null)
                 {
-                    Color color = member.Samples[j];
-                    member.Blocks[j].color = new Color(color.r, color.g, color.b, 0.94f);
+                    member.Blocks[j].color = member.Samples[j];
                 }
             }
         }
@@ -337,28 +336,7 @@ public class TimelineDashboardManager : MonoBehaviour
 
     private static Color GetTimelineColor(float speakingIntention)
     {
-        float value = Mathf.Clamp(speakingIntention, 0f, 100f);
-        if (value < 50f)
-        {
-            return new Color(0f, 0f, 0f, 1f);
-        }
-
-        if (value < 70f)
-        {
-            return new Color(0.62f, 0.84f, 1f, 1f);
-        }
-
-        if (value < 80f)
-        {
-            return new Color(0.34f, 0.66f, 1f, 1f);
-        }
-
-        if (value < 90f)
-        {
-            return new Color(0.14f, 0.4f, 0.92f, 1f);
-        }
-
-        return new Color(0.03f, 0.16f, 0.62f, 1f);
+        return GradedHaloDisplayManager.GetGradedColor(speakingIntention);
     }
 
     private static bool IsControlledPlayer(SpeakingIntention intention)

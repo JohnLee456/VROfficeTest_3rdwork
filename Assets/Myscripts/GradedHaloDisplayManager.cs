@@ -151,30 +151,30 @@ public class GradedHaloDisplayManager : MonoBehaviour
 
         if (value < 40f)
         {
-            return new Color(0.12f, 0.42f, 1f, 1f);
+            return new Color(0f, 0f, 0f, 1f);
         }
 
         if (value < 60f)
         {
-            return new Color(0.05f, 0.72f, 1f, 1f);
+            return new Color(0.64f, 0.86f, 1f, 1f);
         }
 
         if (value < 70f)
         {
-            return new Color(0.06f, 0.86f, 0.68f, 1f);
+            return new Color(0.42f, 0.72f, 1f, 1f);
         }
 
         if (value < 80f)
         {
-            return new Color(0.92f, 0.82f, 0.12f, 1f);
+            return new Color(0.24f, 0.55f, 0.95f, 1f);
         }
 
         if (value < 90f)
         {
-            return new Color(1f, 0.48f, 0.08f, 1f);
+            return new Color(0.1f, 0.34f, 0.78f, 1f);
         }
 
-        return new Color(1f, 0.08f, 0.08f, 1f);
+        return new Color(0.02f, 0.12f, 0.42f, 1f);
     }
 
     private static SpriteRenderer CreateSpriteLayer(string layerName, Transform parent, Sprite sprite, Vector2 size, Vector3 localPosition, int sortingOrder)

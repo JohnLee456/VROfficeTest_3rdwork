@@ -17,7 +17,7 @@
 |5|Repeat Attempt Dashboard|
 |6|Timeline Dashboard|
 |7|Arousal Dashboard|
-|Center|Next|
+|Center|Finish|
 #### Binary Halo
 大于70灯泡变亮
 #### Grande Halo

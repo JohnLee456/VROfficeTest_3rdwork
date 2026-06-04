@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class OfficeLoggedInUiManagerBootstrap
 {
-    private const string OfficeSceneName = "OfficeLoggedIn";
-
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void RegisterSceneHook()
     {
@@ -25,7 +23,7 @@ public class OfficeLoggedInUiManagerBootstrap
 
     private static void EnsureManagers(Scene scene)
     {
-        if (scene.name != OfficeSceneName)
+        if (!OfficeSceneSupport.ShouldShowRuntimeUi(scene.name))
         {
             return;
         }

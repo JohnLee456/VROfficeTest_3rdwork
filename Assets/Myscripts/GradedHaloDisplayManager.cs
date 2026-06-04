@@ -21,7 +21,7 @@ public class GradedHaloDisplayManager : MonoBehaviour
     private static void CreateForScene()
     {
         Scene activeScene = SceneManager.GetActiveScene();
-        if (activeScene.name != "OfficeLoggedIn" || FindObjectOfType<GradedHaloDisplayManager>() != null)
+        if (!OfficeSceneSupport.ShouldShowRuntimeUi(activeScene.name) || FindObjectOfType<GradedHaloDisplayManager>() != null)
         {
             return;
         }

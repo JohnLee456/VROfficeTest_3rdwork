@@ -29,7 +29,7 @@ public class DirectionalPeripheralHaloDisplayManager : MonoBehaviour
     private static void CreateForScene()
     {
         Scene activeScene = SceneManager.GetActiveScene();
-        if (activeScene.name != "OfficeLoggedIn" || FindObjectOfType<DirectionalPeripheralHaloDisplayManager>() != null)
+        if (!OfficeSceneSupport.ShouldShowRuntimeUi(activeScene.name) || FindObjectOfType<DirectionalPeripheralHaloDisplayManager>() != null)
         {
             return;
         }

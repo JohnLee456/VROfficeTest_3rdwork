@@ -29,7 +29,7 @@ public class TimelineDashboardManager : MonoBehaviour
     private static void CreateForScene()
     {
         Scene activeScene = SceneManager.GetActiveScene();
-        if (activeScene.name != "OfficeLoggedIn" || FindObjectOfType<TimelineDashboardManager>() != null)
+        if (!OfficeSceneSupport.ShouldShowRuntimeUi(activeScene.name) || FindObjectOfType<TimelineDashboardManager>() != null)
         {
             return;
         }

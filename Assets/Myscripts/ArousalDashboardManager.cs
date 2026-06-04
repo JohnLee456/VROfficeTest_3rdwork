@@ -29,7 +29,7 @@ public class ArousalDashboardManager : MonoBehaviour
     private static void CreateForScene()
     {
         Scene activeScene = SceneManager.GetActiveScene();
-        if (activeScene.name != "OfficeLoggedIn" || FindObjectOfType<ArousalDashboardManager>() != null)
+        if (!OfficeSceneSupport.ShouldShowRuntimeUi(activeScene.name) || FindObjectOfType<ArousalDashboardManager>() != null)
         {
             return;
         }

@@ -21,7 +21,7 @@ public class ProbabilityHaloDisplayManager : MonoBehaviour
     private static void CreateForScene()
     {
         Scene activeScene = SceneManager.GetActiveScene();
-        if (activeScene.name != "OfficeLoggedIn" || FindObjectOfType<ProbabilityHaloDisplayManager>() != null)
+        if (!OfficeSceneSupport.ShouldShowRuntimeUi(activeScene.name) || FindObjectOfType<ProbabilityHaloDisplayManager>() != null)
         {
             return;
         }

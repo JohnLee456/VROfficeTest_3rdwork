@@ -18,8 +18,6 @@ public class LoginPanel : BasePanel
     private Button regBtn;
     private Button hideBtn;
     private UIKitInputField activeInput;
-    private const string TargetSceneName = "OfficeLoggedIn";
-    private const string TargetScenePath = "Assets/VR Office/Scenes/OfficeLoggedIn.unity";
 
     //初始化
     public override void OnInit()
@@ -47,6 +45,7 @@ public class LoginPanel : BasePanel
         idInput.text = "";
         accountInput.text = "";
         accountInput.contentType = UIKitInputField.ContentType.Standard;
+        accountInput.gameObject.SetActive(false);
         SetButtonText(loginBtn, "ENTER");
         regBtn.gameObject.SetActive(false);
 
@@ -72,7 +71,7 @@ public class LoginPanel : BasePanel
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            SelectInput(activeInput == idInput ? accountInput : idInput);
+            SelectInput(idInput);
             return;
         }
 
@@ -117,15 +116,13 @@ public class LoginPanel : BasePanel
 
     private void SubmitLogin(string source)
     {
-        //用户名密码为空
-        string userName = idInput.text.Trim();
-        string account = accountInput.text.Trim();
-        Debug.Log($"Login submit from {source}. UserName='{userName}', Account='{account}'");
+        string account = idInput.text.Trim();
+        Debug.Log($"Login submit from {source}. Account='{account}'");
 
-        if (userName == "" || account == "")
+        if (!LoginAccountResolver.TryResolve(account, out LoginRoute route))
         {
-            PanelManager.Open<TipPanel>("User name and account cannot be empty!");
-            Debug.LogWarning("Login blocked because user name or account is empty.");
+            PanelManager.Open<TipPanel>("Account not found!");
+            Debug.LogWarning($"Login blocked because account '{account}' was not found.");
             return;
         }
 
@@ -134,8 +131,10 @@ public class LoginPanel : BasePanel
             keyboard.SetActive(false);
         }
 
-        LobbyMain.playerId = userName;
-        PlayerPrefs.SetString("LobbyUserName", userName);
+        LoginSession.Apply(route);
+        Debug.Log($"Login resolved account '{account}' to scene '{route.SceneName}', avatar '{route.AvatarName}'.");
+
+        LobbyMain.playerId = route.AvatarName;
         PlayerPrefs.SetString("LobbyAccount", account);
         PlayerPrefs.Save();
 
@@ -189,24 +188,16 @@ public class LoginPanel : BasePanel
 
     private void LoadTargetScene()
     {
-        bool canLoadByPath = Application.CanStreamedLevelBeLoaded(TargetScenePath);
-        bool canLoadByName = Application.CanStreamedLevelBeLoaded(TargetSceneName);
-
-        if (canLoadByPath)
-        {
-            Debug.Log($"Loading scene by path: {TargetScenePath}");
-            SceneManager.LoadScene(TargetScenePath);
-            return;
-        }
+        string sceneName = LoginSceneTarget.SceneName;
+        bool canLoadByName = Application.CanStreamedLevelBeLoaded(sceneName);
 
         if (canLoadByName)
         {
-            Debug.Log($"Loading scene by name: {TargetSceneName}");
-            SceneManager.LoadScene(TargetSceneName);
+            LoginSceneTarget.Load();
             return;
         }
 
-        string error = $"Cannot load scene '{TargetSceneName}'. Please make sure {TargetScenePath} is enabled in Build Settings.";
+        string error = $"Cannot load scene '{sceneName}'. Please make sure it is enabled in Build Settings.";
         Debug.LogError(error);
         PanelManager.Open<TipPanel>(error);
     }

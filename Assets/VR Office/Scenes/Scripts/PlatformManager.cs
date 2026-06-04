@@ -47,7 +47,11 @@ namespace ChiliGames.VROffice
 
         private bool IsLocalLoginScene
         {
-            get { return SceneManager.GetActiveScene().name == "OfficeLoggedIn"; }
+            get
+            {
+                string activeSceneName = SceneManager.GetActiveScene().name;
+                return activeSceneName == "OfficeLoggedIn" || activeSceneName == "OfficeLoggedInNoBot";
+            }
         }
 
         void Awake()
@@ -61,7 +65,7 @@ namespace ChiliGames.VROffice
                     return;
                 }
 
-                Debug.Log("OfficeLoggedIn opened without Photon connection for local login test.");
+                Debug.Log($"{SceneManager.GetActiveScene().name} opened without Photon connection for local login test.");
             }
 
             instance = this;
@@ -155,7 +159,7 @@ namespace ChiliGames.VROffice
 
             initialized = true;
             seated = true;
-            Debug.Log("OfficeLoggedIn local login mode initialized.");
+            Debug.Log($"{SceneManager.GetActiveScene().name} local login mode initialized.");
         }
 
         void CreateVRBody()

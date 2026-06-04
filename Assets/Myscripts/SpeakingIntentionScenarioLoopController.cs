@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 [DefaultExecutionOrder(-100)]
 public class SpeakingIntentionScenarioLoopController : MonoBehaviour
 {
+    private const string ControlledSceneName = "OfficeLoggedIn";
     private const float SegmentDuration = 30f;
     private const float TotalDuration = SegmentDuration * 3f;
 
@@ -41,16 +42,34 @@ public class SpeakingIntentionScenarioLoopController : MonoBehaviour
 
     private void Start()
     {
+        if (!IsControlledScene(SceneManager.GetActiveScene()))
+        {
+            ClearTargets();
+            return;
+        }
+
         BindTargets(resetTimer: true);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (!IsControlledScene(scene))
+        {
+            ClearTargets();
+            return;
+        }
+
         BindTargets(resetTimer: true);
     }
 
     private void LateUpdate()
     {
+        if (!IsControlledScene(SceneManager.GetActiveScene()))
+        {
+            ClearTargets();
+            return;
+        }
+
         if (!HasTargets())
         {
             BindTargets(resetTimer: true);
@@ -113,9 +132,23 @@ public class SpeakingIntentionScenarioLoopController : MonoBehaviour
         zhz.speaking_intention = Mathf.Clamp(zhzValue, 0f, 100f);
     }
 
+    private void ClearTargets()
+    {
+        dcy = null;
+        zjr = null;
+        zhz = null;
+        IsRunning = false;
+        CurrentLoopTime = 0f;
+    }
+
     private bool HasTargets()
     {
         return dcy != null && zjr != null && zhz != null;
+    }
+
+    private static bool IsControlledScene(Scene scene)
+    {
+        return scene.IsValid() && scene.name == ControlledSceneName;
     }
 
     private static SpeakingIntention FindIntentionByObjectName(string objectName)

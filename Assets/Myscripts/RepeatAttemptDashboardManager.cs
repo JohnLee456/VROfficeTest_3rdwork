@@ -27,7 +27,7 @@ public class RepeatAttemptDashboardManager : MonoBehaviour
     private static void CreateForScene()
     {
         Scene activeScene = SceneManager.GetActiveScene();
-        if (activeScene.name != "OfficeLoggedIn" || FindObjectOfType<RepeatAttemptDashboardManager>() != null)
+        if (!OfficeSceneSupport.ShouldShowRuntimeUi(activeScene.name) || FindObjectOfType<RepeatAttemptDashboardManager>() != null)
         {
             return;
         }

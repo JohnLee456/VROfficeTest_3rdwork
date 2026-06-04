@@ -69,7 +69,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         else
         {
-            PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.AutomaticallySyncScene = false;
             PhotonNetwork.UseRpcMonoBehaviourCache = true;
 
             PhotonNetwork.PhotonServerSettings.AppSettings.FixedRegion = "jp";
@@ -134,7 +134,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         //    Debug.Log("Key: "+ entry.Key + "    Value: " + entry.Value.NickName);
         //}
 
-        SceneManager.LoadScene(TargetSceneName);
+        LoginSceneTarget.Load();
 
         //if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         //{

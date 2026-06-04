@@ -15,3 +15,8 @@ UI界面和study1.md中的UI界面一致，实验一的结果最终确定
 没有一切UI
 有题词版在眼前，类似Dashboard的界面，可以控制是否显示
 题词板显示剩余时间，当前话题，谁在发言
+
+# 测试账号
+test1 leader
+test2 member
+test3 study

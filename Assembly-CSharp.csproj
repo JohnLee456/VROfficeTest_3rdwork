@@ -92,6 +92,7 @@
     <Compile Include="Assets\UIKits\Scripts\UI\ProgressBar\ScrollController.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Controls\XRKnob.cs" />
     <Compile Include="Assets\Myscripts\Panel\TipPanel.cs" />
+    <Compile Include="Assets\Myscripts\LoginUserRole.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\XRGrabbablePunOffset.cs" />
     <Compile Include="Assets\Simple Helvetica\SimpleHelvetica.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleInterface.cs" />
@@ -170,11 +171,14 @@
     <Compile Include="Assets\_Course Library\Scripts\Controls\XRSlider.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChannelSelector.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\Highlighter.cs" />
+    <Compile Include="Assets\Myscripts\LoginSceneTarget.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatAppIdCheckerUI.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Keyboard\KeyboardExtentionMethods.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Keyboard\KeyboardManager.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Inputs\InputFocusHelper.cs" />
+    <Compile Include="Assets\Myscripts\RoleAvatarController.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Keyboard\Keys\Alphabet.cs" />
+    <Compile Include="Assets\Myscripts\LoginSession.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\Whiteboard.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\ScreenFade.cs" />
     <Compile Include="Assets\Myscripts\DashboardOverlayRendering.cs" />
@@ -237,6 +241,7 @@
     <Compile Include="Assets\VR Office\Scenes\Scripts\RayController.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoiceUI\Scripts\UiExtensions.cs" />
     <Compile Include="Assets\Myscripts\AnalServerCon.cs" />
+    <Compile Include="Assets\Myscripts\SceneRoleApplicator.cs" />
     <Compile Include="Assets\Myscripts\Panel\TimePanel.cs" />
     <Compile Include="Assets\Myscripts\proto\CollectMsg.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Controls\XRJoystick.cs" />
@@ -246,6 +251,7 @@
     <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleRay.cs" />
     <Compile Include="Assets\UIKits\Scripts\InputModule\Pointer\GazeProgressCircle.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs" />
+    <Compile Include="Assets\Myscripts\LoginRoute.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\SetMicrophone.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\OnTouchTrigger.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Pagination\Pagination.cs" />
@@ -279,6 +285,7 @@
     <Compile Include="Assets\Myscripts\RepeatAttemptDashboardManager.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\ExampleOptionControl.cs" />
+    <Compile Include="Assets\Myscripts\OfficeSceneSupport.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\MenuTab\ListSelectionHelper.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\RemoveObjectsWithTag.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextButtonTransition.cs" />
@@ -290,6 +297,7 @@
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\ChangePOV.cs" />
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\KeyboardDisplay.cs" />
+    <Compile Include="Assets\Myscripts\LoginAccountResolver.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\XRGrabbablePun.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\ProgressBar\ProgressBarManager.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\BetterToggle.cs" />

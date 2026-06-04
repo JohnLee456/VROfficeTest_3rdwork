@@ -31,7 +31,7 @@ namespace ChiliGames.VROffice
         {
             PhotonNetwork.OfflineMode = false; //true would "fake" an online connection
             PhotonNetwork.NickName = "PlayerName"; //we can use a input to change this 
-            PhotonNetwork.AutomaticallySyncScene = true; //To call PhotonNetwork.LoadLevel()
+            PhotonNetwork.AutomaticallySyncScene = false;
             PhotonNetwork.GameVersion = "v1"; //only people with the same game version can play together
             PhotonNetwork.UseRpcMonoBehaviourCache = true; //For better performance
 
@@ -83,7 +83,7 @@ namespace ChiliGames.VROffice
             base.OnJoinedRoom();
             Debug.Log("Master: " + PhotonNetwork.IsMasterClient + " | Players In Room: " + PhotonNetwork.CurrentRoom.PlayerCount + " | RoomName: " + PhotonNetwork.CurrentRoom.Name + " Region: " + PhotonNetwork.CloudRegion);
             
-            SceneManager.LoadScene(TargetSceneName); //go to the room scene
+            LoginSceneTarget.Load(); //go to the room scene
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
@@ -93,5 +93,6 @@ namespace ChiliGames.VROffice
             //create a room (null as a name means "does not matter")
             PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 15 });
         }
+
     }
 }

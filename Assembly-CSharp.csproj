@@ -110,6 +110,7 @@
     <Compile Include="Assets\Myscripts\NetworkTest.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleLight.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\Avatar.cs" />
+    <Compile Include="Assets\Myscripts\Block1EpisodeSync.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoiceUI\Scripts\SidebarToggle.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnJoystickMove.cs" />
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\ToggleUIKitHelper.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Assets\VR Office\Scenes\Scripts\Whiteboard.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\ScreenFade.cs" />
     <Compile Include="Assets\Myscripts\DashboardOverlayRendering.cs" />
+    <Compile Include="Assets\Myscripts\Block1MemberEpisodeTimerPanel.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnTrigger.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\ThirdPersonController.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\Marker.cs" />
@@ -219,6 +221,7 @@
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
     <Compile Include="Assets\Myscripts\GradedHaloDisplayManager.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\RadialMenu\RadialMenuManager.cs" />
+    <Compile Include="Assets\Myscripts\Block1SpeakingIntentionController.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\MouseLookHelper.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnTilt.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\FirstPersonController.cs" />
@@ -285,6 +288,7 @@
     <Compile Include="Assets\Myscripts\RepeatAttemptDashboardManager.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\ExampleOptionControl.cs" />
+    <Compile Include="Assets\Myscripts\Block1LeaderControlWindow.cs" />
     <Compile Include="Assets\Myscripts\OfficeSceneSupport.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\MenuTab\ListSelectionHelper.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\RemoveObjectsWithTag.cs" />

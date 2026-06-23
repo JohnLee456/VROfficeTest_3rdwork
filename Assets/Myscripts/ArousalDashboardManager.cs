@@ -51,7 +51,7 @@ public class ArousalDashboardManager : MonoBehaviour
 
     private void Update()
     {
-        if (DiskSelectorController.IsArousalDashboardSelected && Input.GetKeyDown(toggleKey))
+        if (DiskSelectorController.IsArousalDashboardSelected && (Input.GetKeyDown(toggleKey) || OfficeVrControllerInput.GetYDown()))
         {
             dashboardVisible = !dashboardVisible;
         }

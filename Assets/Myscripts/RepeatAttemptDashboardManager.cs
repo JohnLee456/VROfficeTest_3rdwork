@@ -49,7 +49,7 @@ public class RepeatAttemptDashboardManager : MonoBehaviour
 
     private void Update()
     {
-        if (DiskSelectorController.IsRepeatAttemptDashboardSelected && Input.GetKeyDown(toggleKey))
+        if (DiskSelectorController.IsRepeatAttemptDashboardSelected && (Input.GetKeyDown(toggleKey) || OfficeVrControllerInput.GetYDown()))
         {
             dashboardVisible = !dashboardVisible;
         }

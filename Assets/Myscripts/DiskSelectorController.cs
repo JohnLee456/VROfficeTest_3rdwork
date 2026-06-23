@@ -79,7 +79,7 @@ public class DiskSelectorController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(toggleKey))
+        if (Input.GetKeyDown(toggleKey) || OfficeVrControllerInput.GetXDown())
         {
             SetVisible(!canvas.gameObject.activeSelf);
         }

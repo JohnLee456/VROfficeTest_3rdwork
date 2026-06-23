@@ -107,7 +107,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
         EnsureCameraAttachment();
 
-        if (Input.GetKeyDown(toggleKey))
+        if (Input.GetKeyDown(toggleKey) || OfficeVrControllerInput.GetADown())
         {
             panelVisible = !panelVisible;
             if (panelRoot != null)

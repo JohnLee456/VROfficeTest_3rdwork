@@ -53,7 +53,7 @@ public class TimelineDashboardManager : MonoBehaviour
 
     private void Update()
     {
-        if (DiskSelectorController.IsTimelineDashboardSelected && Input.GetKeyDown(toggleKey))
+        if (DiskSelectorController.IsTimelineDashboardSelected && (Input.GetKeyDown(toggleKey) || OfficeVrControllerInput.GetYDown()))
         {
             dashboardVisible = !dashboardVisible;
         }

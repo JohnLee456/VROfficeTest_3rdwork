@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class BotSpeakingGestureLoopController : MonoBehaviour
 {
     private const float TotalDuration = 90f;
+    private const string ControlledSceneName = OfficeSceneSupport.OfficeLoggedIn;
 
     [SerializeField] private float transitionSpeed = 8f;
     [SerializeField] private float gestureSpeed = 3.5f;
@@ -43,16 +44,34 @@ public class BotSpeakingGestureLoopController : MonoBehaviour
 
     private void Start()
     {
+        if (!ShouldControlCurrentScene())
+        {
+            ClearTargets();
+            return;
+        }
+
         BindTargets(resetTimer: true);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name != ControlledSceneName)
+        {
+            ClearTargets();
+            return;
+        }
+
         BindTargets(resetTimer: true);
     }
 
     private void LateUpdate()
     {
+        if (!ShouldControlCurrentScene())
+        {
+            ClearTargets();
+            return;
+        }
+
         if (!HasTargets())
         {
             BindTargets(resetTimer: false);
@@ -83,6 +102,19 @@ public class BotSpeakingGestureLoopController : MonoBehaviour
         {
             fallbackStartTime = Time.time;
         }
+    }
+
+    private void ClearTargets()
+    {
+        dcyHands = default;
+        zjrHands = default;
+        zhzHands = default;
+        fallbackStartTime = 0f;
+    }
+
+    private bool ShouldControlCurrentScene()
+    {
+        return SceneManager.GetActiveScene().name == ControlledSceneName;
     }
 
     private float GetLoopTime()

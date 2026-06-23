@@ -6,14 +6,20 @@ using UnityEngine;
 public static class Block1EpisodeSync
 {
     public const byte EpisodeStartedEventCode = 71;
+    public const string BlockKey = "blockNumber";
     public const string TrialKey = "block1Trial";
     public const string EpisodeKey = "block1Episode";
     public const string EpisodeStartTimeKey = "block1EpisodeStartTime";
 
     public static void BroadcastEpisodeStarted(int trialNumber, int episodeNumber)
     {
+        BroadcastEpisodeStarted(1, trialNumber, episodeNumber);
+    }
+
+    public static void BroadcastEpisodeStarted(int blockNumber, int trialNumber, int episodeNumber)
+    {
         double startTime = PhotonNetwork.InRoom ? PhotonNetwork.Time : Time.time;
-        object[] payload = { trialNumber, episodeNumber, startTime };
+        object[] payload = { blockNumber, trialNumber, episodeNumber, startTime };
 
         if (PhotonNetwork.InRoom)
         {
@@ -25,6 +31,7 @@ public static class Block1EpisodeSync
 
             PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable
             {
+                { BlockKey, blockNumber },
                 { TrialKey, trialNumber },
                 { EpisodeKey, episodeNumber },
                 { EpisodeStartTimeKey, startTime }
@@ -32,8 +39,9 @@ public static class Block1EpisodeSync
         }
     }
 
-    public static bool TryParsePayload(object eventContent, out int trialNumber, out int episodeNumber, out double startTime)
+    public static bool TryParsePayload(object eventContent, out int blockNumber, out int trialNumber, out int episodeNumber, out double startTime)
     {
+        blockNumber = 1;
         trialNumber = 0;
         episodeNumber = 0;
         startTime = 0d;
@@ -44,14 +52,26 @@ public static class Block1EpisodeSync
             return false;
         }
 
-        trialNumber = System.Convert.ToInt32(payload[0]);
-        episodeNumber = System.Convert.ToInt32(payload[1]);
-        startTime = System.Convert.ToDouble(payload[2]);
+        if (payload.Length >= 4)
+        {
+            blockNumber = System.Convert.ToInt32(payload[0]);
+            trialNumber = System.Convert.ToInt32(payload[1]);
+            episodeNumber = System.Convert.ToInt32(payload[2]);
+            startTime = System.Convert.ToDouble(payload[3]);
+        }
+        else
+        {
+            trialNumber = System.Convert.ToInt32(payload[0]);
+            episodeNumber = System.Convert.ToInt32(payload[1]);
+            startTime = System.Convert.ToDouble(payload[2]);
+        }
+
         return true;
     }
 
-    public static bool TryReadRoomState(out int trialNumber, out int episodeNumber, out double startTime)
+    public static bool TryReadRoomState(out int blockNumber, out int trialNumber, out int episodeNumber, out double startTime)
     {
+        blockNumber = 1;
         trialNumber = 0;
         episodeNumber = 0;
         startTime = 0d;
@@ -65,6 +85,11 @@ public static class Block1EpisodeSync
         if (!properties.ContainsKey(TrialKey) || !properties.ContainsKey(EpisodeKey) || !properties.ContainsKey(EpisodeStartTimeKey))
         {
             return false;
+        }
+
+        if (properties.ContainsKey(BlockKey))
+        {
+            blockNumber = System.Convert.ToInt32(properties[BlockKey]);
         }
 
         trialNumber = System.Convert.ToInt32(properties[TrialKey]);

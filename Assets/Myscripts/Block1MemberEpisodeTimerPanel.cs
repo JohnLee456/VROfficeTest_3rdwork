@@ -25,6 +25,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
     private TextMeshProUGUI statusText;
     private TextMeshProUGUI timerText;
 
+    private int currentBlockNumber = 1;
     private int currentTrialNumber;
     private int currentEpisodeNumber;
     private double episodeStartTime;
@@ -135,16 +136,18 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
         int trialNumber;
         int episodeNumber;
+        int blockNumber;
         double startTime;
-        if (Block1EpisodeSync.TryParsePayload(photonEvent.CustomData, out trialNumber, out episodeNumber, out startTime))
+        if (Block1EpisodeSync.TryParsePayload(photonEvent.CustomData, out blockNumber, out trialNumber, out episodeNumber, out startTime))
         {
-            ApplyEpisodeStart(trialNumber, episodeNumber, startTime);
+            ApplyEpisodeStart(blockNumber, trialNumber, episodeNumber, startTime);
         }
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
-        if (propertiesThatChanged.ContainsKey(Block1EpisodeSync.TrialKey) ||
+        if (propertiesThatChanged.ContainsKey(Block1EpisodeSync.BlockKey) ||
+            propertiesThatChanged.ContainsKey(Block1EpisodeSync.TrialKey) ||
             propertiesThatChanged.ContainsKey(Block1EpisodeSync.EpisodeKey) ||
             propertiesThatChanged.ContainsKey(Block1EpisodeSync.EpisodeStartTimeKey))
         {
@@ -172,15 +175,17 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
     {
         int trialNumber;
         int episodeNumber;
+        int blockNumber;
         double startTime;
-        if (Block1EpisodeSync.TryReadRoomState(out trialNumber, out episodeNumber, out startTime))
+        if (Block1EpisodeSync.TryReadRoomState(out blockNumber, out trialNumber, out episodeNumber, out startTime))
         {
-            ApplyEpisodeStart(trialNumber, episodeNumber, startTime);
+            ApplyEpisodeStart(blockNumber, trialNumber, episodeNumber, startTime);
         }
     }
 
-    private void ApplyEpisodeStart(int trialNumber, int episodeNumber, double startTime)
+    private void ApplyEpisodeStart(int blockNumber, int trialNumber, int episodeNumber, double startTime)
     {
+        currentBlockNumber = blockNumber;
         currentTrialNumber = trialNumber;
         currentEpisodeNumber = episodeNumber;
         episodeStartTime = startTime;
@@ -199,7 +204,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
     private void SimulateEpisodeStartInEditor()
     {
         double startTime = PhotonNetwork.InRoom ? PhotonNetwork.Time : Time.time;
-        ApplyEpisodeStart(editorDebugTrialNumber, editorDebugEpisodeNumber, startTime);
+        ApplyEpisodeStart(1, editorDebugTrialNumber, editorDebugEpisodeNumber, startTime);
         Debug.Log("Editor debug episode start simulated: Trial " + editorDebugTrialNumber + ", Episode " + editorDebugEpisodeNumber + ".");
 
         editorDebugEpisodeNumber++;
@@ -232,7 +237,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
             return;
         }
 
-        statusText.text = "Trial " + currentTrialNumber + " / Episode " + currentEpisodeNumber;
+        statusText.text = "Block " + currentBlockNumber + " / Trial " + currentTrialNumber + " / Episode " + currentEpisodeNumber;
         float elapsedSeconds = Mathf.Max(0f, (float)((PhotonNetwork.InRoom ? PhotonNetwork.Time : Time.time) - episodeStartTime));
         int minutes = Mathf.FloorToInt(elapsedSeconds / 60f);
         int seconds = Mathf.FloorToInt(elapsedSeconds % 60f);

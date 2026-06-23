@@ -227,6 +227,7 @@
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\Myscripts\Panel\ConnectPanel.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\MenuTab\MenuItem.cs" />
+    <Compile Include="Assets\Myscripts\Block3SpeakingIntentionController.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoProximityVoiceChat\Scripts\ChangeColor.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoiceUI\Scripts\PhotonDemoExtensions.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoiceUI\Scripts\CodecSettingsUI.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Assets\Myscripts\SceneRoleApplicator.cs" />
     <Compile Include="Assets\Myscripts\Panel\TimePanel.cs" />
     <Compile Include="Assets\Myscripts\proto\CollectMsg.cs" />
+    <Compile Include="Assets\Myscripts\Block2SpeakingIntentionController.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Controls\XRJoystick.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\OrthographicController.cs" />
     <Compile Include="Assets\Myscripts\IconControlVer2.cs" />
@@ -301,6 +303,7 @@
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\ChangePOV.cs" />
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\KeyboardDisplay.cs" />
+    <Compile Include="Assets\Myscripts\OfficeVrControllerInput.cs" />
     <Compile Include="Assets\Myscripts\LoginAccountResolver.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\XRGrabbablePun.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\ProgressBar\ProgressBarManager.cs" />

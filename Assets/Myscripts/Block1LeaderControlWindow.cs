@@ -10,6 +10,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
     private const string ControlledSceneName = OfficeSceneSupport.OfficeLoggedInNoBot;
     private const string ControlledAvatarName = "GCHbot";
     private const int LastTrialNumber = 2;
+    private const int LastBlockNumber = 3;
 
     [SerializeField] private Vector3 cameraLocalPosition = new Vector3(0f, -0.08f, 1.05f);
     [SerializeField] private Vector2 panelSize = new Vector2(620f, 330f);
@@ -18,7 +19,9 @@ public class Block1LeaderControlWindow : MonoBehaviour
     [SerializeField] private float stayExtensionSeconds = 20f;
     [SerializeField] private KeyCode reopenTrialEndKey = KeyCode.T;
 
-    private Block1SpeakingIntentionController controller;
+    private Block1SpeakingIntentionController block1Controller;
+    private Block2SpeakingIntentionController block2Controller;
+    private Block3SpeakingIntentionController block3Controller;
     private Camera cachedCamera;
     private GameObject windowRoot;
     private RectTransform panelRect;
@@ -32,6 +35,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
 
     private int pendingTrialNumber = 1;
     private int pendingEpisodeNumber = 1;
+    private int activeBlockNumber = 1;
     private bool warningShownForCurrentEpisode;
     private bool stayExtensionActive;
     private bool trialEndHidden;
@@ -86,10 +90,10 @@ public class Block1LeaderControlWindow : MonoBehaviour
             return;
         }
 
-        EnsureController();
+        EnsureControllers();
         EnsureEventSystem();
         BuildWindow();
-        controller.StartTrial(1);
+        StartTrialForActiveBlock(1);
         ShowEpisodeStart(1, 1);
     }
 
@@ -127,12 +131,12 @@ public class Block1LeaderControlWindow : MonoBehaviour
             return;
         }
 
-        if (controller == null || !controller.IsEpisodeRunning || warningShownForCurrentEpisode)
+        if (!IsEpisodeRunningForActiveBlock() || warningShownForCurrentEpisode)
         {
             return;
         }
 
-        if (controller.EpisodeRemainingSeconds <= warningSecondsBeforeEpisodeEnd)
+        if (GetEpisodeRemainingSecondsForActiveBlock() <= warningSecondsBeforeEpisodeEnd)
         {
             ShowEpisodeEndWarning();
         }
@@ -146,7 +150,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
             return;
         }
 
-        EnsureController();
+        EnsureControllers();
         if (windowRoot == null)
         {
             BuildWindow();
@@ -160,9 +164,9 @@ public class Block1LeaderControlWindow : MonoBehaviour
         warningShownForCurrentEpisode = false;
         stayExtensionActive = false;
         trialEndHidden = false;
-        string title = controller.GetEpisodeTitle(trialNumber, episodeNumber);
+        string title = GetEpisodeTitleForActiveBlock(trialNumber, episodeNumber);
         headerText.text = string.IsNullOrEmpty(title) ? "Episode " + episodeNumber : title;
-        bodyText.text = "Trial " + trialNumber + " is ready. Start this episode when the discussion reaches this segment.";
+        bodyText.text = "Block " + activeBlockNumber + " / Trial " + trialNumber + " is ready. Start this episode when the discussion reaches this segment.";
         timerText.text = string.Empty;
         ConfigureButton(primaryButton, primaryButtonText, "Start", OnStartEpisodeClicked, true);
         ConfigureButton(secondaryButton, secondaryButtonText, string.Empty, null, false);
@@ -172,11 +176,11 @@ public class Block1LeaderControlWindow : MonoBehaviour
     private void ShowEpisodeEndWarning()
     {
         warningShownForCurrentEpisode = true;
-        controller.Pause();
+        PauseActiveBlock();
 
-        headerText.text = "Episode " + controller.CurrentEpisodeNumber + " ending";
+        headerText.text = "Block " + activeBlockNumber + " / Episode " + GetCurrentEpisodeNumberForActiveBlock() + " ending";
         bodyText.text = "This episode is 5 seconds from the scheduled end. Go to the next episode or stay for 20 seconds.";
-        timerText.text = "Remaining: " + Mathf.CeilToInt(controller.EpisodeRemainingSeconds) + "s";
+        timerText.text = "Remaining: " + Mathf.CeilToInt(GetEpisodeRemainingSecondsForActiveBlock()) + "s";
         ConfigureButton(primaryButton, primaryButtonText, "Stay", OnStayClicked, true);
         ConfigureButton(secondaryButton, secondaryButtonText, "Next Episode", OnNextEpisodeClicked, true);
         SetWindowVisible(true);
@@ -186,7 +190,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
     {
         stayExtensionActive = true;
         stayExtensionRemaining = stayExtensionSeconds;
-        controller.Pause();
+        PauseActiveBlock();
 
         headerText.text = "Stay in current episode";
         bodyText.text = "Speaking intention values are frozen. The next episode panel will open automatically.";
@@ -200,23 +204,23 @@ public class Block1LeaderControlWindow : MonoBehaviour
     {
         stayExtensionActive = false;
 
-        headerText.text = "Trial " + controller.CurrentTrialNumber + " complete";
-        bodyText.text = "You can review the dashboard now. Please remove the VR headset and complete the questionnaire.";
+        headerText.text = "Block " + activeBlockNumber + " / Trial " + GetCurrentTrialNumberForActiveBlock() + " complete";
+        bodyText.text = GetTrialEndMessage();
         timerText.text = "Press T to reopen this window after hiding it.";
         ConfigureButton(primaryButton, primaryButtonText, "Hide", OnHideTrialEndClicked, true);
-        ConfigureButton(secondaryButton, secondaryButtonText, "Next Trial", OnNextTrialClicked, controller.CurrentTrialNumber < LastTrialNumber);
+        ConfigureButton(secondaryButton, secondaryButtonText, GetNextStepButtonText(), OnNextTrialClicked, HasNextStep());
         SetWindowVisible(true);
     }
 
     private void OnStartEpisodeClicked()
     {
-        if (controller.CurrentTrialNumber != pendingTrialNumber)
+        if (GetCurrentTrialNumberForActiveBlock() != pendingTrialNumber)
         {
-            controller.StartTrial(pendingTrialNumber);
+            StartTrialForActiveBlock(pendingTrialNumber);
         }
 
-        controller.StartEpisode(pendingEpisodeNumber);
-        Block1EpisodeSync.BroadcastEpisodeStarted(pendingTrialNumber, pendingEpisodeNumber);
+        StartEpisodeForActiveBlock(pendingEpisodeNumber);
+        Block1EpisodeSync.BroadcastEpisodeStarted(activeBlockNumber, pendingTrialNumber, pendingEpisodeNumber);
         warningShownForCurrentEpisode = false;
         stayExtensionActive = false;
         SetWindowVisible(false);
@@ -240,24 +244,30 @@ public class Block1LeaderControlWindow : MonoBehaviour
 
     private void OnNextTrialClicked()
     {
-        int nextTrial = controller.CurrentTrialNumber + 1;
-        if (nextTrial > LastTrialNumber)
+        int nextTrial = GetCurrentTrialNumberForActiveBlock() + 1;
+        if (nextTrial <= LastTrialNumber)
         {
+            StartTrialForActiveBlock(nextTrial);
+            ShowEpisodeStart(nextTrial, 1);
             return;
         }
 
-        controller.StartTrial(nextTrial);
-        ShowEpisodeStart(nextTrial, 1);
+        if (activeBlockNumber < LastBlockNumber)
+        {
+            activeBlockNumber++;
+            StartTrialForActiveBlock(1);
+            ShowEpisodeStart(1, 1);
+        }
     }
 
     private void GoToNextEpisodeOrTrialEnd()
     {
-        int currentTrial = controller.CurrentTrialNumber;
-        int currentEpisode = controller.CurrentEpisodeNumber;
-        controller.EndEpisode();
+        int currentTrial = GetCurrentTrialNumberForActiveBlock();
+        int currentEpisode = GetCurrentEpisodeNumberForActiveBlock();
+        EndEpisodeForActiveBlock();
 
         int nextEpisode = currentEpisode + 1;
-        if (nextEpisode <= controller.EpisodeCount)
+        if (nextEpisode <= GetEpisodeCountForActiveBlock())
         {
             ShowEpisodeStart(currentTrial, nextEpisode);
         }
@@ -267,18 +277,202 @@ public class Block1LeaderControlWindow : MonoBehaviour
         }
     }
 
-    private void EnsureController()
+    private void EnsureControllers()
     {
-        if (controller != null)
+        if (block1Controller == null)
         {
-            return;
+            block1Controller = FindObjectOfType<Block1SpeakingIntentionController>();
+            if (block1Controller == null)
+            {
+                block1Controller = gameObject.AddComponent<Block1SpeakingIntentionController>();
+            }
         }
 
-        controller = FindObjectOfType<Block1SpeakingIntentionController>();
-        if (controller == null)
+        if (block2Controller == null)
         {
-            controller = gameObject.AddComponent<Block1SpeakingIntentionController>();
+            block2Controller = FindObjectOfType<Block2SpeakingIntentionController>();
+            if (block2Controller == null)
+            {
+                block2Controller = gameObject.AddComponent<Block2SpeakingIntentionController>();
+            }
         }
+
+        if (block3Controller == null)
+        {
+            block3Controller = FindObjectOfType<Block3SpeakingIntentionController>();
+            if (block3Controller == null)
+            {
+                block3Controller = gameObject.AddComponent<Block3SpeakingIntentionController>();
+            }
+        }
+    }
+
+    private int GetCurrentTrialNumberForActiveBlock()
+    {
+        if (activeBlockNumber == 1)
+        {
+            return block1Controller.CurrentTrialNumber;
+        }
+
+        return activeBlockNumber == 2 ? block2Controller.CurrentTrialNumber : block3Controller.CurrentTrialNumber;
+    }
+
+    private int GetCurrentEpisodeNumberForActiveBlock()
+    {
+        if (activeBlockNumber == 1)
+        {
+            return block1Controller.CurrentEpisodeNumber;
+        }
+
+        return activeBlockNumber == 2 ? block2Controller.CurrentEpisodeNumber : block3Controller.CurrentEpisodeNumber;
+    }
+
+    private int GetEpisodeCountForActiveBlock()
+    {
+        if (activeBlockNumber == 1)
+        {
+            return block1Controller.EpisodeCount;
+        }
+
+        return activeBlockNumber == 2 ? block2Controller.EpisodeCount : block3Controller.EpisodeCount;
+    }
+
+    private bool IsEpisodeRunningForActiveBlock()
+    {
+        if (activeBlockNumber == 1)
+        {
+            return block1Controller != null && block1Controller.IsEpisodeRunning;
+        }
+
+        if (activeBlockNumber == 2)
+        {
+            return block2Controller != null && block2Controller.IsEpisodeRunning;
+        }
+
+        return block3Controller != null && block3Controller.IsEpisodeRunning;
+    }
+
+    private float GetEpisodeRemainingSecondsForActiveBlock()
+    {
+        if (activeBlockNumber == 1)
+        {
+            return block1Controller.EpisodeRemainingSeconds;
+        }
+
+        return activeBlockNumber == 2 ? block2Controller.EpisodeRemainingSeconds : block3Controller.EpisodeRemainingSeconds;
+    }
+
+    private string GetEpisodeTitleForActiveBlock(int trialNumber, int episodeNumber)
+    {
+        if (activeBlockNumber == 1)
+        {
+            return block1Controller.GetEpisodeTitle(trialNumber, episodeNumber);
+        }
+
+        return activeBlockNumber == 2
+            ? block2Controller.GetEpisodeTitle(trialNumber, episodeNumber)
+            : block3Controller.GetEpisodeTitle(trialNumber, episodeNumber);
+    }
+
+    private void StartTrialForActiveBlock(int trialNumber)
+    {
+        if (activeBlockNumber == 1)
+        {
+            block1Controller.StartTrial(trialNumber);
+        }
+        else
+        {
+            if (activeBlockNumber == 2)
+            {
+                block2Controller.StartTrial(trialNumber);
+            }
+            else
+            {
+                block3Controller.StartTrial(trialNumber);
+            }
+        }
+    }
+
+    private void StartEpisodeForActiveBlock(int episodeNumber)
+    {
+        if (activeBlockNumber == 1)
+        {
+            block1Controller.StartEpisode(episodeNumber);
+        }
+        else
+        {
+            if (activeBlockNumber == 2)
+            {
+                block2Controller.StartEpisode(episodeNumber);
+            }
+            else
+            {
+                block3Controller.StartEpisode(episodeNumber);
+            }
+        }
+    }
+
+    private void EndEpisodeForActiveBlock()
+    {
+        if (activeBlockNumber == 1)
+        {
+            block1Controller.EndEpisode();
+        }
+        else
+        {
+            if (activeBlockNumber == 2)
+            {
+                block2Controller.EndEpisode();
+            }
+            else
+            {
+                block3Controller.EndEpisode();
+            }
+        }
+    }
+
+    private void PauseActiveBlock()
+    {
+        if (activeBlockNumber == 1)
+        {
+            block1Controller.Pause();
+        }
+        else
+        {
+            if (activeBlockNumber == 2)
+            {
+                block2Controller.Pause();
+            }
+            else
+            {
+                block3Controller.Pause();
+            }
+        }
+    }
+
+    private bool HasNextStep()
+    {
+        return GetCurrentTrialNumberForActiveBlock() < LastTrialNumber || activeBlockNumber < LastBlockNumber;
+    }
+
+    private string GetNextStepButtonText()
+    {
+        if (GetCurrentTrialNumberForActiveBlock() < LastTrialNumber)
+        {
+            return "Next Trial";
+        }
+
+        return activeBlockNumber < LastBlockNumber ? "Next Block" : "Next Trial";
+    }
+
+    private string GetTrialEndMessage()
+    {
+        if (GetCurrentTrialNumberForActiveBlock() == LastTrialNumber && activeBlockNumber < LastBlockNumber)
+        {
+            return "Block " + activeBlockNumber + " is complete. You can review the dashboard now, then continue to Block " + (activeBlockNumber + 1) + ".";
+        }
+
+        return "You can review the dashboard now. Please remove the VR headset and complete the questionnaire.";
     }
 
     private void BuildWindow()

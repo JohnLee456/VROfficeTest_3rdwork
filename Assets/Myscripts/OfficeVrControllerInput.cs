@@ -10,9 +10,11 @@ public static class OfficeVrControllerInput
     private static bool wasXPressed;
     private static bool wasYPressed;
     private static bool wasAPressed;
+    private static bool wasBPressed;
     private static bool xPressedThisFrame;
     private static bool yPressedThisFrame;
     private static bool aPressedThisFrame;
+    private static bool bPressedThisFrame;
     private static int sampledFrame = -1;
 
     public static bool GetXDown()
@@ -31,6 +33,12 @@ public static class OfficeVrControllerInput
     {
         SampleButtons();
         return aPressedThisFrame;
+    }
+
+    public static bool GetBDown()
+    {
+        SampleButtons();
+        return bPressedThisFrame;
     }
 
     private static void SampleButtons()
@@ -54,7 +62,9 @@ public static class OfficeVrControllerInput
         if (sceneName != OfficeSceneSupport.OfficeLoggedInNoBot)
         {
             wasAPressed = false;
+            wasBPressed = false;
             aPressedThisFrame = false;
+            bPressedThisFrame = false;
         }
 
         if (sceneName == OfficeSceneSupport.OfficeLoggedIn)
@@ -72,9 +82,12 @@ public static class OfficeVrControllerInput
         if (sceneName == OfficeSceneSupport.OfficeLoggedInNoBot)
         {
             bool isAPressed = IsControllerButtonPressed(InputDeviceCharacteristics.Right, CommonUsages.primaryButton);
+            bool isBPressed = IsControllerButtonPressed(InputDeviceCharacteristics.Right, CommonUsages.secondaryButton);
 
             aPressedThisFrame = isAPressed && !wasAPressed;
+            bPressedThisFrame = isBPressed && !wasBPressed;
             wasAPressed = isAPressed;
+            wasBPressed = isBPressed;
         }
     }
 

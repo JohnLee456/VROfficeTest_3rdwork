@@ -51,7 +51,20 @@ public class ArousalDashboardManager : MonoBehaviour
 
     private void Update()
     {
-        if (DiskSelectorController.IsArousalDashboardSelected && (Input.GetKeyDown(toggleKey) || OfficeVrControllerInput.GetYDown()))
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (!OfficeSceneSupport.ShouldShowRuntimeUi(sceneName))
+        {
+            if (dashboardRoot != null && dashboardRoot.activeSelf)
+            {
+                dashboardRoot.SetActive(false);
+            }
+
+            return;
+        }
+
+        bool rightHandTogglePressed = sceneName == OfficeSceneSupport.OfficeLoggedIn &&
+            OfficeVrControllerInput.GetBDown();
+        if (DiskSelectorController.IsArousalDashboardSelected && (Input.GetKeyDown(toggleKey) || rightHandTogglePressed))
         {
             dashboardVisible = !dashboardVisible;
         }

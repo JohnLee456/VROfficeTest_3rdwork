@@ -53,7 +53,20 @@ public class TimelineDashboardManager : MonoBehaviour
 
     private void Update()
     {
-        if (DiskSelectorController.IsTimelineDashboardSelected && (Input.GetKeyDown(toggleKey) || OfficeVrControllerInput.GetYDown()))
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (!OfficeSceneSupport.ShouldShowRuntimeUi(sceneName))
+        {
+            if (dashboardRoot != null && dashboardRoot.activeSelf)
+            {
+                dashboardRoot.SetActive(false);
+            }
+
+            return;
+        }
+
+        bool rightHandTogglePressed = sceneName == OfficeSceneSupport.OfficeLoggedIn &&
+            OfficeVrControllerInput.GetBDown();
+        if (DiskSelectorController.IsTimelineDashboardSelected && (Input.GetKeyDown(toggleKey) || rightHandTogglePressed))
         {
             dashboardVisible = !dashboardVisible;
         }

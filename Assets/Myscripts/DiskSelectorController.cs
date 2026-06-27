@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -79,7 +80,16 @@ public class DiskSelectorController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(toggleKey) || OfficeVrControllerInput.GetXDown())
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (!OfficeSceneSupport.ShouldShowRuntimeUi(sceneName))
+        {
+            SetVisible(false);
+            return;
+        }
+
+        bool rightHandTogglePressed = sceneName == OfficeSceneSupport.OfficeLoggedIn &&
+            OfficeVrControllerInput.GetADown();
+        if (Input.GetKeyDown(toggleKey) || rightHandTogglePressed)
         {
             SetVisible(!canvas.gameObject.activeSelf);
         }

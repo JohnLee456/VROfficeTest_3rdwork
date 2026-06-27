@@ -16,6 +16,8 @@ public class RoleAvatarController : MonoBehaviour
     [SerializeField] private bool rotateBodyWithHeadsetYaw = true;
     [SerializeField] private bool useEyeCenterForCameraTarget = true;
     [SerializeField] private int initialXrAlignmentFrames = 45;
+    [SerializeField] private bool followXrMovementWithBody = true;
+    [SerializeField] private bool followXrVerticalMovement = false;
     [SerializeField] private float bodyYawFollowThreshold = 35f;
     [SerializeField] private float bodyYawFollowSpeed = 120f;
     [SerializeField] private bool controlHandsFromVrControllersInNoBot = true;
@@ -33,6 +35,8 @@ public class RoleAvatarController : MonoBehaviour
     private bool localControlEnabled;
     private bool xrRigAligned;
     private int xrAlignmentFramesRemaining;
+    private bool bodyFollowAnchorCalibrated;
+    private Vector3 lastXrBodyAnchorPosition;
     private bool loggedMissingXrCamera;
     private Transform headTransform;
     private Transform leftEyeTransform;
@@ -72,6 +76,7 @@ public class RoleAvatarController : MonoBehaviour
         localControlEnabled = enabled;
         xrRigAligned = false;
         xrAlignmentFramesRemaining = enabled ? Mathf.Max(1, initialXrAlignmentFrames) : 0;
+        bodyFollowAnchorCalibrated = false;
         headTrackingCalibrated = false;
         DisableRoleCamera();
 
@@ -146,6 +151,7 @@ public class RoleAvatarController : MonoBehaviour
         }
 
         PrepareXrView();
+        FollowXrMovementWithBody();
         ApplyXrCameraPoseToAvatar();
 
         if (ShouldControlHandsFromVrControllers())
@@ -279,6 +285,7 @@ public class RoleAvatarController : MonoBehaviour
         }
 
         xrRigAligned = true;
+        ResetBodyFollowAnchor();
         headTrackingCalibrated = false;
         return true;
     }
@@ -323,6 +330,73 @@ public class RoleAvatarController : MonoBehaviour
         }
 
         transform.position += worldDelta;
+        ResetBodyFollowAnchor();
+    }
+
+    private void FollowXrMovementWithBody()
+    {
+        if (!followXrMovementWithBody)
+        {
+            return;
+        }
+
+        Transform anchor = GetXrBodyMovementAnchor();
+        if (anchor == null)
+        {
+            bodyFollowAnchorCalibrated = false;
+            return;
+        }
+
+        if (!bodyFollowAnchorCalibrated)
+        {
+            lastXrBodyAnchorPosition = anchor.position;
+            bodyFollowAnchorCalibrated = true;
+            return;
+        }
+
+        Vector3 worldDelta = anchor.position - lastXrBodyAnchorPosition;
+        lastXrBodyAnchorPosition = anchor.position;
+
+        if (!followXrVerticalMovement)
+        {
+            worldDelta.y = 0f;
+        }
+
+        if (worldDelta.sqrMagnitude <= 0.0000001f)
+        {
+            return;
+        }
+
+        transform.position += worldDelta;
+    }
+
+    private void ResetBodyFollowAnchor()
+    {
+        Transform anchor = GetXrBodyMovementAnchor();
+        if (anchor == null)
+        {
+            bodyFollowAnchorCalibrated = false;
+            return;
+        }
+
+        lastXrBodyAnchorPosition = anchor.position;
+        bodyFollowAnchorCalibrated = true;
+    }
+
+    private Transform GetXrBodyMovementAnchor()
+    {
+        if (xrOrigin != null && IsSafeXrMoveRoot(xrOrigin.transform))
+        {
+            return xrOrigin.transform;
+        }
+
+        Transform anchor = xrRigRoot;
+        if (anchor == null && xrCamera != null)
+        {
+            anchor = FindContainingRigRoot(xrCamera.transform);
+        }
+
+        return IsSafeXrMoveRoot(anchor) ? anchor : null;
     }
 
     private Transform FindSafeXrMoveRoot()
@@ -438,12 +512,21 @@ public class RoleAvatarController : MonoBehaviour
             return false;
         }
 
-        if (LoginSession.Role != LoginUserRole.Leader && LoginSession.Role != LoginUserRole.Member)
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName == OfficeSceneSupport.OfficeLoggedIn)
         {
-            return false;
+            return LoginSession.Role == LoginUserRole.Study ||
+                LoginSession.Role == LoginUserRole.Leader ||
+                LoginSession.Role == LoginUserRole.Member;
         }
 
-        return SceneManager.GetActiveScene().name == OfficeSceneSupport.OfficeLoggedInNoBot;
+        if (sceneName == OfficeSceneSupport.OfficeLoggedInNoBot)
+        {
+            return LoginSession.Role == LoginUserRole.Leader ||
+                LoginSession.Role == LoginUserRole.Member;
+        }
+
+        return false;
     }
 
     private void ApplyVrControllerHandPoses()

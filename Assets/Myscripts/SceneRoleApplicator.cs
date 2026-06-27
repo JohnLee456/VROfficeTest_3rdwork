@@ -29,8 +29,8 @@ public static class SceneRoleApplicator
             return;
         }
 
-        DisableSceneCameras(scene);
-        PrepareKnownRoleCameras(scene);
+        GameObject localRig = PrepareLocalXrRig(scene);
+        DisableKnownRoleCameras(scene);
 
         GameObject avatar = FindInScene(scene, LoginSession.AvatarName);
         if (avatar == null)
@@ -42,7 +42,7 @@ public static class SceneRoleApplicator
         avatar.SetActive(true);
         TakePhotonOwnershipIfPossible(avatar);
         DisableExistingAvatarControllers(scene, avatar);
-        DisableUnusedLocalRigs(scene);
+        DisableUnusedLocalRigs(scene, localRig);
 
         RoleAvatarController controller = avatar.GetComponent<RoleAvatarController>();
         if (controller == null)
@@ -54,7 +54,37 @@ public static class SceneRoleApplicator
         controller.SetLocalControlEnabled(true);
     }
 
-    private static void DisableSceneCameras(Scene scene)
+    private static GameObject PrepareLocalXrRig(Scene scene)
+    {
+        GameObject localRig = FindInScene(scene, "VRRigDeviceBased");
+        if (localRig == null)
+        {
+            localRig = FindInScene(scene, "VrRigActionBased");
+        }
+
+        Camera localCamera = null;
+        if (localRig != null)
+        {
+            localRig.SetActive(true);
+            localCamera = localRig.GetComponentInChildren<Camera>(true);
+        }
+
+        if (localCamera == null)
+        {
+            localCamera = FindBestSceneCamera(scene);
+        }
+
+        if (localCamera != null)
+        {
+            EnableCameraAsMain(localCamera);
+            DisableSceneCamerasExcept(scene, localCamera);
+            SetTrackedPoseDriversEnabled(localCamera, true);
+        }
+
+        return localRig;
+    }
+
+    private static void DisableSceneCamerasExcept(Scene scene, Camera cameraToKeep)
     {
         GameObject[] roots = scene.GetRootGameObjects();
         for (int i = 0; i < roots.Length; i++)
@@ -62,19 +92,15 @@ public static class SceneRoleApplicator
             Camera[] cameras = roots[i].GetComponentsInChildren<Camera>(true);
             for (int j = 0; j < cameras.Length; j++)
             {
-                cameras[j].enabled = false;
-                cameras[j].tag = "Untagged";
-
-                AudioListener listener = cameras[j].GetComponent<AudioListener>();
-                if (listener != null)
+                if (cameras[j] != cameraToKeep)
                 {
-                    listener.enabled = false;
+                    DisableCamera(cameras[j]);
                 }
             }
         }
     }
 
-    private static void PrepareKnownRoleCameras(Scene scene)
+    private static void DisableKnownRoleCameras(Scene scene)
     {
         string[] avatarNames = { "GCHbot", "ZJR", "ZHZ", "DCY" };
         for (int i = 0; i < avatarNames.Length; i++)
@@ -95,6 +121,41 @@ public static class SceneRoleApplicator
             controller.SetLocalControlEnabled(false);
             controller.enabled = false;
         }
+    }
+
+    private static Camera FindBestSceneCamera(Scene scene)
+    {
+        GameObject rig = FindInScene(scene, "VRRigDeviceBased");
+        if (rig == null)
+        {
+            rig = FindInScene(scene, "VrRigActionBased");
+        }
+
+        if (rig != null)
+        {
+            Camera rigCamera = rig.GetComponentInChildren<Camera>(true);
+            if (rigCamera != null)
+            {
+                return rigCamera;
+            }
+        }
+
+        GameObject[] roots = scene.GetRootGameObjects();
+        for (int i = 0; i < roots.Length; i++)
+        {
+            Camera[] cameras = roots[i].GetComponentsInChildren<Camera>(true);
+            for (int j = 0; j < cameras.Length; j++)
+            {
+                if (cameras[j].gameObject.name == "RoleCamera")
+                {
+                    continue;
+                }
+
+                return cameras[j];
+            }
+        }
+
+        return null;
     }
 
     private static void TakePhotonOwnershipIfPossible(GameObject avatar)
@@ -134,14 +195,72 @@ public static class SceneRoleApplicator
         }
     }
 
-    private static void DisableUnusedLocalRigs(Scene scene)
+    private static void DisableUnusedLocalRigs(Scene scene, GameObject localRig)
     {
         GameObject[] roots = scene.GetRootGameObjects();
         for (int i = 0; i < roots.Length; i++)
         {
-            if (roots[i].name == "VRRigDeviceBased" || roots[i].name == "VrRigActionBased" || roots[i].name == "ScreenRig")
+            if (roots[i] == localRig)
+            {
+                continue;
+            }
+
+            if (roots[i].name == "VrRigActionBased" || roots[i].name == "ScreenRig")
             {
                 roots[i].SetActive(false);
+            }
+        }
+    }
+
+    private static void EnableCameraAsMain(Camera camera)
+    {
+        if (camera == null)
+        {
+            return;
+        }
+
+        camera.gameObject.SetActive(true);
+        camera.enabled = true;
+        camera.tag = "MainCamera";
+
+        AudioListener listener = camera.GetComponent<AudioListener>();
+        if (listener != null)
+        {
+            listener.enabled = true;
+        }
+    }
+
+    private static void DisableCamera(Camera camera)
+    {
+        if (camera == null)
+        {
+            return;
+        }
+
+        camera.enabled = false;
+        camera.tag = "Untagged";
+
+        AudioListener listener = camera.GetComponent<AudioListener>();
+        if (listener != null)
+        {
+            listener.enabled = false;
+        }
+    }
+
+    private static void SetTrackedPoseDriversEnabled(Camera targetCamera, bool enabled)
+    {
+        if (targetCamera == null)
+        {
+            return;
+        }
+
+        MonoBehaviour[] behaviours = targetCamera.GetComponents<MonoBehaviour>();
+        for (int i = 0; i < behaviours.Length; i++)
+        {
+            MonoBehaviour behaviour = behaviours[i];
+            if (behaviour != null && behaviour.GetType().Name.Contains("TrackedPoseDriver"))
+            {
+                behaviour.enabled = enabled;
             }
         }
     }

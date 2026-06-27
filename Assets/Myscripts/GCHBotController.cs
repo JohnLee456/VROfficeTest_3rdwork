@@ -1,22 +1,38 @@
 using UnityEngine;
+using Unity.XR.CoreUtils;
 
 public class GCHBotController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float turnSpeed = 90f;
     [SerializeField] private float sprintMultiplier = 1.8f;
-    [SerializeField] private bool attachMainCameraToHead = true;
-    [SerializeField] private Vector3 cameraLocalPosition = new Vector3(0f, 0.03f, 0.08f);
-    [SerializeField] private Vector3 cameraLocalEulerAngles = Vector3.zero;
+    [SerializeField] private bool useMainCameraAsHeadTracker = true;
+    [SerializeField] private bool alignCameraToAvatarOnStart = true;
+    [SerializeField] private float fallbackEyeHeight = 1.6f;
+    [SerializeField] private bool rotateBodyWithHeadsetYaw = true;
+    [SerializeField] private bool useEyeCenterForCameraTarget = true;
+    [SerializeField] private float bodyYawFollowThreshold = 35f;
+    [SerializeField] private float bodyYawFollowSpeed = 120f;
 
     private Transform headTransform;
+    private Transform leftEyeTransform;
+    private Transform rightEyeTransform;
+    private Camera xrCamera;
+    private XROrigin xrOrigin;
+    private Transform xrRigRoot;
+    private bool cameraAligned;
+    private bool loggedMissingCamera;
+    private bool headTrackingCalibrated;
+    private Quaternion referenceCameraWorldRotation = Quaternion.identity;
+    private Quaternion referenceHeadWorldRotation = Quaternion.identity;
 
     private void Start()
     {
-        if (attachMainCameraToHead)
-        {
-            AttachMainCameraToHead();
-        }
+        headTransform = FindHeadTransform();
+        leftEyeTransform = FindFirstChildStartingWith("LeftEye_");
+        rightEyeTransform = FindFirstChildStartingWith("RightEye_");
+        PrepareMainCamera();
+        AlignCameraToAvatar();
     }
 
     private void Update()
@@ -65,33 +81,169 @@ public class GCHBotController : MonoBehaviour
         transform.position += move.normalized * speed * Time.deltaTime;
     }
 
-    private void AttachMainCameraToHead()
+    private void LateUpdate()
     {
-        headTransform = FindHeadTransform();
+        if (!useMainCameraAsHeadTracker)
+        {
+            return;
+        }
+
+        PrepareMainCamera();
+        AlignCameraToAvatar();
+        ApplyCameraPoseToAvatar();
+    }
+
+    private void PrepareMainCamera()
+    {
+        if (xrCamera == null)
+        {
+            xrCamera = Camera.main;
+        }
+
+        if (xrCamera == null)
+        {
+            xrCamera = FindObjectOfType<Camera>(true);
+        }
+
+        if (xrCamera == null)
+        {
+            if (!loggedMissingCamera)
+            {
+                Debug.LogWarning("GCHbot XR camera follow skipped: no camera was found.", this);
+                loggedMissingCamera = true;
+            }
+
+            return;
+        }
+
+        loggedMissingCamera = false;
+        xrCamera.gameObject.SetActive(true);
+        xrCamera.enabled = true;
+        xrCamera.tag = "MainCamera";
+        SetTrackedPoseDriversEnabled(xrCamera, true);
+        xrRigRoot = FindContainingRigRoot(xrCamera.transform);
+        xrOrigin = xrRigRoot != null ? xrRigRoot.GetComponent<XROrigin>() : null;
+
+        AudioListener listener = xrCamera.GetComponent<AudioListener>();
+        if (listener != null)
+        {
+            listener.enabled = true;
+        }
+    }
+
+    private void ApplyCameraPoseToAvatar()
+    {
+        if (xrCamera == null)
+        {
+            return;
+        }
+
         if (headTransform == null)
         {
-            Debug.LogWarning("GCHbot camera attach skipped: head transform was not found.", this);
+            headTransform = FindHeadTransform();
+        }
+
+        if (rotateBodyWithHeadsetYaw)
+        {
+            FollowCameraYawWithBody();
+        }
+
+        if (headTransform != null)
+        {
+            if (!headTrackingCalibrated)
+            {
+                CalibrateHeadTracking();
+            }
+
+            Quaternion cameraDelta = xrCamera.transform.rotation * Quaternion.Inverse(referenceCameraWorldRotation);
+            headTransform.rotation = cameraDelta * referenceHeadWorldRotation;
+        }
+    }
+
+    private void AlignCameraToAvatar()
+    {
+        if (!alignCameraToAvatarOnStart || cameraAligned || xrCamera == null)
+        {
             return;
         }
 
-        Camera targetCamera = Camera.main;
-        if (targetCamera == null)
+        if (headTransform == null)
         {
-            targetCamera = FindObjectOfType<Camera>();
+            headTransform = FindHeadTransform();
         }
 
-        if (targetCamera == null)
+        Transform rigRoot = xrRigRoot != null ? xrRigRoot : FindContainingRigRoot(xrCamera.transform);
+        if (!IsSafeXrMoveRoot(rigRoot))
         {
-            Debug.LogWarning("GCHbot camera attach skipped: no camera was found.", this);
             return;
         }
 
-        DisableTrackedPoseDrivers(targetCamera);
+        xrRigRoot = rigRoot;
+        LevelXrRigRoot(rigRoot);
 
-        Transform cameraTransform = targetCamera.transform;
-        cameraTransform.SetParent(headTransform, false);
-        cameraTransform.localPosition = cameraLocalPosition;
-        cameraTransform.localEulerAngles = cameraLocalEulerAngles;
+        Vector3 targetEyePosition = GetTargetEyePosition();
+        if (!TryMoveXrOriginCameraToWorldLocation(targetEyePosition))
+        {
+            rigRoot.position += targetEyePosition - xrCamera.transform.position;
+        }
+
+        cameraAligned = true;
+        headTrackingCalibrated = false;
+    }
+
+    private Vector3 GetTargetEyePosition()
+    {
+        if (useEyeCenterForCameraTarget && leftEyeTransform != null && rightEyeTransform != null)
+        {
+            return (leftEyeTransform.position + rightEyeTransform.position) * 0.5f;
+        }
+
+        if (headTransform != null)
+        {
+            return headTransform.position;
+        }
+
+        return transform.position + Vector3.up * fallbackEyeHeight;
+    }
+
+    private bool TryMoveXrOriginCameraToWorldLocation(Vector3 targetEyePosition)
+    {
+        if (xrOrigin == null)
+        {
+            Transform containingRig = xrRigRoot != null ? xrRigRoot : FindContainingRigRoot(xrCamera.transform);
+            xrOrigin = containingRig != null ? containingRig.GetComponent<XROrigin>() : null;
+        }
+
+        if (xrOrigin == null || xrOrigin.Camera == null || !IsSafeXrMoveRoot(xrOrigin.transform))
+        {
+            return false;
+        }
+
+        return xrOrigin.MoveCameraToWorldLocation(targetEyePosition);
+    }
+
+    private void CalibrateHeadTracking()
+    {
+        referenceCameraWorldRotation = xrCamera.transform.rotation;
+        referenceHeadWorldRotation = headTransform.rotation;
+        headTrackingCalibrated = true;
+    }
+
+    private void FollowCameraYawWithBody()
+    {
+        Quaternion cameraYaw = ExtractYawRotation(xrCamera.transform.rotation);
+        float currentYaw = transform.eulerAngles.y;
+        float targetYaw = cameraYaw.eulerAngles.y;
+        float yawDelta = Mathf.DeltaAngle(currentYaw, targetYaw);
+
+        if (Mathf.Abs(yawDelta) <= bodyYawFollowThreshold)
+        {
+            return;
+        }
+
+        float nextYaw = Mathf.MoveTowardsAngle(currentYaw, targetYaw, bodyYawFollowSpeed * Time.deltaTime);
+        float deltaYaw = Mathf.DeltaAngle(currentYaw, nextYaw);
+        transform.rotation = Quaternion.AngleAxis(deltaYaw, Vector3.up) * transform.rotation;
     }
 
     private Transform FindHeadTransform()
@@ -116,21 +268,83 @@ public class GCHBotController : MonoBehaviour
         return null;
     }
 
-    private static void DisableTrackedPoseDrivers(Camera targetCamera)
+    private Transform FindFirstChildStartingWith(string prefix)
     {
+        Transform[] children = GetComponentsInChildren<Transform>(true);
+        for (int i = 0; i < children.Length; i++)
+        {
+            if (children[i].name.StartsWith(prefix))
+            {
+                return children[i];
+            }
+        }
+
+        return null;
+    }
+
+    private bool IsSafeXrMoveRoot(Transform candidate)
+    {
+        return candidate != null &&
+            candidate != transform &&
+            !candidate.IsChildOf(transform) &&
+            !transform.IsChildOf(candidate);
+    }
+
+    private static void LevelXrRigRoot(Transform rigRoot)
+    {
+        if (rigRoot == null || (rigRoot.name != "VRRigDeviceBased" && rigRoot.name != "VrRigActionBased"))
+        {
+            return;
+        }
+
+        Vector3 eulerAngles = rigRoot.eulerAngles;
+        rigRoot.rotation = Quaternion.Euler(0f, eulerAngles.y, 0f);
+    }
+
+    private static Quaternion ExtractYawRotation(Quaternion rotation)
+    {
+        Vector3 forward = rotation * Vector3.forward;
+        forward.y = 0f;
+
+        if (forward.sqrMagnitude <= 0.0001f)
+        {
+            return Quaternion.identity;
+        }
+
+        return Quaternion.LookRotation(forward.normalized, Vector3.up);
+    }
+
+    private static void SetTrackedPoseDriversEnabled(Camera targetCamera, bool enabled)
+    {
+        if (targetCamera == null)
+        {
+            return;
+        }
+
         MonoBehaviour[] behaviours = targetCamera.GetComponents<MonoBehaviour>();
         for (int i = 0; i < behaviours.Length; i++)
         {
             MonoBehaviour behaviour = behaviours[i];
-            if (behaviour == null)
+            if (behaviour != null && behaviour.GetType().Name.Contains("TrackedPoseDriver"))
             {
-                continue;
-            }
-
-            if (behaviour.GetType().Name.Contains("TrackedPoseDriver"))
-            {
-                behaviour.enabled = false;
+                behaviour.enabled = enabled;
             }
         }
+    }
+
+    private static Transform FindContainingRigRoot(Transform start)
+    {
+        Transform current = start;
+        while (current != null)
+        {
+            if (current.name == "VRRigDeviceBased" || current.name == "VrRigActionBased")
+            {
+                return current;
+            }
+
+            current = current.parent;
+        }
+
+        return start.root;
     }
 }

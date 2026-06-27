@@ -1,16 +1,23 @@
+using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.XR.CoreUtils;
 using UnityEngine.XR;
-using Photon.Pun;
-using System.Collections.Generic;
 
 public class RoleAvatarController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float turnSpeed = 90f;
     [SerializeField] private float sprintMultiplier = 1.8f;
-    [SerializeField] private Vector3 cameraLocalPosition = new Vector3(0f, 0.03f, 0.08f);
-    [SerializeField] private Vector3 cameraLocalEulerAngles = Vector3.zero;
+    [SerializeField] private bool alignXrRigToAvatarOnEnable = true;
+    [SerializeField] private float fallbackEyeHeight = 1.6f;
+    [SerializeField] private bool controlHeadFromVrHeadset = true;
+    [SerializeField] private bool rotateBodyWithHeadsetYaw = true;
+    [SerializeField] private bool useEyeCenterForCameraTarget = true;
+    [SerializeField] private int initialXrAlignmentFrames = 45;
+    [SerializeField] private float bodyYawFollowThreshold = 35f;
+    [SerializeField] private float bodyYawFollowSpeed = 120f;
     [SerializeField] private bool controlHandsFromVrControllersInNoBot = true;
     [SerializeField] private float handPoseScale = 1f;
     [SerializeField] private Vector3 leftHandPositionOffset = Vector3.zero;
@@ -20,12 +27,23 @@ public class RoleAvatarController : MonoBehaviour
 
     private PhotonView photonView;
     private Camera roleCamera;
+    private Camera xrCamera;
+    private XROrigin xrOrigin;
+    private Transform xrRigRoot;
     private bool localControlEnabled;
+    private bool xrRigAligned;
+    private int xrAlignmentFramesRemaining;
+    private bool loggedMissingXrCamera;
     private Transform headTransform;
+    private Transform leftEyeTransform;
+    private Transform rightEyeTransform;
     private Transform leftHandTransform;
     private Transform rightHandTransform;
     private readonly List<XRNodeState> nodeStates = new List<XRNodeState>();
     private bool loggedMissingHandTargets;
+    private bool headTrackingCalibrated;
+    private Quaternion referenceCameraWorldRotation = Quaternion.identity;
+    private Quaternion referenceHeadWorldRotation = Quaternion.identity;
 
     private void Awake()
     {
@@ -35,24 +53,37 @@ public class RoleAvatarController : MonoBehaviour
 
     private void Start()
     {
+        BindAvatarParts();
+        DisableRoleCamera();
+
         if (CanUseLocalControl())
         {
-            SetRoleCameraEnabled(true);
-        }
+            if (xrAlignmentFramesRemaining <= 0)
+            {
+                xrAlignmentFramesRemaining = Mathf.Max(1, initialXrAlignmentFrames);
+            }
 
-        BindAvatarParts();
+            PrepareXrView();
+        }
     }
 
     public void SetLocalControlEnabled(bool enabled)
     {
         localControlEnabled = enabled;
-        SetRoleCameraEnabled(enabled && CanUseLocalControl());
+        xrRigAligned = false;
+        xrAlignmentFramesRemaining = enabled ? Mathf.Max(1, initialXrAlignmentFrames) : 0;
+        headTrackingCalibrated = false;
+        DisableRoleCamera();
+
+        if (enabled && CanUseLocalControl())
+        {
+            PrepareXrView();
+        }
     }
 
     public void PrepareRoleCamera()
     {
-        EnsureRoleCamera();
-        SetRoleCameraEnabled(false);
+        DisableRoleCamera();
     }
 
     private void Update()
@@ -104,17 +135,23 @@ public class RoleAvatarController : MonoBehaviour
         float speed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)
             ? moveSpeed * sprintMultiplier
             : moveSpeed;
-        transform.position += move.normalized * speed * Time.deltaTime;
+        MovePlayer(move.normalized * speed * Time.deltaTime);
     }
 
     private void LateUpdate()
     {
-        if (!CanUseLocalControl() || !ShouldControlHandsFromVrControllers())
+        if (!CanUseLocalControl())
         {
             return;
         }
 
-        ApplyVrControllerHandPoses();
+        PrepareXrView();
+        ApplyXrCameraPoseToAvatar();
+
+        if (ShouldControlHandsFromVrControllers())
+        {
+            ApplyVrControllerHandPoses();
+        }
     }
 
     private bool CanUseLocalControl()
@@ -132,64 +169,261 @@ public class RoleAvatarController : MonoBehaviour
         return true;
     }
 
-    private void SetRoleCameraEnabled(bool enabled)
+    private void PrepareXrView()
     {
-        Camera targetCamera = enabled ? EnsureRoleCamera() : roleCamera;
-        if (targetCamera == null)
+        DisableRoleCamera();
+
+        if (!CacheXrCamera())
+        {
+            if (!loggedMissingXrCamera)
+            {
+                Debug.LogWarning($"Local XR camera was not found for avatar '{name}'.", this);
+                loggedMissingXrCamera = true;
+            }
+
+            return;
+        }
+
+        loggedMissingXrCamera = false;
+        EnableCameraAsMain(xrCamera);
+        DisableOtherSceneCameras(xrCamera);
+        SetTrackedPoseDriversEnabled(xrCamera, true);
+
+        if (alignXrRigToAvatarOnEnable && (!xrRigAligned || xrAlignmentFramesRemaining > 0))
+        {
+            if (AlignXrRigToAvatar() && xrAlignmentFramesRemaining > 0)
+            {
+                xrAlignmentFramesRemaining--;
+            }
+        }
+    }
+
+    private bool CacheXrCamera()
+    {
+        if (xrCamera != null)
+        {
+            return true;
+        }
+
+        GameObject rig = FindSceneObject("VRRigDeviceBased");
+        if (rig == null)
+        {
+            rig = FindSceneObject("VrRigActionBased");
+        }
+
+        if (rig != null)
+        {
+            rig.SetActive(true);
+            xrRigRoot = rig.transform;
+            xrOrigin = rig.GetComponent<XROrigin>();
+            xrCamera = xrOrigin != null && xrOrigin.Camera != null
+                ? xrOrigin.Camera
+                : rig.GetComponentInChildren<Camera>(true);
+        }
+
+        if (xrCamera == null && Camera.main != null && !Camera.main.transform.IsChildOf(transform))
+        {
+            xrCamera = Camera.main;
+            xrRigRoot = FindContainingRigRoot(xrCamera.transform);
+            xrOrigin = xrRigRoot != null ? xrRigRoot.GetComponent<XROrigin>() : null;
+        }
+
+        if (xrCamera == null)
+        {
+            Camera[] cameras = Object.FindObjectsOfType<Camera>(true);
+            for (int i = 0; i < cameras.Length; i++)
+            {
+                Camera candidate = cameras[i];
+                if (candidate == null ||
+                    candidate.transform.IsChildOf(transform) ||
+                    candidate.gameObject.scene != SceneManager.GetActiveScene())
+                {
+                    continue;
+                }
+
+                xrCamera = candidate;
+                xrRigRoot = FindContainingRigRoot(candidate.transform);
+                xrOrigin = xrRigRoot != null ? xrRigRoot.GetComponent<XROrigin>() : null;
+                break;
+            }
+        }
+
+        return xrCamera != null;
+    }
+
+    private bool AlignXrRigToAvatar()
+    {
+        if (xrCamera == null)
+        {
+            return false;
+        }
+
+        if (headTransform == null)
+        {
+            BindAvatarParts();
+        }
+
+        Transform rigRoot = FindSafeXrMoveRoot();
+        if (rigRoot == null)
+        {
+            return false;
+        }
+
+        xrRigRoot = rigRoot;
+        LevelXrRigRoot(rigRoot);
+
+        Vector3 targetEyePosition = GetTargetEyePosition();
+        if (!TryMoveXrOriginCameraToWorldLocation(targetEyePosition))
+        {
+            rigRoot.position += targetEyePosition - xrCamera.transform.position;
+        }
+
+        xrRigAligned = true;
+        headTrackingCalibrated = false;
+        return true;
+    }
+
+    private Vector3 GetTargetEyePosition()
+    {
+        if (useEyeCenterForCameraTarget && leftEyeTransform != null && rightEyeTransform != null)
+        {
+            return (leftEyeTransform.position + rightEyeTransform.position) * 0.5f;
+        }
+
+        if (headTransform != null)
+        {
+            return headTransform.position;
+        }
+
+        return transform.position + Vector3.up * fallbackEyeHeight;
+    }
+
+    private bool TryMoveXrOriginCameraToWorldLocation(Vector3 targetEyePosition)
+    {
+        if (xrOrigin == null)
+        {
+            Transform containingRig = xrRigRoot != null ? xrRigRoot : FindContainingRigRoot(xrCamera.transform);
+            xrOrigin = containingRig != null ? containingRig.GetComponent<XROrigin>() : null;
+        }
+
+        if (xrOrigin == null || xrOrigin.Camera == null || !IsSafeXrMoveRoot(xrOrigin.transform))
+        {
+            return false;
+        }
+
+        return xrOrigin.MoveCameraToWorldLocation(targetEyePosition);
+    }
+
+    private void MovePlayer(Vector3 worldDelta)
+    {
+        Transform moveRoot = FindSafeXrMoveRoot();
+        if (moveRoot != null)
+        {
+            moveRoot.position += worldDelta;
+        }
+
+        transform.position += worldDelta;
+    }
+
+    private Transform FindSafeXrMoveRoot()
+    {
+        if (xrCamera == null)
+        {
+            return null;
+        }
+
+        Transform containingRig = xrRigRoot != null ? xrRigRoot : FindContainingRigRoot(xrCamera.transform);
+        Transform current = xrCamera.transform;
+        Transform best = null;
+
+        while (current != null)
+        {
+            if (IsSafeXrMoveRoot(current))
+            {
+                best = current;
+            }
+
+            if (current == containingRig)
+            {
+                break;
+            }
+
+            current = current.parent;
+        }
+
+        return best;
+    }
+
+    private bool IsSafeXrMoveRoot(Transform candidate)
+    {
+        return candidate != null &&
+            candidate != transform &&
+            !candidate.IsChildOf(transform) &&
+            !transform.IsChildOf(candidate);
+    }
+
+    private static void LevelXrRigRoot(Transform rigRoot)
+    {
+        if (rigRoot == null || (rigRoot.name != "VRRigDeviceBased" && rigRoot.name != "VrRigActionBased"))
         {
             return;
         }
 
-        targetCamera.gameObject.SetActive(enabled);
-        targetCamera.enabled = enabled;
-        targetCamera.tag = enabled ? "MainCamera" : "Untagged";
+        Vector3 eulerAngles = rigRoot.eulerAngles;
+        rigRoot.rotation = Quaternion.Euler(0f, eulerAngles.y, 0f);
+    }
 
-        AudioListener listener = targetCamera.GetComponent<AudioListener>();
-        if (listener != null)
+    private void ApplyXrCameraPoseToAvatar()
+    {
+        if (xrCamera == null)
         {
-            listener.enabled = enabled;
+            return;
+        }
+
+        if (headTransform == null)
+        {
+            BindAvatarParts();
+        }
+
+        if (rotateBodyWithHeadsetYaw)
+        {
+            FollowCameraYawWithBody();
+        }
+
+        if (controlHeadFromVrHeadset && headTransform != null)
+        {
+            if (!headTrackingCalibrated)
+            {
+                CalibrateHeadTracking();
+            }
+
+            Quaternion cameraDelta = xrCamera.transform.rotation * Quaternion.Inverse(referenceCameraWorldRotation);
+            headTransform.rotation = cameraDelta * referenceHeadWorldRotation;
         }
     }
 
-    private Camera EnsureRoleCamera()
+    private void CalibrateHeadTracking()
     {
-        if (roleCamera != null)
+        referenceCameraWorldRotation = xrCamera.transform.rotation;
+        referenceHeadWorldRotation = headTransform.rotation;
+        headTrackingCalibrated = true;
+    }
+
+    private void FollowCameraYawWithBody()
+    {
+        Quaternion cameraYaw = ExtractYawRotation(xrCamera.transform.rotation);
+        float currentYaw = transform.eulerAngles.y;
+        float targetYaw = cameraYaw.eulerAngles.y;
+        float yawDelta = Mathf.DeltaAngle(currentYaw, targetYaw);
+
+        if (Mathf.Abs(yawDelta) <= bodyYawFollowThreshold)
         {
-            return roleCamera;
+            return;
         }
 
-        headTransform = FindHeadTransform();
-        if (headTransform == null)
-        {
-            Debug.LogWarning($"Role avatar camera setup skipped for '{name}': head transform was not found.", this);
-            return null;
-        }
-
-        Transform existingRoleCamera = headTransform.Find("RoleCamera");
-        if (existingRoleCamera != null)
-        {
-            roleCamera = existingRoleCamera.GetComponent<Camera>();
-        }
-
-        if (roleCamera == null)
-        {
-            GameObject cameraObject = new GameObject("RoleCamera");
-            cameraObject.transform.SetParent(headTransform, false);
-            roleCamera = cameraObject.AddComponent<Camera>();
-        }
-
-        Transform cameraTransform = roleCamera.transform;
-        cameraTransform.localPosition = cameraLocalPosition;
-        cameraTransform.localEulerAngles = cameraLocalEulerAngles;
-
-        DisableTrackedPoseDrivers(roleCamera);
-
-        if (roleCamera.GetComponent<AudioListener>() == null)
-        {
-            roleCamera.gameObject.AddComponent<AudioListener>();
-        }
-
-        return roleCamera;
+        float nextYaw = Mathf.MoveTowardsAngle(currentYaw, targetYaw, bodyYawFollowSpeed * Time.deltaTime);
+        float deltaYaw = Mathf.DeltaAngle(currentYaw, nextYaw);
+        transform.rotation = Quaternion.AngleAxis(deltaYaw, Vector3.up) * transform.rotation;
     }
 
     private bool ShouldControlHandsFromVrControllers()
@@ -283,6 +517,8 @@ public class RoleAvatarController : MonoBehaviour
     private void BindAvatarParts()
     {
         headTransform = FindHeadTransform();
+        leftEyeTransform = FindFirstChildStartingWith("LeftEye_");
+        rightEyeTransform = FindFirstChildStartingWith("RightEye_");
         leftHandTransform = FindFirstChildStartingWith("LeftHand_");
         rightHandTransform = FindFirstChildStartingWith("RightHand_");
         loggedMissingHandTargets = false;
@@ -329,21 +565,150 @@ public class RoleAvatarController : MonoBehaviour
         return null;
     }
 
-    private static void DisableTrackedPoseDrivers(Camera targetCamera)
+    private void DisableRoleCamera()
     {
+        if (roleCamera == null)
+        {
+            roleCamera = GetComponentInChildren<Camera>(true);
+        }
+
+        Camera[] cameras = GetComponentsInChildren<Camera>(true);
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            DisableCamera(cameras[i], true);
+        }
+    }
+
+    private static void DisableOtherSceneCameras(Camera keepCamera)
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        GameObject[] roots = scene.GetRootGameObjects();
+        for (int i = 0; i < roots.Length; i++)
+        {
+            Camera[] cameras = roots[i].GetComponentsInChildren<Camera>(true);
+            for (int j = 0; j < cameras.Length; j++)
+            {
+                if (cameras[j] != keepCamera)
+                {
+                    DisableCamera(cameras[j], false);
+                }
+            }
+        }
+    }
+
+    private static void EnableCameraAsMain(Camera camera)
+    {
+        if (camera == null)
+        {
+            return;
+        }
+
+        camera.gameObject.SetActive(true);
+        camera.enabled = true;
+        camera.tag = "MainCamera";
+
+        AudioListener listener = camera.GetComponent<AudioListener>();
+        if (listener != null)
+        {
+            listener.enabled = true;
+        }
+    }
+
+    private static void DisableCamera(Camera camera, bool deactivateObject)
+    {
+        if (camera == null)
+        {
+            return;
+        }
+
+        camera.enabled = false;
+        camera.tag = "Untagged";
+
+        AudioListener listener = camera.GetComponent<AudioListener>();
+        if (listener != null)
+        {
+            listener.enabled = false;
+        }
+
+        if (deactivateObject)
+        {
+            camera.gameObject.SetActive(false);
+        }
+    }
+
+    private static void SetTrackedPoseDriversEnabled(Camera targetCamera, bool enabled)
+    {
+        if (targetCamera == null)
+        {
+            return;
+        }
+
         MonoBehaviour[] behaviours = targetCamera.GetComponents<MonoBehaviour>();
         for (int i = 0; i < behaviours.Length; i++)
         {
             MonoBehaviour behaviour = behaviours[i];
-            if (behaviour == null)
+            if (behaviour != null && behaviour.GetType().Name.Contains("TrackedPoseDriver"))
             {
-                continue;
-            }
-
-            if (behaviour.GetType().Name.Contains("TrackedPoseDriver"))
-            {
-                behaviour.enabled = false;
+                behaviour.enabled = enabled;
             }
         }
+    }
+
+    private static Quaternion ExtractYawRotation(Quaternion rotation)
+    {
+        Vector3 forward = rotation * Vector3.forward;
+        forward.y = 0f;
+
+        if (forward.sqrMagnitude <= 0.0001f)
+        {
+            return Quaternion.identity;
+        }
+
+        return Quaternion.LookRotation(forward.normalized, Vector3.up);
+    }
+
+    private static GameObject FindSceneObject(string objectName)
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (!scene.IsValid())
+        {
+            return null;
+        }
+
+        GameObject[] roots = scene.GetRootGameObjects();
+        for (int i = 0; i < roots.Length; i++)
+        {
+            if (roots[i].name == objectName)
+            {
+                return roots[i];
+            }
+
+            Transform[] children = roots[i].GetComponentsInChildren<Transform>(true);
+            for (int j = 0; j < children.Length; j++)
+            {
+                if (children[j].name == objectName)
+                {
+                    return children[j].gameObject;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private static Transform FindContainingRigRoot(Transform start)
+    {
+        Transform current = start;
+        while (current != null)
+        {
+            if (current.name == "VRRigDeviceBased" || current.name == "VrRigActionBased")
+            {
+                return current;
+            }
+
+            current = current.parent;
+        }
+
+        return start.root;
     }
 }

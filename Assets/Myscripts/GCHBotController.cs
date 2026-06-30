@@ -11,8 +11,8 @@ public class GCHBotController : MonoBehaviour
     [SerializeField] private float fallbackEyeHeight = 1.6f;
     [SerializeField] private bool rotateBodyWithHeadsetYaw = true;
     [SerializeField] private bool useEyeCenterForCameraTarget = true;
-    [SerializeField] private float bodyYawFollowThreshold = 35f;
-    [SerializeField] private float bodyYawFollowSpeed = 120f;
+    [SerializeField] private float bodyYawSyncDeadZone = 0.25f;
+    [SerializeField] private bool lockEyeCenterToCameraPosition = true;
 
     private Transform headTransform;
     private Transform leftEyeTransform;
@@ -23,14 +23,14 @@ public class GCHBotController : MonoBehaviour
     private bool cameraAligned;
     private bool loggedMissingCamera;
     private bool headTrackingCalibrated;
+    private bool bodyYawTrackingCalibrated;
     private Quaternion referenceCameraWorldRotation = Quaternion.identity;
     private Quaternion referenceHeadWorldRotation = Quaternion.identity;
+    private Quaternion lastSyncedCameraYawRotation = Quaternion.identity;
 
     private void Start()
     {
-        headTransform = FindHeadTransform();
-        leftEyeTransform = FindFirstChildStartingWith("LeftEye_");
-        rightEyeTransform = FindFirstChildStartingWith("RightEye_");
+        BindAvatarParts();
         PrepareMainCamera();
         AlignCameraToAvatar();
     }
@@ -140,7 +140,7 @@ public class GCHBotController : MonoBehaviour
 
         if (headTransform == null)
         {
-            headTransform = FindHeadTransform();
+            BindAvatarParts();
         }
 
         if (rotateBodyWithHeadsetYaw)
@@ -158,6 +158,8 @@ public class GCHBotController : MonoBehaviour
             Quaternion cameraDelta = xrCamera.transform.rotation * Quaternion.Inverse(referenceCameraWorldRotation);
             headTransform.rotation = cameraDelta * referenceHeadWorldRotation;
         }
+
+        LockEyeCenterToCameraPosition();
     }
 
     private void AlignCameraToAvatar()
@@ -169,7 +171,7 @@ public class GCHBotController : MonoBehaviour
 
         if (headTransform == null)
         {
-            headTransform = FindHeadTransform();
+            BindAvatarParts();
         }
 
         Transform rigRoot = xrRigRoot != null ? xrRigRoot : FindContainingRigRoot(xrCamera.transform);
@@ -189,6 +191,7 @@ public class GCHBotController : MonoBehaviour
 
         cameraAligned = true;
         headTrackingCalibrated = false;
+        bodyYawTrackingCalibrated = false;
     }
 
     private Vector3 GetTargetEyePosition()
@@ -231,19 +234,62 @@ public class GCHBotController : MonoBehaviour
 
     private void FollowCameraYawWithBody()
     {
-        Quaternion cameraYaw = ExtractYawRotation(xrCamera.transform.rotation);
-        float currentYaw = transform.eulerAngles.y;
-        float targetYaw = cameraYaw.eulerAngles.y;
-        float yawDelta = Mathf.DeltaAngle(currentYaw, targetYaw);
-
-        if (Mathf.Abs(yawDelta) <= bodyYawFollowThreshold)
+        if (!TryExtractYawRotation(xrCamera.transform.rotation, out Quaternion cameraYaw))
         {
             return;
         }
 
-        float nextYaw = Mathf.MoveTowardsAngle(currentYaw, targetYaw, bodyYawFollowSpeed * Time.deltaTime);
-        float deltaYaw = Mathf.DeltaAngle(currentYaw, nextYaw);
-        transform.rotation = Quaternion.AngleAxis(deltaYaw, Vector3.up) * transform.rotation;
+        if (!bodyYawTrackingCalibrated)
+        {
+            lastSyncedCameraYawRotation = cameraYaw;
+            bodyYawTrackingCalibrated = true;
+            return;
+        }
+
+        Vector3 previousForward = lastSyncedCameraYawRotation * Vector3.forward;
+        Vector3 currentForward = cameraYaw * Vector3.forward;
+        float yawDelta = Vector3.SignedAngle(previousForward, currentForward, Vector3.up);
+
+        if (Mathf.Abs(yawDelta) <= bodyYawSyncDeadZone)
+        {
+            return;
+        }
+
+        RotateBodyAroundCameraPosition(yawDelta);
+        lastSyncedCameraYawRotation = cameraYaw;
+    }
+
+    private void RotateBodyAroundCameraPosition(float deltaYaw)
+    {
+        Quaternion deltaRotation = Quaternion.AngleAxis(deltaYaw, Vector3.up);
+        Vector3 pivot = xrCamera != null ? xrCamera.transform.position : GetTargetEyePosition();
+
+        transform.position = pivot + deltaRotation * (transform.position - pivot);
+        transform.rotation = deltaRotation * transform.rotation;
+    }
+
+    private void LockEyeCenterToCameraPosition()
+    {
+        if (!lockEyeCenterToCameraPosition || xrCamera == null)
+        {
+            return;
+        }
+
+        Vector3 eyePosition = GetTargetEyePosition();
+        Vector3 correction = xrCamera.transform.position - eyePosition;
+        if (correction.sqrMagnitude <= 0.0000001f)
+        {
+            return;
+        }
+
+        transform.position += correction;
+    }
+
+    private void BindAvatarParts()
+    {
+        headTransform = FindHeadTransform();
+        leftEyeTransform = FindFirstChildStartingWith("LeftEye_");
+        rightEyeTransform = FindFirstChildStartingWith("RightEye_");
     }
 
     private Transform FindHeadTransform()
@@ -301,17 +347,19 @@ public class GCHBotController : MonoBehaviour
         rigRoot.rotation = Quaternion.Euler(0f, eulerAngles.y, 0f);
     }
 
-    private static Quaternion ExtractYawRotation(Quaternion rotation)
+    private static bool TryExtractYawRotation(Quaternion rotation, out Quaternion yawRotation)
     {
         Vector3 forward = rotation * Vector3.forward;
         forward.y = 0f;
 
         if (forward.sqrMagnitude <= 0.0001f)
         {
-            return Quaternion.identity;
+            yawRotation = Quaternion.identity;
+            return false;
         }
 
-        return Quaternion.LookRotation(forward.normalized, Vector3.up);
+        yawRotation = Quaternion.LookRotation(forward.normalized, Vector3.up);
+        return true;
     }
 
     private static void SetTrackedPoseDriversEnabled(Camera targetCamera, bool enabled)

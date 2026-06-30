@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 #if UNITY_EDITOR
@@ -38,7 +37,10 @@ public class DiskSelectorController : MonoBehaviour
     [SerializeField] private float optionRadius = 154f;
     [SerializeField] private float optionSize = 82f;
     [SerializeField] private float centerSize = 94f;
+    [SerializeField] private Vector3 cameraLocalPosition = new Vector3(0f, -0.02f, 1.12f);
+    [SerializeField] private float worldScale = 0.0018f;
 
+    private Camera cachedCamera;
     private Canvas canvas;
     private RectTransform root;
     private Button[] optionButtons;
@@ -72,7 +74,7 @@ public class DiskSelectorController : MonoBehaviour
         EnsureSevenOptions();
         selectedIndex = Mathf.Clamp(selectedIndex, 0, options.Length - 1);
         circleSprite = CreateCircleSprite(128);
-        EnsureEventSystem();
+        OfficeXrUiSupport.EnsureEventSystem();
         BuildUi();
         SetVisible(false);
         RefreshSelection();
@@ -99,6 +101,7 @@ public class DiskSelectorController : MonoBehaviour
             return;
         }
 
+        EnsureCameraAttachment();
         HandleKeyboardSelection();
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(closeKey) || Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -156,13 +159,18 @@ public class DiskSelectorController : MonoBehaviour
 
     private void BuildUi()
     {
-        GameObject canvasObject = new GameObject("Disk Selector Canvas");
-        canvasObject.transform.SetParent(transform, false);
+        cachedCamera = Camera.main;
+        GameObject canvasObject = new GameObject("Disk Selector Canvas", typeof(RectTransform));
         canvas = canvasObject.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.renderMode = RenderMode.WorldSpace;
         canvas.sortingOrder = 500;
-        canvasObject.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        DashboardOverlayRendering.ConfigureCanvas(canvas, 500);
+        CanvasScaler scaler = canvasObject.AddComponent<CanvasScaler>();
+        scaler.dynamicPixelsPerUnit = 12f;
         canvasObject.AddComponent<GraphicRaycaster>();
+
+        RectTransform canvasRect = canvasObject.GetComponent<RectTransform>();
+        canvasRect.sizeDelta = new Vector2(diskSize + 60f, diskSize + 96f);
 
         GameObject rootObject = CreateRectObject("Disk Selector", canvasObject.transform);
         root = rootObject.GetComponent<RectTransform>();
@@ -205,6 +213,10 @@ public class DiskSelectorController : MonoBehaviour
         currentLabel.fontSize = 18f;
         currentLabel.color = Color.white;
         currentLabel.raycastTarget = false;
+
+        EnsureCameraAttachment();
+        OfficeXrUiSupport.ConfigureCanvasForXr(canvas, true);
+        DashboardOverlayRendering.ApplyToRoot(canvasObject);
     }
 
     private void SelectOption(int index)
@@ -240,6 +252,10 @@ public class DiskSelectorController : MonoBehaviour
     private void SetVisible(bool visible)
     {
         canvas.gameObject.SetActive(visible);
+        if (visible)
+        {
+            EnsureCameraAttachment();
+        }
     }
 
     private Button CreateRoundButton(string objectName, Transform parent, float size, string text)
@@ -283,16 +299,28 @@ public class DiskSelectorController : MonoBehaviour
         return gameObject;
     }
 
-    private static void EnsureEventSystem()
+    private void EnsureCameraAttachment()
     {
-        if (FindObjectOfType<EventSystem>() != null)
+        if (cachedCamera == null)
+        {
+            cachedCamera = Camera.main;
+        }
+
+        if (canvas == null || cachedCamera == null)
         {
             return;
         }
 
-        GameObject eventSystem = new GameObject("EventSystem");
-        eventSystem.AddComponent<EventSystem>();
-        eventSystem.AddComponent<StandaloneInputModule>();
+        Transform canvasTransform = canvas.transform;
+        if (canvasTransform.parent != cachedCamera.transform)
+        {
+            canvasTransform.SetParent(cachedCamera.transform, false);
+        }
+
+        canvasTransform.localPosition = cameraLocalPosition;
+        canvasTransform.localRotation = Quaternion.identity;
+        canvasTransform.localScale = Vector3.one * worldScale;
+        canvas.worldCamera = cachedCamera;
     }
 
     private static Sprite CreateCircleSprite(int size)

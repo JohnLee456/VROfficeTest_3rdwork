@@ -91,7 +91,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
         }
 
         EnsureControllers();
-        EnsureEventSystem();
+        OfficeXrUiSupport.EnsureEventSystem();
         BuildWindow();
         StartTrialForActiveBlock(1);
         ShowEpisodeStart(1, 1);
@@ -492,6 +492,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
 
         windowRoot.AddComponent<CanvasScaler>().dynamicPixelsPerUnit = 12f;
         windowRoot.AddComponent<GraphicRaycaster>();
+        OfficeXrUiSupport.ConfigureCanvasForXr(canvas, true);
 
         RectTransform rootRect = windowRoot.GetComponent<RectTransform>();
         rootRect.sizeDelta = panelSize;
@@ -585,18 +586,6 @@ public class Block1LeaderControlWindow : MonoBehaviour
             LoginSession.Role == LoginUserRole.Leader &&
             LoginSession.AvatarName == ControlledAvatarName &&
             SceneManager.GetActiveScene().name == ControlledSceneName;
-    }
-
-    private static void EnsureEventSystem()
-    {
-        if (FindObjectOfType<EventSystem>() != null)
-        {
-            return;
-        }
-
-        GameObject eventSystemObject = new GameObject("EventSystem");
-        eventSystemObject.AddComponent<EventSystem>();
-        eventSystemObject.AddComponent<StandaloneInputModule>();
     }
 
     private static void ConfigureButton(Button button, TextMeshProUGUI label, string text, UnityEngine.Events.UnityAction callback, bool visible)

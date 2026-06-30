@@ -17,6 +17,7 @@ public class BasePanel : MonoBehaviour
         //皮肤
         GameObject skinPrefab = ResManager.LoadPrefab(skinPath);
         skin = (GameObject)Instantiate(skinPrefab);
+        OfficeXrUiSupport.ConfigureCanvasesIn(skin, false);
     }
     //关闭
     public void Close(params object[] para)

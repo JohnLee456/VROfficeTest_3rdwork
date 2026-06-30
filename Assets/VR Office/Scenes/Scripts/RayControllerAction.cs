@@ -1,5 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace ChiliGames.VROffice
@@ -16,6 +18,8 @@ namespace ChiliGames.VROffice
         public GameObject leftTeleportReticle;
         public GameObject rightTeleportReticle;
 
+        private static readonly List<InputDevice> InputDevicesBuffer = new List<InputDevice>();
+
         void Start()
         {
             InitializeTeleportRay(leftTeleportRay);
@@ -31,43 +35,82 @@ namespace ChiliGames.VROffice
 
         void Update()
         {
-            ManageTeleportRay(leftTeleportRay, ref leftButtonPressedLastFrame, leftTeleportReticle, leftTeleportEnabled);
-            ManageTeleportRay(rightTeleportRay, ref rightButtonPressedLastFrame, rightTeleportReticle, rightTeleportEnabled);
+            ManageTeleportRay(leftTeleportRay, XRNode.LeftHand, ref leftButtonPressedLastFrame, leftTeleportReticle, leftTeleportEnabled);
+            ManageTeleportRay(rightTeleportRay, XRNode.RightHand, ref rightButtonPressedLastFrame, rightTeleportReticle, rightTeleportEnabled);
         }
 
-        void ManageTeleportRay(ActionBasedController teleportRay, ref bool buttonPressedLastFrame, GameObject teleportReticle, bool teleportEnabled)
+        void ManageTeleportRay(ActionBasedController teleportRay, XRNode controllerNode, ref bool buttonPressedLastFrame, GameObject teleportReticle, bool teleportEnabled)
         {
             if (!teleportRay) { return; }
 
-            // get the state of the teleport button
-            bool isPressed = false;
-
-            float input = teleportRay.activateAction.action.ReadValue<float>();
-            if (input > activationThreshold)
-            {
-                isPressed = true;
-            }
-            else
-            {
-                isPressed = false;
-            }
-
+            bool isPressed = IsPrimaryThumbstickClicked(controllerNode);
             bool buttonJustPressed = isPressed && !buttonPressedLastFrame;
-            bool buttonJustReleased = !isPressed && buttonPressedLastFrame;
 
-            if (buttonJustPressed && teleportEnabled)
+            if (!teleportEnabled)
             {
-                teleportRay.gameObject.SetActive(true);
-                // this stops the reticle from appearing by the player's feet for 1 frame every time the teleport ray was activated
-                teleportReticle.SetActive(false);
+                if (teleportRay.gameObject.activeSelf)
+                {
+                    SetActiveNextFrame(teleportRay.gameObject, false);
+                }
+
+                buttonPressedLastFrame = isPressed;
+                return;
             }
-            else if (buttonJustReleased)
+
+            if (buttonJustPressed)
             {
-                // if we disable this object this frame, then the teleport won't work, so do it next frame
-                SetActiveNextFrame(teleportRay.gameObject, false);
+                bool shouldActivate = !teleportRay.gameObject.activeSelf;
+                if (shouldActivate)
+                {
+                    teleportRay.gameObject.SetActive(true);
+                    if (teleportReticle != null)
+                    {
+                        // This stops the reticle from appearing by the player's feet for 1 frame every time the teleport ray is activated.
+                        teleportReticle.SetActive(false);
+                    }
+                }
+                else
+                {
+                    // If we disable this object this frame, then the teleport will not work, so do it next frame.
+                    SetActiveNextFrame(teleportRay.gameObject, false);
+                }
             }
 
             buttonPressedLastFrame = isPressed;
+        }
+
+        private static bool IsPrimaryThumbstickClicked(XRNode node)
+        {
+            InputDevice nodeDevice = InputDevices.GetDeviceAtXRNode(node);
+            if (nodeDevice.isValid &&
+                nodeDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out bool nodeClicked) &&
+                nodeClicked)
+            {
+                return true;
+            }
+
+            InputDeviceCharacteristics handedness = node == XRNode.LeftHand
+                ? InputDeviceCharacteristics.Left
+                : InputDeviceCharacteristics.Right;
+            InputDeviceCharacteristics characteristics =
+                InputDeviceCharacteristics.HeldInHand |
+                InputDeviceCharacteristics.Controller |
+                handedness;
+
+            InputDevicesBuffer.Clear();
+            InputDevices.GetDevicesWithCharacteristics(characteristics, InputDevicesBuffer);
+            for (int i = 0; i < InputDevicesBuffer.Count; i++)
+            {
+                InputDevice device = InputDevicesBuffer[i];
+                if (device.isValid &&
+                    device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out bool isClicked) &&
+                    isClicked)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void SetActiveNextFrame(GameObject gameObject, bool active)

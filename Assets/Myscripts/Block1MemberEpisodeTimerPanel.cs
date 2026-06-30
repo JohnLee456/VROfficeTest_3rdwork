@@ -7,13 +7,20 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [DefaultExecutionOrder(-70)]
+/// <summary>
+/// 给 Block1 的成员角色显示当前 episode 计时面板。
+/// 面板只在 OfficeLoggedInNoBot 场景、Member 身份、指定成员头像下自动创建。
+/// </summary>
 public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEventCallback
 {
     private const string ControlledSceneName = OfficeSceneSupport.OfficeLoggedInNoBot;
 
+    // 面板挂在主摄像机前方，用 world-space Canvas 保持 VR 中的固定视野位置。
     [SerializeField] private Vector3 cameraLocalPosition = new Vector3(0f, -0.18f, 0.95f);
     [SerializeField] private Vector2 panelSize = new Vector2(420f, 170f);
     [SerializeField] private float worldScale = 0.0018f;
+
+    // 键盘 V 与右手柄 A 做同一件事：显示/隐藏成员计时面板。
     [SerializeField] private KeyCode toggleKey = KeyCode.V;
 #if UNITY_EDITOR
     [SerializeField] private KeyCode editorDebugStartKey = KeyCode.B;
@@ -25,6 +32,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
     private TextMeshProUGUI statusText;
     private TextMeshProUGUI timerText;
 
+    // 当前 episode 信息来自 Photon 事件或房间属性，用于断线/晚加入后恢复状态。
     private int currentBlockNumber = 1;
     private int currentTrialNumber;
     private int currentEpisodeNumber;
@@ -42,6 +50,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
         TryCreateForCurrentScene();
     }
 
+    // 创建一个跨场景 bootstrap，负责在场景切换后再次尝试生成面板。
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void CreateBootstrap()
     {
@@ -58,6 +67,8 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
     public static void TryCreateForCurrentScene()
     {
         Scene activeScene = SceneManager.GetActiveScene();
+
+        // 不符合角色/场景条件，或已经存在实例时，不重复创建。
         if (!ShouldCreateForScene(activeScene) || FindObjectOfType<Block1MemberEpisodeTimerPanel>() != null)
         {
             return;
@@ -108,6 +119,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
         EnsureCameraAttachment();
 
+        // V 键和右手 A 键共用显示/隐藏功能。
         if (Input.GetKeyDown(toggleKey) || OfficeVrControllerInput.GetADown())
         {
             panelVisible = !panelVisible;
@@ -129,6 +141,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
     public void OnEvent(EventData photonEvent)
     {
+        // Leader 开始 episode 后会广播事件，成员端收到后开始同步计时。
         if (photonEvent.Code != Block1EpisodeSync.EpisodeStartedEventCode)
         {
             return;
@@ -146,6 +159,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
+        // 房间属性用于保存当前 episode 状态，保证晚加入或重新创建面板时也能恢复。
         if (propertiesThatChanged.ContainsKey(Block1EpisodeSync.BlockKey) ||
             propertiesThatChanged.ContainsKey(Block1EpisodeSync.TrialKey) ||
             propertiesThatChanged.ContainsKey(Block1EpisodeSync.EpisodeKey) ||
@@ -173,6 +187,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
     private void TryApplyRoomState()
     {
+        // 优先读取房间状态，避免只依赖实时事件导致错过已经开始的 episode。
         int trialNumber;
         int episodeNumber;
         int blockNumber;
@@ -185,6 +200,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
     private void ApplyEpisodeStart(int blockNumber, int trialNumber, int episodeNumber, double startTime)
     {
+        // 记录服务端/房间同步过来的开始时间，后续用 PhotonNetwork.Time 计算经过时间。
         currentBlockNumber = blockNumber;
         currentTrialNumber = trialNumber;
         currentEpisodeNumber = episodeNumber;
@@ -203,6 +219,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 #if UNITY_EDITOR
     private void SimulateEpisodeStartInEditor()
     {
+        // 编辑器调试入口：不用 leader 广播，也能本地验证计时 UI。
         double startTime = PhotonNetwork.InRoom ? PhotonNetwork.Time : Time.time;
         ApplyEpisodeStart(1, editorDebugTrialNumber, editorDebugEpisodeNumber, startTime);
         Debug.Log("Editor debug episode start simulated: Trial " + editorDebugTrialNumber + ", Episode " + editorDebugEpisodeNumber + ".");
@@ -223,6 +240,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
     private void RefreshText()
     {
+        // 每帧刷新文本，确保计时器持续跳动。
         if (titleText == null || statusText == null || timerText == null)
         {
             return;
@@ -246,6 +264,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
     private void BuildPanel()
     {
+        // 代码动态创建 UI，避免每个场景都手动摆放一套计时面板。
         if (panelRoot != null)
         {
             return;
@@ -287,6 +306,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
     private void EnsureCameraAttachment()
     {
+        // 场景切换或 Camera.main 变化后，重新把面板挂回主摄像机。
         if (cachedCamera == null)
         {
             cachedCamera = Camera.main;
@@ -331,6 +351,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
     private static bool CanShowForCurrentUser()
     {
+        // 只给实验中的成员角色显示；leader 和 bot 不显示这个成员计时器。
         return LoginSession.HasRoute &&
             LoginSession.Role == LoginUserRole.Member &&
             IsMemberAvatar(LoginSession.AvatarName) &&
@@ -344,6 +365,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
 
     private static TextMeshProUGUI CreateText(string objectName, Transform parent, string text, Vector2 anchoredPosition, Vector2 size, float fontSize, FontStyles fontStyle, TextAlignmentOptions alignment)
     {
+        // 统一创建 TMP 文本，保证所有文字都使用同一套清晰描边样式。
         GameObject textObject = CreateRect(objectName, parent);
         RectTransform rect = textObject.GetComponent<RectTransform>();
         rect.anchorMin = new Vector2(0.5f, 0.5f);
@@ -418,6 +440,7 @@ public class Block1MemberEpisodeTimerPanelBootstrap : MonoBehaviour
 
     private void Update()
     {
+        // 定期补偿检查，处理登录信息稍晚准备好或场景对象生成顺序不稳定的情况。
         if (Time.unscaledTime < nextCheckTime)
         {
             return;

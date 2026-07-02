@@ -29,10 +29,11 @@ public static class SceneRoleApplicator
             return;
         }
 
+        EnsureKnownRoleIdentities(scene);
         GameObject localRig = PrepareLocalXrRig(scene);
         DisableKnownRoleCameras(scene);
 
-        GameObject avatar = FindInScene(scene, LoginSession.AvatarName);
+        GameObject avatar = FindAvatarById(scene, LoginSession.AvatarName);
         if (avatar == null)
         {
             Debug.LogWarning($"Login role '{LoginSession.Role}' could not find avatar '{LoginSession.AvatarName}' in scene '{scene.name}'.");
@@ -102,10 +103,10 @@ public static class SceneRoleApplicator
 
     private static void DisableKnownRoleCameras(Scene scene)
     {
-        string[] avatarNames = { "GCHbot", "ZJR", "ZHZ", "DCY" };
+        string[] avatarNames = RoleAvatarIdentity.KnownAvatarIds;
         for (int i = 0; i < avatarNames.Length; i++)
         {
-            GameObject avatar = FindInScene(scene, avatarNames[i]);
+            GameObject avatar = FindAvatarById(scene, avatarNames[i]);
             if (avatar == null)
             {
                 continue;
@@ -120,6 +121,27 @@ public static class SceneRoleApplicator
             controller.PrepareRoleCamera();
             controller.SetLocalControlEnabled(false);
             controller.enabled = false;
+        }
+    }
+
+    private static void EnsureKnownRoleIdentities(Scene scene)
+    {
+        string[] avatarIds = RoleAvatarIdentity.KnownAvatarIds;
+        for (int i = 0; i < avatarIds.Length; i++)
+        {
+            GameObject avatar = FindInScene(scene, avatarIds[i]);
+            if (avatar == null)
+            {
+                continue;
+            }
+
+            RoleAvatarIdentity identity = avatar.GetComponent<RoleAvatarIdentity>();
+            if (identity == null)
+            {
+                identity = avatar.AddComponent<RoleAvatarIdentity>();
+            }
+
+            identity.InitializeIfEmpty(avatarIds[i]);
         }
     }
 
@@ -164,6 +186,11 @@ public static class SceneRoleApplicator
         if (photonView == null || !PhotonNetwork.InRoom)
         {
             return;
+        }
+
+        if (photonView.OwnershipTransfer == OwnershipOption.Fixed)
+        {
+            photonView.OwnershipTransfer = OwnershipOption.Takeover;
         }
 
         if (!photonView.IsMine)
@@ -291,5 +318,28 @@ public static class SceneRoleApplicator
         }
 
         return null;
+    }
+
+    private static GameObject FindAvatarById(Scene scene, string avatarId)
+    {
+        if (string.IsNullOrWhiteSpace(avatarId))
+        {
+            return null;
+        }
+
+        GameObject[] roots = scene.GetRootGameObjects();
+        for (int i = 0; i < roots.Length; i++)
+        {
+            RoleAvatarIdentity[] identities = roots[i].GetComponentsInChildren<RoleAvatarIdentity>(true);
+            for (int j = 0; j < identities.Length; j++)
+            {
+                if (identities[j].Matches(avatarId))
+                {
+                    return identities[j].gameObject;
+                }
+            }
+        }
+
+        return FindInScene(scene, avatarId);
     }
 }

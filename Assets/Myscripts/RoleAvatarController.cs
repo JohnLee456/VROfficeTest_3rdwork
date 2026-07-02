@@ -18,8 +18,8 @@ public class RoleAvatarController : MonoBehaviour
     [SerializeField] private int initialXrAlignmentFrames = 45;
     [SerializeField] private bool followXrMovementWithBody = true;
     [SerializeField] private bool followXrVerticalMovement = false;
-    [SerializeField] private float bodyYawFollowThreshold = 35f;
-    [SerializeField] private float bodyYawFollowSpeed = 120f;
+    [SerializeField] private float bodyYawSyncDeadZone = 0.25f;
+    [SerializeField] private bool lockEyeCenterToCameraPosition = true;
     [SerializeField] private bool controlHandsFromVrControllersInNoBot = true;
     [SerializeField] private float handPoseScale = 1f;
     [SerializeField] private Vector3 leftHandPositionOffset = Vector3.zero;
@@ -28,6 +28,7 @@ public class RoleAvatarController : MonoBehaviour
     [SerializeField] private Vector3 rightHandRotationOffsetEuler = Vector3.zero;
 
     private PhotonView photonView;
+    private RoleAvatarIdentity avatarIdentity;
     private Camera roleCamera;
     private Camera xrCamera;
     private XROrigin xrOrigin;
@@ -46,14 +47,25 @@ public class RoleAvatarController : MonoBehaviour
     private readonly List<XRNodeState> nodeStates = new List<XRNodeState>();
     private bool loggedMissingHandTargets;
     private bool headTrackingCalibrated;
+    private bool bodyYawTrackingCalibrated;
     private Quaternion referenceCameraWorldRotation = Quaternion.identity;
     private Quaternion referenceHeadWorldRotation = Quaternion.identity;
+    private Quaternion lastSyncedCameraYawRotation = Quaternion.identity;
 
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
+        avatarIdentity = GetComponent<RoleAvatarIdentity>();
+        if (avatarIdentity == null)
+        {
+            avatarIdentity = gameObject.AddComponent<RoleAvatarIdentity>();
+        }
+
+        avatarIdentity.InitializeIfEmpty(gameObject.name);
         roleCamera = GetComponentInChildren<Camera>(true);
     }
+
+    public string AvatarId => avatarIdentity != null ? avatarIdentity.AvatarId : RoleAvatarIdentity.NormalizeAvatarId(gameObject.name);
 
     private void Start()
     {
@@ -78,6 +90,7 @@ public class RoleAvatarController : MonoBehaviour
         xrAlignmentFramesRemaining = enabled ? Mathf.Max(1, initialXrAlignmentFrames) : 0;
         bodyFollowAnchorCalibrated = false;
         headTrackingCalibrated = false;
+        bodyYawTrackingCalibrated = false;
         DisableRoleCamera();
 
         if (enabled && CanUseLocalControl())
@@ -163,6 +176,11 @@ public class RoleAvatarController : MonoBehaviour
     private bool CanUseLocalControl()
     {
         if (!localControlEnabled)
+        {
+            return false;
+        }
+
+        if (!LoginSession.HasRoute || !RoleAvatarIdentity.MatchesAvatarId(AvatarId, LoginSession.AvatarName))
         {
             return false;
         }
@@ -287,6 +305,7 @@ public class RoleAvatarController : MonoBehaviour
         xrRigAligned = true;
         ResetBodyFollowAnchor();
         headTrackingCalibrated = false;
+        bodyYawTrackingCalibrated = false;
         return true;
     }
 
@@ -474,6 +493,8 @@ public class RoleAvatarController : MonoBehaviour
             Quaternion cameraDelta = xrCamera.transform.rotation * Quaternion.Inverse(referenceCameraWorldRotation);
             headTransform.rotation = cameraDelta * referenceHeadWorldRotation;
         }
+
+        LockEyeCenterToCameraPosition();
     }
 
     private void CalibrateHeadTracking()
@@ -485,19 +506,55 @@ public class RoleAvatarController : MonoBehaviour
 
     private void FollowCameraYawWithBody()
     {
-        Quaternion cameraYaw = ExtractYawRotation(xrCamera.transform.rotation);
-        float currentYaw = transform.eulerAngles.y;
-        float targetYaw = cameraYaw.eulerAngles.y;
-        float yawDelta = Mathf.DeltaAngle(currentYaw, targetYaw);
-
-        if (Mathf.Abs(yawDelta) <= bodyYawFollowThreshold)
+        if (!TryExtractYawRotation(xrCamera.transform.rotation, out Quaternion cameraYaw))
         {
             return;
         }
 
-        float nextYaw = Mathf.MoveTowardsAngle(currentYaw, targetYaw, bodyYawFollowSpeed * Time.deltaTime);
-        float deltaYaw = Mathf.DeltaAngle(currentYaw, nextYaw);
-        transform.rotation = Quaternion.AngleAxis(deltaYaw, Vector3.up) * transform.rotation;
+        if (!bodyYawTrackingCalibrated)
+        {
+            lastSyncedCameraYawRotation = cameraYaw;
+            bodyYawTrackingCalibrated = true;
+            return;
+        }
+
+        Vector3 previousForward = lastSyncedCameraYawRotation * Vector3.forward;
+        Vector3 currentForward = cameraYaw * Vector3.forward;
+        float yawDelta = Vector3.SignedAngle(previousForward, currentForward, Vector3.up);
+
+        if (Mathf.Abs(yawDelta) <= bodyYawSyncDeadZone)
+        {
+            return;
+        }
+
+        RotateBodyAroundCameraPosition(yawDelta);
+        lastSyncedCameraYawRotation = cameraYaw;
+    }
+
+    private void RotateBodyAroundCameraPosition(float deltaYaw)
+    {
+        Quaternion deltaRotation = Quaternion.AngleAxis(deltaYaw, Vector3.up);
+        Vector3 pivot = xrCamera != null ? xrCamera.transform.position : GetTargetEyePosition();
+
+        transform.position = pivot + deltaRotation * (transform.position - pivot);
+        transform.rotation = deltaRotation * transform.rotation;
+    }
+
+    private void LockEyeCenterToCameraPosition()
+    {
+        if (!lockEyeCenterToCameraPosition || xrCamera == null)
+        {
+            return;
+        }
+
+        Vector3 eyePosition = GetTargetEyePosition();
+        Vector3 correction = xrCamera.transform.position - eyePosition;
+        if (correction.sqrMagnitude <= 0.0000001f)
+        {
+            return;
+        }
+
+        transform.position += correction;
     }
 
     private bool ShouldControlHandsFromVrControllers()
@@ -507,7 +564,7 @@ public class RoleAvatarController : MonoBehaviour
             return false;
         }
 
-        if (!LoginSession.HasRoute || LoginSession.AvatarName != gameObject.name)
+        if (!LoginSession.HasRoute || !RoleAvatarIdentity.MatchesAvatarId(AvatarId, LoginSession.AvatarName))
         {
             return false;
         }
@@ -569,9 +626,24 @@ public class RoleAvatarController : MonoBehaviour
 
         Vector3 headRelativePosition = Quaternion.Inverse(headPose.rotation) * (handPose.position - headPose.position);
         Quaternion headRelativeRotation = Quaternion.Inverse(headPose.rotation) * handPose.rotation;
+        Transform handAnchor = GetHandWorldAnchor();
+        if (handAnchor == null)
+        {
+            return;
+        }
 
-        targetHand.position = headTransform.position + headTransform.rotation * (headRelativePosition * handPoseScale + positionOffset);
-        targetHand.rotation = headTransform.rotation * headRelativeRotation * Quaternion.Euler(rotationOffsetEuler);
+        targetHand.position = handAnchor.position + handAnchor.rotation * (headRelativePosition * handPoseScale + positionOffset);
+        targetHand.rotation = handAnchor.rotation * headRelativeRotation * Quaternion.Euler(rotationOffsetEuler);
+    }
+
+    private Transform GetHandWorldAnchor()
+    {
+        if (xrCamera != null)
+        {
+            return xrCamera.transform;
+        }
+
+        return headTransform;
     }
 
     private bool TryGetNodePose(XRNode node, out Pose pose)
@@ -737,17 +809,19 @@ public class RoleAvatarController : MonoBehaviour
         }
     }
 
-    private static Quaternion ExtractYawRotation(Quaternion rotation)
+    private static bool TryExtractYawRotation(Quaternion rotation, out Quaternion yawRotation)
     {
         Vector3 forward = rotation * Vector3.forward;
         forward.y = 0f;
 
         if (forward.sqrMagnitude <= 0.0001f)
         {
-            return Quaternion.identity;
+            yawRotation = Quaternion.identity;
+            return false;
         }
 
-        return Quaternion.LookRotation(forward.normalized, Vector3.up);
+        yawRotation = Quaternion.LookRotation(forward.normalized, Vector3.up);
+        return true;
     }
 
     private static GameObject FindSceneObject(string objectName)

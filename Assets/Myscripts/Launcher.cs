@@ -27,6 +27,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     /// Typically this is used for the OnConnectedToMaster() callback.
     /// </summary>
     bool isConnecting;
+    private bool shouldLoadSceneAfterJoin;
 
     #endregion
 
@@ -62,6 +63,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         progressLabel.SetActive(true);
         controlPanel.SetActive(false);
+        shouldLoadSceneAfterJoin = true;
 
         if (PhotonNetwork.IsConnected)
         {
@@ -76,6 +78,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             //keep track of the will to join a room, because when we come back from the game we will get a callback that we are connected,
             //so we need to know what to do then
             isConnecting = PhotonNetwork.ConnectUsingSettings();
+            shouldLoadSceneAfterJoin = isConnecting;
             PhotonNetwork.GameVersion = gameVersion;
         }
     }
@@ -108,6 +111,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
+        isConnecting = false;
+        shouldLoadSceneAfterJoin = false;
         progressLabel.SetActive(false);
         controlPanel.SetActive(true);
 
@@ -125,6 +130,13 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
 
         base.OnJoinedRoom();
+        if (!shouldLoadSceneAfterJoin)
+        {
+            Debug.Log("Launcher ignored OnJoinedRoom because this join is handled by PhotonLoginFlow.");
+            return;
+        }
+
+        shouldLoadSceneAfterJoin = false;
         Debug.Log("Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
         ////for test
         //Debug.Log("After creatRoom " + PhotonNetwork.CurrentRoom.Name);
@@ -134,6 +146,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         //    Debug.Log("Key: "+ entry.Key + "    Value: " + entry.Value.NickName);
         //}
 
+        PhotonRoomChatManager.Instance.ConnectToCurrentRoomChannel();
         LoginSceneTarget.Load();
 
         //if (PhotonNetwork.CurrentRoom.PlayerCount == 1)

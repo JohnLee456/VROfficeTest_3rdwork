@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using VRUiKits.Utils;
 
 
@@ -18,6 +17,7 @@ public class LoginPanel : BasePanel
     private Button regBtn;
     private Button hideBtn;
     private UIKitInputField activeInput;
+    private bool loginInProgress;
 
     //初始化
     public override void OnInit()
@@ -48,8 +48,11 @@ public class LoginPanel : BasePanel
         accountInput.gameObject.SetActive(false);
         SetButtonText(loginBtn, "ENTER");
         regBtn.gameObject.SetActive(false);
+        loginInProgress = false;
 
         //监听
+        loginBtn.onClick.RemoveListener(OnLoginClick);
+        hideBtn.onClick.RemoveListener(OnHideClick);
         loginBtn.onClick.AddListener(OnLoginClick);
         hideBtn.onClick.AddListener(OnHideClick);
 
@@ -58,6 +61,15 @@ public class LoginPanel : BasePanel
 
     public override void OnClose()
     {
+        if (loginBtn != null)
+        {
+            loginBtn.onClick.RemoveListener(OnLoginClick);
+        }
+
+        if (hideBtn != null)
+        {
+            hideBtn.onClick.RemoveListener(OnHideClick);
+        }
     }
 
     private void Update()
@@ -116,6 +128,12 @@ public class LoginPanel : BasePanel
 
     private void SubmitLogin(string source)
     {
+        if (loginInProgress)
+        {
+            Debug.Log("Login submit ignored because Photon login is already in progress.");
+            return;
+        }
+
         string account = idInput.text.Trim();
         Debug.Log($"Login submit from {source}. Account='{account}'");
 
@@ -131,27 +149,35 @@ public class LoginPanel : BasePanel
             keyboard.SetActive(false);
         }
 
-        LoginSession.Apply(route);
         Debug.Log($"Login resolved account '{account}' to scene '{route.SceneName}', avatar '{route.AvatarName}'.");
 
         LobbyMain.playerId = route.AvatarName;
         PlayerPrefs.SetString("LobbyAccount", account);
         PlayerPrefs.Save();
 
-        LoadTargetScene();
+        loginInProgress = true;
+        SetButtonText(loginBtn, "JOINING");
+        PhotonLoginFlow.Instance.Login(route, ResolveRoomId(), OnPhotonLoginFailed);
     }
 
     //当按下注册按钮
     public void OnRegClick()
     {
-        keyboard.SetActive(false);
+        if (keyboard != null)
+        {
+            keyboard.SetActive(false);
+        }
+
         PanelManager.Open<RegisterPanel>();
         this.Close();
     }
 
     public void OnHideClick()
     {
-        keyboard.SetActive(false);
+        if (keyboard != null)
+        {
+            keyboard.SetActive(false);
+        }
     }
 
     private void SelectInput(UIKitInputField input)
@@ -186,20 +212,22 @@ public class LoginPanel : BasePanel
         return false;
     }
 
-    private void LoadTargetScene()
+    private string ResolveRoomId()
     {
-        string sceneName = LoginSceneTarget.SceneName;
-        bool canLoadByName = Application.CanStreamedLevelBeLoaded(sceneName);
-
-        if (canLoadByName)
+        string savedRoomId = PlayerPrefs.GetString("PhotonRoomId", string.Empty);
+        if (!string.IsNullOrWhiteSpace(savedRoomId))
         {
-            LoginSceneTarget.Load();
-            return;
+            return savedRoomId.Trim();
         }
 
-        string error = $"Cannot load scene '{sceneName}'. Please make sure it is enabled in Build Settings.";
-        Debug.LogError(error);
-        PanelManager.Open<TipPanel>(error);
+        return PhotonLoginFlow.DefaultRoomName;
+    }
+
+    private void OnPhotonLoginFailed(string message)
+    {
+        loginInProgress = false;
+        SetButtonText(loginBtn, "ENTER");
+        PanelManager.Open<TipPanel>(message);
     }
 
     private void UpdateActiveInputFromEventSystem()
@@ -219,6 +247,11 @@ public class LoginPanel : BasePanel
 
     private void SetButtonText(Button button, string text)
     {
+        if (button == null)
+        {
+            return;
+        }
+
         Text label = button.GetComponentInChildren<Text>();
         if (label != null)
         {

@@ -116,6 +116,9 @@
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\ToggleUIKitHelper.cs" />
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\ChangeColor.cs" />
     <Compile Include="Assets\Myscripts\Launcher.cs" />
+    <Compile Include="Assets\Myscripts\PhotonLoginFlow.cs" />
+    <Compile Include="Assets\Myscripts\PhotonRoomChatManager.cs" />
+    <Compile Include="Assets\Myscripts\RoleAvatarIdentity.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\MenuTab\TabItem.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\FadeCanvasOnOverlap.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\SoundsForJoinAndLeave.cs" />

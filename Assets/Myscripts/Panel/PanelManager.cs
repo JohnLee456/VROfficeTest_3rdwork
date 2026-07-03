@@ -41,6 +41,11 @@ public static class PanelManager
     //打开面板
     public static void Open<T>(params object[] para) where T : BasePanel
     {
+        if (typeof(T) == typeof(TipPanel))
+        {
+            return;
+        }
+
         //已经打开
         string name = typeof(T).ToString();
         if (panels.ContainsKey(name))

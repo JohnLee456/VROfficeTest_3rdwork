@@ -85,6 +85,7 @@
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnSceneLoad.cs" />
     <Compile Include="Assets\Myscripts\Panel\SettingPanel.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ChangeMaterial.cs" />
+    <Compile Include="Assets\Myscripts\PhotonRoomChatManager.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\MatchRotation.cs" />
     <Compile Include="Assets\Myscripts\Panel\ItemsPanel.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\LoadScene.cs" />
@@ -116,9 +117,6 @@
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\ToggleUIKitHelper.cs" />
     <Compile Include="Assets\UIKits\Demo\ExampleScripts\ChangeColor.cs" />
     <Compile Include="Assets\Myscripts\Launcher.cs" />
-    <Compile Include="Assets\Myscripts\PhotonLoginFlow.cs" />
-    <Compile Include="Assets\Myscripts\PhotonRoomChatManager.cs" />
-    <Compile Include="Assets\Myscripts\RoleAvatarIdentity.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\MenuTab\TabItem.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\FadeCanvasOnOverlap.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\SoundsForJoinAndLeave.cs" />
@@ -261,6 +259,7 @@
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs" />
     <Compile Include="Assets\Myscripts\LoginRoute.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\SetMicrophone.cs" />
+    <Compile Include="Assets\Myscripts\RoleAvatarIdentity.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\OnTouchTrigger.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Pagination\Pagination.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Options\OptionsManager.cs" />
@@ -311,6 +310,7 @@
     <Compile Include="Assets\Myscripts\LoginAccountResolver.cs" />
     <Compile Include="Assets\VR Office\Scenes\Scripts\XRGrabbablePun.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\ProgressBar\ProgressBarManager.cs" />
+    <Compile Include="Assets\Myscripts\PhotonLoginFlow.cs" />
     <Compile Include="Assets\Photon\PhotonVoice\Demos\DemoVoicePun\Scripts\BetterToggle.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Keyboard\Keys\Shift.cs" />
     <Compile Include="Assets\UIKits\Scripts\UI\Keyboard\MobileKeyboardManager.cs" />

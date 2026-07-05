@@ -26,6 +26,8 @@ public class RoleAvatarController : MonoBehaviour
     [SerializeField] private Vector3 rightHandPositionOffset = Vector3.zero;
     [SerializeField] private Vector3 leftHandRotationOffsetEuler = Vector3.zero;
     [SerializeField] private Vector3 rightHandRotationOffsetEuler = Vector3.zero;
+    [SerializeField] private bool alignBodyYawToXrCameraOnEnable;
+    [SerializeField] private float cameraAlignedBodyYawOffset;
 
     private PhotonView photonView;
     private RoleAvatarIdentity avatarIdentity;
@@ -48,6 +50,7 @@ public class RoleAvatarController : MonoBehaviour
     private bool loggedMissingHandTargets;
     private bool headTrackingCalibrated;
     private bool bodyYawTrackingCalibrated;
+    private int bodyYawAlignmentFramesRemaining;
     private Quaternion referenceCameraWorldRotation = Quaternion.identity;
     private Quaternion referenceHeadWorldRotation = Quaternion.identity;
     private Quaternion lastSyncedCameraYawRotation = Quaternion.identity;
@@ -91,12 +94,24 @@ public class RoleAvatarController : MonoBehaviour
         bodyFollowAnchorCalibrated = false;
         headTrackingCalibrated = false;
         bodyYawTrackingCalibrated = false;
+        bodyYawAlignmentFramesRemaining = enabled && alignBodyYawToXrCameraOnEnable
+            ? Mathf.Max(1, initialXrAlignmentFrames)
+            : 0;
         DisableRoleCamera();
 
         if (enabled && CanUseLocalControl())
         {
             PrepareXrView();
         }
+    }
+
+    public void ConfigureInitialBodyYawAlignment(bool alignToXrCamera, float yawOffset = 0f)
+    {
+        alignBodyYawToXrCameraOnEnable = alignToXrCamera;
+        cameraAlignedBodyYawOffset = yawOffset;
+        bodyYawAlignmentFramesRemaining = alignToXrCamera ? Mathf.Max(1, initialXrAlignmentFrames) : 0;
+        bodyYawTrackingCalibrated = false;
+        headTrackingCalibrated = false;
     }
 
     public void PrepareRoleCamera()
@@ -219,6 +234,11 @@ public class RoleAvatarController : MonoBehaviour
             {
                 xrAlignmentFramesRemaining--;
             }
+        }
+
+        if (alignBodyYawToXrCameraOnEnable && bodyYawAlignmentFramesRemaining > 0 && AlignBodyYawToXrCamera())
+        {
+            bodyYawAlignmentFramesRemaining--;
         }
     }
 
@@ -540,6 +560,27 @@ public class RoleAvatarController : MonoBehaviour
         transform.rotation = deltaRotation * transform.rotation;
     }
 
+    private bool AlignBodyYawToXrCamera()
+    {
+        if (xrCamera == null || !TryExtractYawRotation(xrCamera.transform.rotation, out Quaternion cameraYaw))
+        {
+            return false;
+        }
+
+        float targetYaw = GetYawDegrees(cameraYaw) + cameraAlignedBodyYawOffset;
+        float deltaYaw = Mathf.DeltaAngle(transform.eulerAngles.y, targetYaw);
+        if (Mathf.Abs(deltaYaw) > 0.001f)
+        {
+            RotateBodyAroundCameraPosition(deltaYaw);
+        }
+
+        lastSyncedCameraYawRotation = cameraYaw;
+        bodyYawTrackingCalibrated = true;
+        headTrackingCalibrated = false;
+        ResetBodyFollowAnchor();
+        return true;
+    }
+
     private void LockEyeCenterToCameraPosition()
     {
         if (!lockEyeCenterToCameraPosition || xrCamera == null)
@@ -822,6 +863,12 @@ public class RoleAvatarController : MonoBehaviour
 
         yawRotation = Quaternion.LookRotation(forward.normalized, Vector3.up);
         return true;
+    }
+
+    private static float GetYawDegrees(Quaternion yawRotation)
+    {
+        Vector3 forward = yawRotation * Vector3.forward;
+        return Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg;
     }
 
     private static GameObject FindSceneObject(string objectName)

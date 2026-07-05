@@ -54,6 +54,14 @@ namespace ChiliGames.VROffice
             }
         }
 
+        private bool ShouldUseLoginAvatarRoute
+        {
+            get
+            {
+                return LoginSession.HasRoute && IsLocalLoginScene;
+            }
+        }
+
         void Awake()
         {
             //If not connected go to lobby to connect
@@ -105,8 +113,16 @@ namespace ChiliGames.VROffice
             if (mode == Mode.VR)
             {
                 vrRig.SetActive(true);
-                //todo：如果是observer将vrbody不可见
-                CreateVRBody();
+                if (ShouldUseLoginAvatarRoute)
+                {
+                    DestroyLegacyLocalVRBodies();
+                }
+                else
+                {
+                    //todo：如果是observer将vrbody不可见
+                    CreateVRBody();
+                }
+
                 if (PhotonNetwork.CurrentRoom.CustomProperties["Initialized"] != null)
                 {
                     if(nickName == "observer")
@@ -167,9 +183,42 @@ namespace ChiliGames.VROffice
             localVrBody = PhotonNetwork.Instantiate(vrBody.name, transform.position, transform.rotation).GetComponent<VRBody>();
         }
 
+        void DestroyLegacyLocalVRBodies()
+        {
+            VRBody[] legacyBodies = FindObjectsOfType<VRBody>(true);
+            for (int i = 0; i < legacyBodies.Length; i++)
+            {
+                VRBody legacyBody = legacyBodies[i];
+                if (legacyBody == null)
+                {
+                    continue;
+                }
+
+                PhotonView legacyView = legacyBody.GetComponent<PhotonView>();
+                if (legacyView != null && PhotonNetwork.InRoom)
+                {
+                    if (legacyView.IsMine)
+                    {
+                        PhotonNetwork.Destroy(legacyBody.gameObject);
+                    }
+
+                    continue;
+                }
+
+                Destroy(legacyBody.gameObject);
+            }
+
+            localVrBody = null;
+        }
+
         //暂时没被引用
         public void SetMaleAvatar()
         {
+            if (localVrBody == null)
+            {
+                return;
+            }
+
             photonView.RPC("ChangeTeacherAvatar", RpcTarget.AllBuffered, "male");
             localVrBody.GetComponent<PhotonView>().RPC("SetAvatarFollow", RpcTarget.AllBuffered);
         }
@@ -177,6 +226,11 @@ namespace ChiliGames.VROffice
         //暂时没被引用
         public void SetFemaleAvatar()
         {
+            if (localVrBody == null)
+            {
+                return;
+            }
+
             photonView.RPC("ChangeTeacherAvatar", RpcTarget.AllBuffered, "female");
             localVrBody.GetComponent<PhotonView>().RPC("SetAvatarFollow", RpcTarget.AllBuffered);
         }

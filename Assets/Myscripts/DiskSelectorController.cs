@@ -2,9 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 public class DiskSelectorController : MonoBehaviour
 {
@@ -227,11 +224,7 @@ public class DiskSelectorController : MonoBehaviour
 
     private void EndRun()
     {
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        ReturnToLoginAfterLeavingRoom.StartReturn();
     }
 
     private void RefreshSelection()

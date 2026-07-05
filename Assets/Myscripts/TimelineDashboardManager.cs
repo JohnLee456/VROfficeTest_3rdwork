@@ -42,13 +42,9 @@ public class TimelineDashboardManager : MonoBehaviour
     {
         yield return null;
         cachedCamera = Camera.main;
-        roundedFillSprite = CreateRoundedFillSprite(128, 10);
-        roundedFrameSprite = CreateRoundedFrameSprite(128, 10, 3);
         segmentCount = Mathf.Max(4, segmentCount);
         segmentDuration = Mathf.Max(0.5f, segmentDuration);
         RebuildMembers();
-        BuildDashboard();
-        RefreshAllRows();
     }
 
     private void Update()
@@ -71,9 +67,6 @@ public class TimelineDashboardManager : MonoBehaviour
             dashboardVisible = !dashboardVisible;
         }
 
-        bool shouldShow = DiskSelectorController.IsTimelineDashboardSelected && dashboardVisible;
-        EnsureCameraAttachment();
-
         segmentTimer += Time.deltaTime;
         while (segmentTimer >= segmentDuration)
         {
@@ -81,6 +74,19 @@ public class TimelineDashboardManager : MonoBehaviour
             AdvanceTimeline();
         }
 
+        bool shouldShow = DiskSelectorController.IsTimelineDashboardSelected && dashboardVisible;
+        if (!shouldShow)
+        {
+            if (dashboardRoot != null && dashboardRoot.activeSelf)
+            {
+                dashboardRoot.SetActive(false);
+            }
+
+            return;
+        }
+
+        EnsureDashboardBuilt();
+        EnsureCameraAttachment();
         RefreshAllRows();
 
         if (dashboardRoot != null && dashboardRoot.activeSelf != shouldShow)
@@ -230,6 +236,18 @@ public class TimelineDashboardManager : MonoBehaviour
 
         dashboardRoot.SetActive(false);
         DashboardOverlayRendering.ApplyToRoot(dashboardRoot);
+    }
+
+    private void EnsureDashboardBuilt()
+    {
+        if (dashboardRoot != null)
+        {
+            return;
+        }
+
+        roundedFillSprite = roundedFillSprite != null ? roundedFillSprite : CreateRoundedFillSprite(128, 10);
+        roundedFrameSprite = roundedFrameSprite != null ? roundedFrameSprite : CreateRoundedFrameSprite(128, 10, 3);
+        BuildDashboard();
     }
 
     private static float GetTimelineBoundaryX(int blockIndex, float timelineStartX, float blockSize, float blockSpacing)

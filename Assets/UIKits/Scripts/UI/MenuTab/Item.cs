@@ -13,43 +13,70 @@ namespace VRUiKits.Utils
         Image image;
         protected Sprite originSprite;
         protected Sprite highlightedSprite;
+        bool listenerRegistered;
+        bool visualStateCached;
 
         void Awake()
         {
-            if (null == button && null != GetComponent<Button>())
+            if (!EnsureButton())
+                return;
+
+            if (!listenerRegistered)
+            {
+                button.onClick.AddListener(() =>
+                {
+                    if (null != OnItemSelected)
+                    {
+                        OnItemSelected(this);
+                    }
+                });
+                listenerRegistered = true;
+            }
+        }
+
+        bool EnsureButton()
+        {
+            if (button == null)
             {
                 button = GetComponent<Button>();
             }
-            else
+
+            if (image == null)
             {
-                Debug.LogError("Item requires button to be assigned");
+                image = GetComponent<Image>();
             }
 
-            image = GetComponent<Image>();
-
-            if (button.transition == Selectable.Transition.ColorTint)
+            if (button == null)
             {
-                normalColor = button.colors.normalColor;
-                highlightedColor = button.colors.highlightedColor;
+                Debug.LogError("Item requires button to be assigned", this);
+                return false;
             }
 
-            if (null != image && button.transition == Selectable.Transition.SpriteSwap)
+            if (!visualStateCached)
             {
-                originSprite = image.sprite;
-                highlightedSprite = button.spriteState.highlightedSprite;
-            }
-
-            button.onClick.AddListener(() =>
-            {
-                if (null != OnItemSelected)
+                if (button.transition == Selectable.Transition.ColorTint)
                 {
-                    OnItemSelected(this);
+                    normalColor = button.colors.normalColor;
+                    highlightedColor = button.colors.highlightedColor;
                 }
-            });
+
+                if (null != image && button.transition == Selectable.Transition.SpriteSwap)
+                {
+                    originSprite = image.sprite;
+                    highlightedSprite = button.spriteState.highlightedSprite;
+                }
+
+                visualStateCached = true;
+            }
+
+            return true;
         }
 
         public virtual void Activate()
         {
+            if (!EnsureButton())
+                return;
+
             if (button.transition == Selectable.Transition.ColorTint)
             {
                 //Changes the button's Normal color to the new color.
@@ -70,6 +97,9 @@ namespace VRUiKits.Utils
 
         public virtual void Deactivate()
         {
+            if (!EnsureButton())
+                return;
+
             if (button.transition == Selectable.Transition.ColorTint)
             {
                 //Changes the button's Normal color to the original color.
@@ -80,7 +110,7 @@ namespace VRUiKits.Utils
                 button.colors = cb;
             }
 
-            if (button.transition == Selectable.Transition.SpriteSwap)
+            if (null != image && button.transition == Selectable.Transition.SpriteSwap)
             {
                 image.sprite = originSprite;
                 SpriteState spriteState = button.spriteState;

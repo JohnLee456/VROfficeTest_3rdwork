@@ -40,11 +40,7 @@ public class RepeatAttemptDashboardManager : MonoBehaviour
     {
         yield return null;
         cachedCamera = Camera.main;
-        roundedFillSprite = CreateRoundedFillSprite(128, 12);
-        roundedFrameSprite = CreateRoundedFrameSprite(128, 12, 3);
         RebuildMembers();
-        BuildDashboard();
-        RefreshAllRows();
     }
 
     private void Update()
@@ -67,9 +63,6 @@ public class RepeatAttemptDashboardManager : MonoBehaviour
             dashboardVisible = !dashboardVisible;
         }
 
-        bool shouldShow = DiskSelectorController.IsRepeatAttemptDashboardSelected && dashboardVisible;
-        EnsureCameraAttachment();
-
         for (int i = 0; i < members.Count; i++)
         {
             MemberEntry member = members[i];
@@ -85,8 +78,22 @@ public class RepeatAttemptDashboardManager : MonoBehaviour
             }
 
             member.WasAboveThreshold = isAboveThreshold;
-            RefreshRow(member);
         }
+
+        bool shouldShow = DiskSelectorController.IsRepeatAttemptDashboardSelected && dashboardVisible;
+        if (!shouldShow)
+        {
+            if (dashboardRoot != null && dashboardRoot.activeSelf)
+            {
+                dashboardRoot.SetActive(false);
+            }
+
+            return;
+        }
+
+        EnsureDashboardBuilt();
+        EnsureCameraAttachment();
+        RefreshAllRows();
 
         if (dashboardRoot != null && dashboardRoot.activeSelf != shouldShow)
         {
@@ -194,6 +201,18 @@ public class RepeatAttemptDashboardManager : MonoBehaviour
 
         dashboardRoot.SetActive(false);
         DashboardOverlayRendering.ApplyToRoot(dashboardRoot);
+    }
+
+    private void EnsureDashboardBuilt()
+    {
+        if (dashboardRoot != null)
+        {
+            return;
+        }
+
+        roundedFillSprite = roundedFillSprite != null ? roundedFillSprite : CreateRoundedFillSprite(128, 12);
+        roundedFrameSprite = roundedFrameSprite != null ? roundedFrameSprite : CreateRoundedFrameSprite(128, 12, 3);
+        BuildDashboard();
     }
 
     private void EnsureCameraAttachment()

@@ -38,7 +38,8 @@ public class OfficeMain : MonoBehaviour
         }
 
         PanelManager.Init();
-        PanelManager.Open<UserMenuPanel>();
+        // Disabled legacy Resources/UserMenu prefab so controller B no longer opens the old menu.
+        // PanelManager.Open<UserMenuPanel>();
 
         //进入房间之后在数据收集服务端也要进入房间
         MsgEnterRoom msg = new MsgEnterRoom();

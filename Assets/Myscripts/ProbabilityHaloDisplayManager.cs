@@ -16,6 +16,7 @@ public class ProbabilityHaloDisplayManager : MonoBehaviour
 
     private readonly List<DisplayEntry> displays = new List<DisplayEntry>();
     private Camera cachedCamera;
+    private bool displaysBuilt;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void CreateForScene()
@@ -34,16 +35,23 @@ public class ProbabilityHaloDisplayManager : MonoBehaviour
     {
         yield return null;
         cachedCamera = Camera.main;
-        RebuildDisplays();
     }
 
     private void Update()
     {
         bool shouldShow = DiskSelectorController.IsProbabilityHaloSelected;
+        if (!shouldShow)
+        {
+            HideDisplays();
+            return;
+        }
+
         if (cachedCamera == null)
         {
             cachedCamera = Camera.main;
         }
+
+        EnsureDisplaysBuilt();
 
         for (int i = 0; i < displays.Count; i++)
         {
@@ -55,7 +63,7 @@ public class ProbabilityHaloDisplayManager : MonoBehaviour
 
             if (display.Root.activeSelf != shouldShow)
             {
-            display.Root.SetActive(shouldShow);
+                display.Root.SetActive(shouldShow);
             }
 
             display.Text.text = $"{Mathf.RoundToInt(display.Intention.speaking_intention)}%";
@@ -73,8 +81,32 @@ public class ProbabilityHaloDisplayManager : MonoBehaviour
         }
     }
 
+    private void EnsureDisplaysBuilt()
+    {
+        if (displaysBuilt)
+        {
+            return;
+        }
+
+        RebuildDisplays();
+        displaysBuilt = true;
+    }
+
+    private void HideDisplays()
+    {
+        for (int i = 0; i < displays.Count; i++)
+        {
+            if (displays[i].Root != null && displays[i].Root.activeSelf)
+            {
+                displays[i].Root.SetActive(false);
+            }
+        }
+    }
+
     private void RebuildDisplays()
     {
+        displays.Clear();
+
         SpeakingIntention[] intentions = FindObjectsOfType<SpeakingIntention>();
         for (int i = 0; i < intentions.Length; i++)
         {

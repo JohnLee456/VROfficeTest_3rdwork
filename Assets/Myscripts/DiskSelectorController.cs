@@ -208,8 +208,8 @@ public class DiskSelectorController : MonoBehaviour
         currentLabel = labelObject.AddComponent<TextMeshProUGUI>();
         currentLabel.alignment = TextAlignmentOptions.Center;
         currentLabel.fontSize = 18f;
-        currentLabel.color = Color.white;
         currentLabel.raycastTarget = false;
+        ApplyReadableWhiteText(currentLabel);
 
         EnsureCameraAttachment();
         OfficeXrUiSupport.ConfigureCanvasForXr(canvas, true);
@@ -280,9 +280,34 @@ public class DiskSelectorController : MonoBehaviour
         label.alignment = TextAlignmentOptions.Center;
         label.fontSize = text == "Next" ? 19f : 13f;
         label.enableWordWrapping = true;
-        label.color = Color.white;
         label.raycastTarget = false;
+        ApplyReadableWhiteText(label);
         return button;
+    }
+
+    private static void ApplyReadableWhiteText(TextMeshProUGUI label)
+    {
+        if (label == null)
+        {
+            return;
+        }
+
+        label.color = Color.white;
+        label.faceColor = Color.white;
+        label.outlineColor = new Color(0f, 0f, 0f, 0.72f);
+        label.outlineWidth = 0.08f;
+        label.enableVertexGradient = false;
+        label.overrideColorTags = true;
+
+        if (label.fontSharedMaterial != null)
+        {
+            label.fontMaterial = new Material(label.fontSharedMaterial);
+            label.fontMaterial.SetColor(ShaderUtilities.ID_FaceColor, Color.white);
+            label.fontMaterial.SetColor(ShaderUtilities.ID_OutlineColor, new Color(0f, 0f, 0f, 0.72f));
+            label.fontMaterial.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.08f);
+        }
+
+        DashboardOverlayRendering.ApplyToText(label);
     }
 
     private static GameObject CreateRectObject(string objectName, Transform parent)

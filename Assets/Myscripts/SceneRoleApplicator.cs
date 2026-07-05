@@ -42,6 +42,7 @@ public static class SceneRoleApplicator
 
         avatar.SetActive(true);
         TakePhotonOwnershipIfPossible(avatar);
+        EnsurePoseSync(scene);
         DisableExistingAvatarControllers(scene, avatar);
         DisableUnusedLocalRigs(scene, localRig);
 
@@ -51,6 +52,7 @@ public static class SceneRoleApplicator
             controller = avatar.AddComponent<RoleAvatarController>();
         }
 
+        ConfigureAvatarAlignment(controller, LoginSession.AvatarName);
         controller.enabled = true;
         controller.SetLocalControlEnabled(true);
     }
@@ -196,6 +198,52 @@ public static class SceneRoleApplicator
         if (!photonView.IsMine)
         {
             photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
+        }
+    }
+
+    private static void EnsurePoseSync(Scene scene)
+    {
+        string[] avatarIds = RoleAvatarIdentity.KnownAvatarIds;
+        for (int i = 0; i < avatarIds.Length; i++)
+        {
+            GameObject avatar = FindAvatarById(scene, avatarIds[i]);
+            if (avatar == null)
+            {
+                continue;
+            }
+
+            PhotonView photonView = avatar.GetComponent<PhotonView>();
+            if (photonView == null)
+            {
+                continue;
+            }
+
+            RoleAvatarPoseSync poseSync = avatar.GetComponent<RoleAvatarPoseSync>();
+            if (poseSync == null)
+            {
+                poseSync = avatar.AddComponent<RoleAvatarPoseSync>();
+            }
+
+            if (!photonView.ObservedComponents.Contains(poseSync))
+            {
+                photonView.ObservedComponents.Add(poseSync);
+            }
+        }
+    }
+
+    private static void ConfigureAvatarAlignment(RoleAvatarController controller, string avatarId)
+    {
+        if (controller == null)
+        {
+            return;
+        }
+
+        if (RoleAvatarIdentity.MatchesAvatarId(avatarId, "ZJR") ||
+            RoleAvatarIdentity.MatchesAvatarId(avatarId, "ZHZ") ||
+            RoleAvatarIdentity.MatchesAvatarId(avatarId, "DCY") ||
+            RoleAvatarIdentity.MatchesAvatarId(avatarId, "GCHbot"))
+        {
+            controller.ConfigureInitialBodyYawAlignment(true);
         }
     }
 

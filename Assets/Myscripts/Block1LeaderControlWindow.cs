@@ -164,6 +164,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
         warningShownForCurrentEpisode = false;
         stayExtensionActive = false;
         trialEndHidden = false;
+        Block1EpisodeSync.BroadcastEpisodeReady(activeBlockNumber, trialNumber, episodeNumber);
         string title = GetEpisodeTitleForActiveBlock(trialNumber, episodeNumber);
         headerText.text = string.IsNullOrEmpty(title) ? Study2TrialPhaseInfo.GetLabel(episodeNumber) : title;
         bodyText.text = "Block " + activeBlockNumber + " / Trial " + trialNumber + " is ready. Start this phase when the discussion reaches this segment.";

@@ -13,6 +13,9 @@ public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallba
     [SerializeField] private Vector2 panelSize = new Vector2(780f, 560f);
     [SerializeField] private float worldScale = 0.00155f;
     [SerializeField] private KeyCode toggleKey = KeyCode.N;
+#if UNITY_EDITOR
+    [SerializeField] private KeyCode editorDebugStartKey = KeyCode.B;
+#endif
 
     private Camera cachedCamera;
     private GameObject boardRoot;
@@ -27,8 +30,16 @@ public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallba
     private int currentEpisodeNumber;
     private double episodeStartTime;
     private bool hasEpisodeStart;
+    private bool phaseRunning;
     private bool boardVisible = true;
+    private int lastRenderedPromptBlock = -1;
+    private int lastRenderedPromptTrial = -1;
+    private PromptPhase lastRenderedPromptPhase = (PromptPhase)(-1);
     private static Font cjkFont;
+#if UNITY_EDITOR
+    private int editorDebugTrialNumber = 1;
+    private int editorDebugEpisodeNumber = Study2TrialPhaseInfo.Opening;
+#endif
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void CreateForScene()
@@ -111,21 +122,35 @@ public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallba
             }
         }
 
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(editorDebugStartKey))
+        {
+            SimulateEpisodeStartInEditor();
+        }
+#endif
+
         RefreshBoard();
     }
 
     public void OnEvent(EventData photonEvent)
     {
-        if (photonEvent.Code != Block1EpisodeSync.EpisodeStartedEventCode)
-        {
-            return;
-        }
-
         int blockNumber;
         int trialNumber;
         int episodeNumber;
         double startTime;
-        if (Block1EpisodeSync.TryParsePayload(photonEvent.CustomData, out blockNumber, out trialNumber, out episodeNumber, out startTime))
+
+        if (photonEvent.Code == Block1EpisodeSync.EpisodeReadyEventCode)
+        {
+            if (Block1EpisodeSync.TryParsePayload(photonEvent.CustomData, out blockNumber, out trialNumber, out episodeNumber, out startTime))
+            {
+                ApplyEpisodeReady(blockNumber, trialNumber, episodeNumber);
+            }
+
+            return;
+        }
+
+        if (photonEvent.Code == Block1EpisodeSync.EpisodeStartedEventCode &&
+            Block1EpisodeSync.TryParsePayload(photonEvent.CustomData, out blockNumber, out trialNumber, out episodeNumber, out startTime))
         {
             ApplyEpisodeStart(blockNumber, trialNumber, episodeNumber, startTime);
         }
@@ -136,7 +161,11 @@ public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallba
         if (propertiesThatChanged.ContainsKey(Block1EpisodeSync.BlockKey) ||
             propertiesThatChanged.ContainsKey(Block1EpisodeSync.TrialKey) ||
             propertiesThatChanged.ContainsKey(Block1EpisodeSync.EpisodeKey) ||
-            propertiesThatChanged.ContainsKey(Block1EpisodeSync.EpisodeStartTimeKey))
+            propertiesThatChanged.ContainsKey(Block1EpisodeSync.EpisodeStartTimeKey) ||
+            propertiesThatChanged.ContainsKey(Block1EpisodeSync.PromptBlockKey) ||
+            propertiesThatChanged.ContainsKey(Block1EpisodeSync.PromptTrialKey) ||
+            propertiesThatChanged.ContainsKey(Block1EpisodeSync.PromptEpisodeKey) ||
+            propertiesThatChanged.ContainsKey(Block1EpisodeSync.PromptReadyTimeKey))
         {
             TryApplyRoomState();
         }
@@ -161,23 +190,38 @@ public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallba
 
     private void TryApplyRoomState()
     {
-        int blockNumber;
-        int trialNumber;
-        int episodeNumber;
+        int readyBlockNumber;
+        int readyTrialNumber;
+        int readyEpisodeNumber;
+        double readyTime;
+        bool hasReadyState = Block1EpisodeSync.TryReadPromptRoomState(out readyBlockNumber, out readyTrialNumber, out readyEpisodeNumber, out readyTime);
+
+        int startBlockNumber;
+        int startTrialNumber;
+        int startEpisodeNumber;
         double startTime;
-        if (Block1EpisodeSync.TryReadRoomState(out blockNumber, out trialNumber, out episodeNumber, out startTime))
+        bool hasStartState = Block1EpisodeSync.TryReadRoomState(out startBlockNumber, out startTrialNumber, out startEpisodeNumber, out startTime);
+
+        if (hasReadyState && (!hasStartState || readyTime > startTime))
         {
-            ApplyEpisodeStart(blockNumber, trialNumber, episodeNumber, startTime);
+            ApplyEpisodeReady(readyBlockNumber, readyTrialNumber, readyEpisodeNumber);
+            return;
+        }
+
+        if (hasStartState)
+        {
+            ApplyEpisodeStart(startBlockNumber, startTrialNumber, startEpisodeNumber, startTime);
         }
     }
 
-    private void ApplyEpisodeStart(int blockNumber, int trialNumber, int episodeNumber, double startTime)
+    private void ApplyEpisodeReady(int blockNumber, int trialNumber, int episodeNumber)
     {
         currentBlockNumber = Mathf.Clamp(blockNumber, 1, 3);
         currentTrialNumber = Mathf.Clamp(trialNumber, 1, 3);
         currentEpisodeNumber = Mathf.Clamp(episodeNumber, Study2TrialPhaseInfo.FirstPhaseNumber, Study2TrialPhaseInfo.LastPhaseNumber);
-        episodeStartTime = startTime;
+        episodeStartTime = 0d;
         hasEpisodeStart = true;
+        phaseRunning = false;
         boardVisible = true;
 
         if (boardRoot != null)
@@ -188,6 +232,45 @@ public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallba
         RefreshBoard();
     }
 
+    private void ApplyEpisodeStart(int blockNumber, int trialNumber, int episodeNumber, double startTime)
+    {
+        currentBlockNumber = Mathf.Clamp(blockNumber, 1, 3);
+        currentTrialNumber = Mathf.Clamp(trialNumber, 1, 3);
+        currentEpisodeNumber = Mathf.Clamp(episodeNumber, Study2TrialPhaseInfo.FirstPhaseNumber, Study2TrialPhaseInfo.LastPhaseNumber);
+        episodeStartTime = startTime;
+        hasEpisodeStart = true;
+        phaseRunning = true;
+        boardVisible = true;
+
+        if (boardRoot != null)
+        {
+            boardRoot.SetActive(true);
+        }
+
+        RefreshBoard();
+    }
+
+#if UNITY_EDITOR
+    private void SimulateEpisodeStartInEditor()
+    {
+        double startTime = PhotonNetwork.InRoom ? PhotonNetwork.Time : Time.time;
+        ApplyEpisodeStart(1, editorDebugTrialNumber, editorDebugEpisodeNumber, startTime);
+        Debug.Log("Editor debug prompt board phase start simulated: Trial " + editorDebugTrialNumber + ", " + Study2TrialPhaseInfo.GetLabel(editorDebugEpisodeNumber) + ".");
+
+        editorDebugEpisodeNumber++;
+        if (editorDebugEpisodeNumber > Study2TrialPhaseInfo.LastPhaseNumber)
+        {
+            editorDebugEpisodeNumber = Study2TrialPhaseInfo.Opening;
+            editorDebugTrialNumber++;
+        }
+
+        if (editorDebugTrialNumber > 3)
+        {
+            editorDebugTrialNumber = 1;
+        }
+    }
+#endif
+
     private void RefreshBoard()
     {
         if (titleText == null || metaText == null || contentText == null || footerText == null)
@@ -196,6 +279,7 @@ public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallba
         }
 
         PromptBoardContent prompt = GetCurrentPrompt();
+        RefreshRuntimeFontIfPromptChanged(prompt);
         titleText.text = prompt.Title;
         metaText.text = prompt.Meta;
         contentText.text = prompt.Body;
@@ -223,16 +307,21 @@ public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallba
             return "Waiting for leader to start Opening Phase / 等待 leader 开始开场阶段";
         }
 
+        string state = Study2TrialPhaseInfo.GetLabel(currentEpisodeNumber);
+        if (!phaseRunning)
+        {
+            return "Block " + currentBlockNumber + " / Trial " + currentTrialNumber + " / " + state + "   Ready / 等待 leader 按 Start   Toggle: N or controller B";
+        }
+
         float elapsed = GetElapsedSeconds();
         float duration = GetCurrentEpisodeDuration();
         int remaining = Mathf.CeilToInt(Mathf.Max(0f, duration - elapsed));
-        string state = Study2TrialPhaseInfo.GetLabel(currentEpisodeNumber);
         return "Block " + currentBlockNumber + " / Trial " + currentTrialNumber + " / " + state + "   Remaining: " + remaining + "s   Toggle: N or controller B";
     }
 
     private float GetElapsedSeconds()
     {
-        if (!hasEpisodeStart)
+        if (!hasEpisodeStart || !phaseRunning)
         {
             return 0f;
         }
@@ -282,11 +371,9 @@ public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallba
 
         titleText = CreateText("Title", panelRect, string.Empty, new Vector2(0f, 250f), new Vector2(700f, 40f), 24, FontStyle.Bold, TextAnchor.MiddleCenter, false);
         metaText = CreateText("Meta", panelRect, string.Empty, new Vector2(0f, 204f), new Vector2(700f, 42f), 15, FontStyle.Normal, TextAnchor.MiddleCenter, true);
-        contentText = CreateText("Content", panelRect, string.Empty, new Vector2(0f, -15f), new Vector2(700f, 390f), 14, FontStyle.Normal, TextAnchor.UpperLeft, true);
+        contentText = CreateText("Content", panelRect, string.Empty, new Vector2(0f, -15f), new Vector2(700f, 390f), 12, FontStyle.Normal, TextAnchor.UpperLeft, true);
         contentText.lineSpacing = 0.92f;
-        contentText.resizeTextForBestFit = true;
-        contentText.resizeTextMinSize = 10;
-        contentText.resizeTextMaxSize = 14;
+        contentText.resizeTextForBestFit = false;
         footerText = CreateText("Footer", panelRect, string.Empty, new Vector2(0f, -254f), new Vector2(700f, 28f), 13, FontStyle.Normal, TextAnchor.MiddleCenter, false);
 
         EnsureCameraAttachment();
@@ -345,6 +432,21 @@ public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallba
         }
 
         return Prompts[0];
+    }
+
+    private void RefreshRuntimeFontIfPromptChanged(PromptBoardContent prompt)
+    {
+        if (prompt.Block == lastRenderedPromptBlock &&
+            prompt.Trial == lastRenderedPromptTrial &&
+            prompt.Phase == lastRenderedPromptPhase)
+        {
+            return;
+        }
+
+        lastRenderedPromptBlock = prompt.Block;
+        lastRenderedPromptTrial = prompt.Trial;
+        lastRenderedPromptPhase = prompt.Phase;
+        cjkFont = null;
     }
 
     private static bool ShouldCreateForScene(Scene scene)

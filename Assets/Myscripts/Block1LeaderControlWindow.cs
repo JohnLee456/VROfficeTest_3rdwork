@@ -9,13 +9,13 @@ public class Block1LeaderControlWindow : MonoBehaviour
 {
     private const string ControlledSceneName = OfficeSceneSupport.OfficeLoggedInNoBot;
     private const string ControlledAvatarName = "GCHbot";
-    private const int LastTrialNumber = 2;
+    private const int LastTrialNumber = 3;
     private const int LastBlockNumber = 3;
 
     [SerializeField] private Vector3 cameraLocalPosition = new Vector3(0f, -0.08f, 1.05f);
     [SerializeField] private Vector2 panelSize = new Vector2(620f, 330f);
     [SerializeField] private float worldScale = 0.0017f;
-    [SerializeField] private float warningSecondsBeforeEpisodeEnd = 5f;
+    [SerializeField] private float warningSecondsBeforeEpisodeEnd = 0f;
     [SerializeField] private float stayExtensionSeconds = 20f;
     [SerializeField] private KeyCode reopenTrialEndKey = KeyCode.T;
 
@@ -34,7 +34,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
     private TextMeshProUGUI secondaryButtonText;
 
     private int pendingTrialNumber = 1;
-    private int pendingEpisodeNumber = 1;
+    private int pendingEpisodeNumber = Study2TrialPhaseInfo.Opening;
     private int activeBlockNumber = 1;
     private bool warningShownForCurrentEpisode;
     private bool stayExtensionActive;
@@ -94,7 +94,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
         OfficeXrUiSupport.EnsureEventSystem();
         BuildWindow();
         StartTrialForActiveBlock(1);
-        ShowEpisodeStart(1, 1);
+        ShowEpisodeStart(1, Study2TrialPhaseInfo.Opening);
     }
 
     private void Update()
@@ -165,8 +165,8 @@ public class Block1LeaderControlWindow : MonoBehaviour
         stayExtensionActive = false;
         trialEndHidden = false;
         string title = GetEpisodeTitleForActiveBlock(trialNumber, episodeNumber);
-        headerText.text = string.IsNullOrEmpty(title) ? "Episode " + episodeNumber : title;
-        bodyText.text = "Block " + activeBlockNumber + " / Trial " + trialNumber + " is ready. Start this episode when the discussion reaches this segment.";
+        headerText.text = string.IsNullOrEmpty(title) ? Study2TrialPhaseInfo.GetLabel(episodeNumber) : title;
+        bodyText.text = "Block " + activeBlockNumber + " / Trial " + trialNumber + " is ready. Start this phase when the discussion reaches this segment.";
         timerText.text = string.Empty;
         ConfigureButton(primaryButton, primaryButtonText, "Start", OnStartEpisodeClicked, true);
         ConfigureButton(secondaryButton, secondaryButtonText, string.Empty, null, false);
@@ -178,11 +178,12 @@ public class Block1LeaderControlWindow : MonoBehaviour
         warningShownForCurrentEpisode = true;
         PauseActiveBlock();
 
-        headerText.text = "Block " + activeBlockNumber + " / Episode " + GetCurrentEpisodeNumberForActiveBlock() + " ending";
-        bodyText.text = "This episode is 5 seconds from the scheduled end. Go to the next episode or stay for 20 seconds.";
+        int currentPhase = GetCurrentEpisodeNumberForActiveBlock();
+        headerText.text = "Block " + activeBlockNumber + " / " + Study2TrialPhaseInfo.GetLabel(currentPhase) + " complete";
+        bodyText.text = "This phase has reached the scheduled end. Go to the next phase or stay for 20 seconds.";
         timerText.text = "Remaining: " + Mathf.CeilToInt(GetEpisodeRemainingSecondsForActiveBlock()) + "s";
         ConfigureButton(primaryButton, primaryButtonText, "Stay", OnStayClicked, true);
-        ConfigureButton(secondaryButton, secondaryButtonText, "Next Episode", OnNextEpisodeClicked, true);
+        ConfigureButton(secondaryButton, secondaryButtonText, currentPhase < GetEpisodeCountForActiveBlock() ? "Next Phase" : "End Trial", OnNextEpisodeClicked, true);
         SetWindowVisible(true);
     }
 
@@ -192,8 +193,8 @@ public class Block1LeaderControlWindow : MonoBehaviour
         stayExtensionRemaining = stayExtensionSeconds;
         PauseActiveBlock();
 
-        headerText.text = "Stay in current episode";
-        bodyText.text = "Speaking intention values are frozen. The next episode panel will open automatically.";
+        headerText.text = "Stay in current phase";
+        bodyText.text = "Speaking intention values are frozen. The next phase panel will open automatically.";
         timerText.text = "Stay extension: " + Mathf.CeilToInt(stayExtensionRemaining) + "s";
         ConfigureButton(primaryButton, primaryButtonText, string.Empty, null, false);
         ConfigureButton(secondaryButton, secondaryButtonText, string.Empty, null, false);
@@ -248,7 +249,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
         if (nextTrial <= LastTrialNumber)
         {
             StartTrialForActiveBlock(nextTrial);
-            ShowEpisodeStart(nextTrial, 1);
+            ShowEpisodeStart(nextTrial, Study2TrialPhaseInfo.Opening);
             return;
         }
 
@@ -256,7 +257,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
         {
             activeBlockNumber++;
             StartTrialForActiveBlock(1);
-            ShowEpisodeStart(1, 1);
+            ShowEpisodeStart(1, Study2TrialPhaseInfo.Opening);
         }
     }
 
@@ -467,6 +468,11 @@ public class Block1LeaderControlWindow : MonoBehaviour
 
     private string GetTrialEndMessage()
     {
+        if (GetCurrentTrialNumberForActiveBlock() < LastTrialNumber)
+        {
+            return "Trial " + GetCurrentTrialNumberForActiveBlock() + " is complete. You can review the dashboard now, then continue to the next trial.";
+        }
+
         if (GetCurrentTrialNumberForActiveBlock() == LastTrialNumber && activeBlockNumber < LastBlockNumber)
         {
             return "Block " + activeBlockNumber + " is complete. You can review the dashboard now, then continue to Block " + (activeBlockNumber + 1) + ".";

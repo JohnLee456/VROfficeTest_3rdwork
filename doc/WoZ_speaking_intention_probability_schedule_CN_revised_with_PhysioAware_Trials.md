@@ -184,6 +184,62 @@ Trial 2 沿用 Speaking Context 的相同结构，但轮换 target member，以�
 
 ---
 
+## Block 1，Trial 3：Physio-aware Feedback Trial
+
+**Trial 名称：** B1-T3: Island Survival — Speaking Context — Physio-aware Feedback
+
+Trial 3 沿用 Speaking Context 的相同 speaking-intention event 结构，但用于测试 **physio-aware feedback**。  
+speaking-intention probability event 仍然按照下列时间窗口预设触发；但 VR 端最终呈现的 interface intensity / display mode 可以根据 leader 当前的 physiological static state 与 temporal dynamics 进行调整。
+
+例如：
+
+- leader 状态较稳定或放松时：可以显示更明确的实时 cue；
+- leader 压力上升或状态不稳定时：可以显示更轻量的 subtle cue，或转为 delayed / summary-style cue；
+- signal quality 较低或状态不确定时：可以降低显示强度，或仅保留 summary 记录。
+
+### Episode 1：Clear Single Entry Request
+
+**Episode 时间窗口：** 40–100s  
+**Cue 显示窗口：** 60–65s  
+**Target member：** C  
+**讨论 item：** Machete（砍刀）
+
+| Member | 概率变化配置 | 显示解释 |
+|---|---|---|
+| A | 40–100s: 0.10–0.30 | 不显示 |
+| B | 40–100s: 0.10–0.30 | 不显示 |
+| C | 56–60s: 0.20 → 0.74; 60–65s: 0.74 → 0.88 → 0.74; 65–68s: 0.74 → 0.20 | 显示 C，持续 5s；physio-aware 条件下可根据 leader 状态调整 cue 强度 |
+
+### Episode 2：Competing Entry Requests
+
+**Episode 时间窗口：** 100–170s  
+**Cue 显示窗口：** 130–135s  
+**Primary target：** A  
+**Secondary candidate：** B  
+**讨论 item：** Signal mirror（信号镜）
+
+| Member | 概率变化配置 | 显示解释 |
+|---|---|---|
+| A | 126–130s: 0.25 → 0.78; 130–135s: 0.78 → 0.92 → 0.78; 135–138s: 0.78 → 0.25 | 显示 A，作为更高意图 target，持续 5s；physio-aware 条件下可根据 leader 状态调整 cue 强度 |
+| B | 127–130s: 0.20 → 0.72; 130–135s: 0.72 → 0.80 → 0.71; 135–138s: 0.71 → 0.20 | 显示 B，作为较低意图 competitor，持续 5s；physio-aware 条件下可根据 leader 状态调整 cue 强度 |
+| C | 100–170s: 0.10–0.30 | 不显示 |
+
+### Episode 3：Repeated Single Entry Request
+
+**Episode 时间窗口：** 170–240s  
+**Cue 显示窗口：** 200–205s  
+**Target member：** B  
+**讨论 item：** Mosquito net（蚊帐）
+
+| Member | 概率变化配置 | 显示解释 |
+|---|---|---|
+| A | 170–240s: 0.10–0.30 | 不显示 |
+| B | 196–200s: 0.20 → 0.74; 200–205s: 0.74 → 0.86 → 0.74; 205–208s: 0.74 → 0.20 | 显示 B，持续 5s；physio-aware 条件下可根据 leader 状态调整 cue 强度 |
+| C | 170–240s: 0.10–0.30 | 不显示 |
+
+
+---
+
 # 5. Block 2：Listening Context — Desert Survival（沙漠求生）
 
 在该 block 中，leader 主要处于观察与协调位置，而 members 之间展开讨论。  
@@ -279,6 +335,65 @@ Trial 2 轮换 target 和 active-speaker 角色。
 
 ---
 
+## Block 2，Trial 3：Physio-aware Feedback Trial
+
+**Trial 名称：** B2-T3: Desert Survival — Listening Context — Physio-aware Feedback
+
+Trial 3 沿用 Listening Context 的相同 speaking-intention event 结构，但用于测试 **physio-aware feedback**。  
+speaking-intention probability event 仍然按照下列时间窗口预设触发；但 VR 端最终呈现的 interface intensity / display mode 可以根据 leader 当前的 physiological static state 与 temporal dynamics 进行调整。
+
+例如：
+
+- leader 状态较稳定或放松时：可以显示更明确的实时 cue；
+- leader 压力上升或状态不稳定时：可以显示更轻量的 subtle cue，或转为 delayed / summary-style cue；
+- signal quality 较低或状态不确定时：可以降低显示强度，或仅保留 summary 记录。
+
+### Episode 1：One Suppressed Entry in Two-Person Discussion
+
+**Episode 时间窗口：** 40–100s  
+**Cue 显示窗口：** 64–69s  
+**Active speakers：** A 和 B  
+**Target member：** C  
+**讨论 item：** Pistol（手枪）
+
+| Member | 概率变化配置 | 显示解释 |
+|---|---|---|
+| A | 40–100s: 0.10–0.30 | 不显示；当前 active speaker |
+| B | 40–100s: 0.10–0.30 | 不显示；当前 active speaker |
+| C | 60–64s: 0.20 → 0.74; 64–69s: 0.74 → 0.88 → 0.74; 69–72s: 0.74 → 0.20 | 显示 C，持续 5s；physio-aware 条件下可根据 leader 状态调整 cue 强度 |
+
+### Episode 2：Dominant Speaker Suppresses Target
+
+**Episode 时间窗口：** 100–170s  
+**Cue 显示窗口：** 130–135s  
+**Dominant speaker：** A  
+**Secondary responder：** C  
+**Target member：** B  
+**讨论 item：** Alcohol bottle（酒精瓶）
+
+| Member | 概率变化配置 | 显示解释 |
+|---|---|---|
+| A | 100–170s: 0.10–0.30 | 不显示；dominant speaker |
+| B | 126–130s: 0.20 → 0.74; 130–135s: 0.74 → 0.89 → 0.74; 135–138s: 0.74 → 0.20 | 显示 B，持续 5s；physio-aware 条件下可根据 leader 状态调整 cue 强度 |
+| C | 100–170s: 0.10–0.35 | 不显示；secondary responder |
+
+### Episode 3：Repeated Suppressed Entry Event
+
+**Episode 时间窗口：** 170–240s  
+**Cue 显示窗口：** 200–205s  
+**Active speakers：** B 和 C  
+**Target member：** A  
+**讨论 item：** Desert animals guidebook（沙漠动物指南）
+
+| Member | 概率变化配置 | 显示解释 |
+|---|---|---|
+| A | 196–200s: 0.20 → 0.74; 200–205s: 0.74 → 0.86 → 0.74; 205–208s: 0.74 → 0.20 | 显示 A，持续 5s；physio-aware 条件下可根据 leader 状态调整 cue 强度 |
+| B | 170–240s: 0.10–0.30 | 不显示；active speaker |
+| C | 170–240s: 0.10–0.30 | 不显示；active speaker |
+
+
+---
+
 # 6. Block 3：Silence Context — Mountain Survival（深山求生）
 
 在该 block 中，讨论可能在 item 与 item 之间短暂停滞。  
@@ -368,6 +483,64 @@ Trial 2 轮换 restart targets。
 
 ---
 
+## Block 3，Trial 3：Physio-aware Feedback Trial
+
+**Trial 名称：** B3-T3: Mountain Survival — Silence Context — Physio-aware Feedback
+
+Trial 3 沿用 Silence Context 的 speaking-intention event 结构，但用于测试 **physio-aware feedback**。  
+这里的 Silence Context 不要求所有 staff 完全不说话或刻意等待 cue，而是用于模拟讨论自然收束、话轮交接不明确、或需要 leader 选择下一位成员继续推进的时刻。
+
+speaking-intention probability event 仍然按照下列时间窗口预设触发；但 VR 端最终呈现的 interface intensity / display mode 可以根据 leader 当前的 physiological static state 与 temporal dynamics 进行调整。
+
+例如：
+
+- leader 状态较稳定或放松时：可以显示更明确的实时 cue；
+- leader 压力上升或状态不稳定时：可以显示更轻量的 subtle cue，或转为 delayed / summary-style cue；
+- signal quality 较低或状态不确定时：可以降低显示强度，或仅保留 summary 记录。
+
+### Episode 1：Clear Restart / Transition Opportunity
+
+**Episode 时间窗口：** 40–100s  
+**Cue 显示窗口：** 58–63s  
+**Target member：** C  
+**讨论 item：** Sleeping bag（睡袋）
+
+| Member | 概率变化配置 | 显示解释 |
+|---|---|---|
+| A | 40–100s: 0.10–0.25 | 不显示；非当前 target |
+| B | 40–100s: 0.10–0.25 | 不显示；非当前 target |
+| C | 54–58s: 0.20 → 0.74; 58–63s: 0.74 → 0.88 → 0.74; 63–66s: 0.74 → 0.20 | 显示 C，持续 5s；physio-aware 条件下可根据 leader 状态调整 cue 强度 |
+
+### Episode 2：Competing Restart / Transition Attempts
+
+**Episode 时间窗口：** 100–170s  
+**Cue 显示窗口：** 128–133s  
+**Primary target：** A  
+**Secondary candidate：** B  
+**讨论 item：** Metal cup / cooking pot（金属杯/锅）
+
+| Member | 概率变化配置 | 显示解释 |
+|---|---|---|
+| A | 124–128s: 0.25 → 0.78; 128–133s: 0.78 → 0.92 → 0.78; 133–136s: 0.78 → 0.25 | 显示 A，作为更高意图 target，持续 5s；physio-aware 条件下可根据 leader 状态调整 cue 强度 |
+| B | 125–128s: 0.20 → 0.72; 128–133s: 0.72 → 0.80 → 0.71; 133–136s: 0.71 → 0.20 | 显示 B，作为较低意图 candidate，持续 5s；physio-aware 条件下可根据 leader 状态调整 cue 强度 |
+| C | 100–170s: 0.10–0.25 | 不显示；非当前 target |
+
+### Episode 3：Repeated Restart / Transition Opportunity
+
+**Episode 时间窗口：** 170–240s  
+**Cue 显示窗口：** 200–205s  
+**Target member：** B  
+**讨论 item：** Headlamp（头灯）
+
+| Member | 概率变化配置 | 显示解释 |
+|---|---|---|
+| A | 170–240s: 0.10–0.25 | 不显示；非当前 target |
+| B | 196–200s: 0.20 → 0.74; 200–205s: 0.74 → 0.86 → 0.74; 205–208s: 0.74 → 0.20 | 显示 B，持续 5s；physio-aware 条件下可根据 leader 状态调整 cue 强度 |
+| C | 170–240s: 0.10–0.25 | 不显示；非当前 target |
+
+
+---
+
 # 7. Summary Dashboard 使用说明
 
 对于 summary-dashboard 或 adaptive-delayed 条件，dashboard 应总结同一组 scripted probability events。
@@ -414,11 +587,13 @@ speaking events 应与 intention windows 采用不同视觉编码。
 
 # 9. Trial 平衡说明
 
-Trial 2 中的 target assignments 会轮换成员，以减少对同一 target pattern 的重复暴露。
+Trial 2 和 Trial 3 中的 target assignments 会轮换成员，以减少对同一 target pattern 的重复暴露。  
+其中，Trial 3 额外用于测试 physio-aware feedback，但 speaking-intention probability schedule 仍与对应 block 的 episode 结构保持一致。
 
 该轮换设计用于：
 
 - 避免总是将同一 member 设为 target；
 - 确保 A/B/C 都能在不同 trial 中作为 target member 出现；
 - 在保持 episode 结构一致的同时改变 target identity；
-- 降低 leader 学习到固定成员模式的风险。
+- 降低 leader 学习到固定成员模式的风险；
+- 在 physio-aware feedback 条件下保持 speaking-intention event 的触发结构稳定，使差异主要来自 feedback interface 的自适应呈现方式。

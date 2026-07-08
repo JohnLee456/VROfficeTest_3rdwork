@@ -66,9 +66,9 @@ Discussion focus：
 - 它是否应排在工具、食物获取物品或求救物品之前？
 
 Staff 角色任务：
-Member A：简短回应 leader，帮助进入讨论。
-Member B：简短回应，或自然地表示同意/不同意。
-Member C：简短回应并确认理解任务。
+Member ZHZ：简短回应 leader，帮助进入讨论。
+Member DCY：简短回应，或自然地表示同意/不同意。
+Member ZJR：简短回应并确认理解任务。
 
 注意：
 本阶段不要触发正式 speaking-intention event。
@@ -87,7 +87,7 @@ Scenario： 荒岛求生
 - Knife（刀）
 
 Episode 任务：
-Leader 正在解释或总结刀的重要性。Member A 有一个有价值的补充观点，应被视为主要 target。
+Leader 正在解释或总结刀的重要性。Member ZHZ 有一个有价值的补充观点，应被视为主要 target。
 
 Discussion focus：
 - Can the knife be used to cut branches, prepare food, or make simple tools?
@@ -96,12 +96,12 @@ Discussion focus：
 - Should it be ranked before or after the water filter?
 
 Staff 角色任务：
-Member A: Target member. Prepare one clear supplementary point, such as “the knife has indirect value because it can help make other tools.” Wait for the leader to invite you. If invited, speak naturally.
-Member B：普通参与者。倾听即可，如有需要只做简短回应。
-Member C：普通参与者。倾听即可，如有需要只做简短回应。
+Member ZHZ: Target member. Prepare one clear supplementary point, such as “the knife has indirect value because it can help make other tools.” Wait for the leader to invite you. If invited, speak naturally.
+Member DCY：普通参与者。倾听即可，如有需要只做简短回应。
+Member ZJR：普通参与者。倾听即可，如有需要只做简短回应。
 
 注意：
-Member A 不应打断 leader。如果 leader 邀请 A，则该事件成功。
+Member ZHZ 不应打断 leader。如果 leader 邀请 ZHZ，则该事件成功。
 ```
 
 ---
@@ -116,7 +116,7 @@ Scenario： 荒岛求生
 - Fishing rod / fishing net（鱼竿/渔网）
 
 Episode 任务：
-Leader 正在讨论捕鱼工具。两名成员都有可能补充观点，但 Member B 是更强的 target，Member C 是较低优先级的 competitor。
+Leader 正在讨论捕鱼工具。两名成员都有可能补充观点，但 Member DCY 是更强的 target，Member ZJR 是较低优先级的 competitor。
 
 Discussion focus：
 - 这个 item 能否解决长期食物需求？
@@ -125,14 +125,14 @@ Discussion focus：
 - 这个 item 是否足够可靠，可以排在较高位置？
 
 Staff 角色任务：
-Member A：普通参与者。倾听，不加入竞争。
-Member B: Primary target. Prepare the main point, such as “food may not be the most urgent need at first, but fishing is important for longer survival.” If invited, speak naturally.
-Member C: Secondary competitor. Prepare a weaker or more conditional point, such as “if there are few fish nearby, this item may be uncertain.” If invited, speak naturally but do not appear stronger than B.
+Member ZHZ：普通参与者。倾听，不加入竞争。
+Member DCY: Primary target. Prepare the main point, such as “food may not be the most urgent need at first, but fishing is important for longer survival.” If invited, speak naturally.
+Member ZJR: Secondary competitor. Prepare a weaker or more conditional point, such as “if there are few fish nearby, this item may be uncertain.” If invited, speak naturally but do not appear stronger than DCY.
 
 注意：
-预期路径：leader 邀请 B。
-如果 leader 先邀请 C，则记录为 target mismatch。
-如果 B 和 C 都没有被邀请，则记录为 missed。
+预期路径：leader 邀请 DCY。
+如果 leader 先邀请 ZJR，则记录为 target mismatch。
+如果 DCY 和 ZJR 都没有被邀请，则记录为 missed。
 ```
 
 ---
@@ -147,7 +147,7 @@ Scenario： 荒岛求生
 - Flare gun（信号枪）
 
 Episode 任务：
-Leader 正在解释或总结信号枪的求救价值。Member C 是主要 target。
+Leader 正在解释或总结信号枪的求救价值。Member ZJR 是主要 target。
 
 Discussion focus：
 - Can the flare gun help signal to ships or aircraft?
@@ -156,12 +156,12 @@ Discussion focus：
 - 与水或工具等稳定生存物品相比，它的价值是更高还是更低？
 
 Staff 角色任务：
-Member A：普通参与者。倾听即可，只做简短回应。
-Member B：普通参与者。倾听即可，只做简短回应。
-Member C: Target member. Prepare one supplementary point, such as “the flare gun is very useful if the island is near a shipping or flight route, but less stable otherwise.” Wait for the leader to invite you.
+Member ZHZ：普通参与者。倾听即可，只做简短回应。
+Member DCY：普通参与者。倾听即可，只做简短回应。
+Member ZJR: Target member. Prepare one supplementary point, such as “the flare gun is very useful if the island is near a shipping or flight route, but less stable otherwise.” Wait for the leader to invite you.
 
 注意：
-Member C 不应打断。如果 leader 邀请 C，则该事件成功。
+Member ZJR 不应打断。如果 leader 邀请 ZJR，则该事件成功。
 ```
 
 ---
@@ -188,9 +188,9 @@ Discussion focus：
 - Are there any final comments before ending the trial?
 
 Staff 角色任务：
-Member A：如被邀请，可确认讨论结果或简短补充。
-Member B：如被邀请，可确认讨论结果或简短补充。
-Member C：如被邀请，可确认讨论结果或简短补充。
+Member ZHZ：如被邀请，可确认讨论结果或简短补充。
+Member DCY：如被邀请，可确认讨论结果或简短补充。
+Member ZJR：如被邀请，可确认讨论结果或简短补充。
 
 注意：
 不要开启新的主要 speaking-intention event。
@@ -250,9 +250,9 @@ Discussion focus：
 - 即使当前没有人受伤，它是否仍应排在较高位置？
 
 Staff 角色任务：
-Member A：简短回应，帮助进入讨论。
-Member B：简短回应，并确认该 item 的可能价值。
-Member C：自然地进行简短回应。
+Member ZHZ：简短回应，帮助进入讨论。
+Member DCY：简短回应，并确认该 item 的可能价值。
+Member ZJR：自然地进行简短回应。
 
 注意：
 不要触发正式 speaking-intention event。
@@ -270,7 +270,7 @@ Scenario： 荒岛求生
 - Rope（绳子）
 
 Episode 任务：
-Leader 正在解释绳子的用途。Member B 是具有有效补充观点的 target member。
+Leader 正在解释绳子的用途。Member DCY 是具有有效补充观点的 target member。
 
 Discussion focus：
 - Can rope be used to build shelter or secure objects?
@@ -279,12 +279,12 @@ Discussion focus：
 - 它的通用性是否比单一用途物品更有价值？
 
 Staff 角色任务：
-Member A：普通参与者。倾听即可，只做简短回应。
-Member B: Target member. Prepare a supplementary point about the multi-purpose value of rope. Wait for the leader to invite you.
-Member C：普通参与者。倾听即可，只做简短回应。
+Member ZHZ：普通参与者。倾听即可，只做简短回应。
+Member DCY: Target member. Prepare a supplementary point about the multi-purpose value of rope. Wait for the leader to invite you.
+Member ZJR：普通参与者。倾听即可，只做简短回应。
 
 注意：
-Member B 不应打断。如果 leader 邀请 B，则该事件成功。
+Member DCY 不应打断。如果 leader 邀请 DCY，则该事件成功。
 ```
 
 ---
@@ -299,7 +299,7 @@ Scenario： 荒岛求生
 - Lighter / matches（打火机/火柴）
 
 Episode 任务：
-两名成员都对火源的重要性有观点。Member C 是 primary target，Member A 是 secondary competitor。
+两名成员都对火源的重要性有观点。Member ZJR 是 primary target，Member ZHZ 是 secondary competitor。
 
 Discussion focus：
 - 火源是否有助于保暖、煮水、驱虫和产生求救烟雾？
@@ -308,13 +308,13 @@ Discussion focus：
 - Does fire complement the water filter or shelter items?
 
 Staff 角色任务：
-Member A: Secondary competitor. Prepare a conditional point, such as “fire may be less reliable if the environment is wet.” Do not appear stronger than C.
-Member B：普通参与者。倾听，不参与竞争。
-Member C: Primary target. Prepare the main point, such as “fire supports multiple survival needs: boiling water, warmth, and rescue signaling.” Wait for the leader to invite you.
+Member ZHZ: Secondary competitor. Prepare a conditional point, such as “fire may be less reliable if the environment is wet.” Do not appear stronger than ZJR.
+Member DCY：普通参与者。倾听，不参与竞争。
+Member ZJR: Primary target. Prepare the main point, such as “fire supports multiple survival needs: boiling water, warmth, and rescue signaling.” Wait for the leader to invite you.
 
 注意：
-预期路径：leader 邀请 C。
-如果 leader 先邀请 A，则记录为 target mismatch。
+预期路径：leader 邀请 ZJR。
+如果 leader 先邀请 ZHZ，则记录为 target mismatch。
 ```
 
 ---
@@ -329,7 +329,7 @@ Scenario： 荒岛求生
 - Tent / hammock（帐篷/吊床）
 
 Episode 任务：
-Leader 正在讨论庇护/休息相关 item。Member A 是具有补充观点的主要 target。
+Leader 正在讨论庇护/休息相关 item。Member ZHZ 是具有补充观点的主要 target。
 
 Discussion focus：
 - 这个 item 能否提供庇护、休息、遮阳和防虫保护？
@@ -338,12 +338,12 @@ Discussion focus：
 - 如果地面潮湿或不安全，吊床是否更有用？
 
 Staff 角色任务：
-Member A: Target member. Prepare one clear supplementary point about shelter and rest. Wait for the leader to invite you.
-Member B：普通参与者。倾听即可，只做简短回应。
-Member C：普通参与者。倾听即可，只做简短回应。
+Member ZHZ: Target member. Prepare one clear supplementary point about shelter and rest. Wait for the leader to invite you.
+Member DCY：普通参与者。倾听即可，只做简短回应。
+Member ZJR：普通参与者。倾听即可，只做简短回应。
 
 注意：
-Member A 不应打断。如果 leader 邀请 A，则该事件成功。
+Member ZHZ 不应打断。如果 leader 邀请 ZHZ，则该事件成功。
 ```
 
 ---
@@ -370,9 +370,9 @@ Discussion focus：
 - Are there any final comments before ending the trial?
 
 Staff 角色任务：
-Member A：如被邀请，可确认讨论结果或简短补充。
-Member B：如被邀请，可确认讨论结果或简短补充。
-Member C：如被邀请，可确认讨论结果或简短补充。
+Member ZHZ：如被邀请，可确认讨论结果或简短补充。
+Member DCY：如被邀请，可确认讨论结果或简短补充。
+Member ZJR：如被邀请，可确认讨论结果或简短补充。
 
 注意：
 不要开启新的主要 speaking-intention event。
@@ -440,9 +440,9 @@ Discussion focus：
 - Should it be ranked above rescue or protection items?
 
 Staff 角色任务：
-Member A：简短回应 leader，帮助进入讨论。
-Member B：简短回应，或自然地表示同意/不同意。
-Member C：简短回应并确认理解任务。
+Member ZHZ：简短回应 leader，帮助进入讨论。
+Member DCY：简短回应，或自然地表示同意/不同意。
+Member ZJR：简短回应并确认理解任务。
 
 注意：
 本阶段不要触发正式 speaking-intention event。
@@ -465,7 +465,7 @@ Scenario： 荒岛求生
 - Machete（砍刀）
 
 Episode 任务：
-Leader 正在解释或总结砍刀的用途。Member C 有一个有价值的补充观点，应被视为主要 target。
+Leader 正在解释或总结砍刀的用途。Member ZJR 有一个有价值的补充观点，应被视为主要 target。
 
 Discussion focus：
 - Can the machete cut branches, clear vegetation, or prepare materials for shelter?
@@ -474,12 +474,12 @@ Discussion focus：
 - Should it be ranked high because it is a multi-purpose tool?
 
 Staff 角色任务：
-Member A：普通参与者。倾听即可，如有需要只做简短回应。
-Member B：普通参与者。倾听即可，如有需要只做简短回应。
-Member C: Target member. Prepare one clear supplementary point, such as “the machete can help build shelter quickly by cutting branches and clearing vegetation.” Wait for the leader to invite you. If invited, speak naturally.
+Member ZHZ：普通参与者。倾听即可，如有需要只做简短回应。
+Member DCY：普通参与者。倾听即可，如有需要只做简短回应。
+Member ZJR: Target member. Prepare one clear supplementary point, such as “the machete can help build shelter quickly by cutting branches and clearing vegetation.” Wait for the leader to invite you. If invited, speak naturally.
 
 注意：
-Member C 不应打断 leader。如果 leader 邀请 C，则该事件成功。
+Member ZJR 不应打断 leader。如果 leader 邀请 ZJR，则该事件成功。
 ```
 
 ---
@@ -497,7 +497,7 @@ Scenario： 荒岛求生
 - Signal mirror（信号镜）
 
 Episode 任务：
-Leader 正在讨论信号镜。两名成员都有可能补充观点，但 Member A 是更强的 target，Member B 是较低优先级的 competitor。
+Leader 正在讨论信号镜。两名成员都有可能补充观点，但 Member ZHZ 是更强的 target，Member DCY 是较低优先级的 competitor。
 
 Discussion focus：
 - Can the signal mirror help attract ships or aircraft during the day?
@@ -506,14 +506,14 @@ Discussion focus：
 - Should rescue signaling be ranked above long-term survival tools?
 
 Staff 角色任务：
-Member A: Primary target. Prepare the main point, such as “a signal mirror is reusable and can be valuable for daytime rescue.” If invited, speak naturally.
-Member B: Secondary competitor. Prepare a weaker or more conditional point, such as “the mirror is less useful at night or in cloudy weather.” If invited, speak naturally but do not appear stronger than A.
-Member C：普通参与者。倾听，不加入竞争。
+Member ZHZ: Primary target. Prepare the main point, such as “a signal mirror is reusable and can be valuable for daytime rescue.” If invited, speak naturally.
+Member DCY: Secondary competitor. Prepare a weaker or more conditional point, such as “the mirror is less useful at night or in cloudy weather.” If invited, speak naturally but do not appear stronger than ZHZ.
+Member ZJR：普通参与者。倾听，不加入竞争。
 
 注意：
-预期路径：leader 邀请 A。
-如果 leader 先邀请 B，则记录为 target mismatch。
-如果 A 和 B 都没有被邀请，则记录为 missed。
+预期路径：leader 邀请 ZHZ。
+如果 leader 先邀请 DCY，则记录为 target mismatch。
+如果 ZHZ 和 DCY 都没有被邀请，则记录为 missed。
 ```
 
 ---
@@ -531,7 +531,7 @@ Scenario： 荒岛求生
 - Mosquito net（蚊帐）
 
 Episode 任务：
-Leader 正在解释或总结蚊帐的防护价值。Member B 是主要 target。
+Leader 正在解释或总结蚊帐的防护价值。Member DCY 是主要 target。
 
 Discussion focus：
 - Can the mosquito net protect from insects and improve sleep quality?
@@ -540,12 +540,12 @@ Discussion focus：
 - Is it less urgent than water, fire, or rescue items?
 
 Staff 角色任务：
-Member A：普通参与者。倾听即可，只做简短回应。
-Member B: Target member. Prepare one supplementary point, such as “better sleep and fewer insect bites may help the group maintain energy over several days.” Wait for the leader to invite you.
-Member C：普通参与者。倾听即可，只做简短回应。
+Member ZHZ：普通参与者。倾听即可，只做简短回应。
+Member DCY: Target member. Prepare one supplementary point, such as “better sleep and fewer insect bites may help the group maintain energy over several days.” Wait for the leader to invite you.
+Member ZJR：普通参与者。倾听即可，只做简短回应。
 
 注意：
-Member B 不应打断。如果 leader 邀请 B，则该事件成功。
+Member DCY 不应打断。如果 leader 邀请 DCY，则该事件成功。
 ```
 
 ---
@@ -576,9 +576,9 @@ Discussion focus：
 - Are there any final comments before ending the trial?
 
 Staff 角色任务：
-Member A：如被邀请，可确认讨论结果或简短补充。
-Member B：如被邀请，可确认讨论结果或简短补充。
-Member C：如被邀请，可确认讨论结果或简短补充。
+Member ZHZ：如被邀请，可确认讨论结果或简短补充。
+Member DCY：如被邀请，可确认讨论结果或简短补充。
+Member ZJR：如被邀请，可确认讨论结果或简短补充。
 
 注意：
 不要开启新的主要 speaking-intention event。
@@ -630,7 +630,7 @@ Scenario： 沙漠求生
 - Cosmetic mirror（化妆镜/信号镜）
 
 Episode 任务：
-Leader 介绍沙漠求生任务，并把讨论交给成员。Member A 和 Member B 开始讨论化妆镜/信号镜。
+Leader 介绍沙漠求生任务，并把讨论交给成员。Member ZHZ 和 Member DCY 开始讨论化妆镜/信号镜。
 
 Discussion focus：
 - Can the mirror reflect sunlight to signal rescuers?
@@ -639,9 +639,9 @@ Discussion focus：
 - Should the group stay near the crash site and signal?
 
 Staff 角色任务：
-Member A：active speaker。开始讨论该 item。
-Member B：active speaker。回应 A 并继续讨论。
-Member C：普通参与者。保持参与感，但不要成为 target。
+Member ZHZ：active speaker。开始讨论该 item。
+Member DCY：active speaker。回应 ZHZ 并继续讨论。
+Member ZJR：普通参与者。保持参与感，但不要成为 target。
 
 注意：
 不要触发正式 speaking-intention event。
@@ -659,7 +659,7 @@ Scenario： 沙漠求生
 - Top coat per person（每人一件外套）
 
 Episode 任务：
-Member A 和 Member B 正在讨论外套。Member C 有补充观点，但还没有获得发言机会。
+Member ZHZ 和 Member DCY 正在讨论外套。Member ZJR 有补充观点，但还没有获得发言机会。
 
 Discussion focus：
 - Can a top coat reduce sun exposure and water loss during the day?
@@ -668,12 +668,12 @@ Discussion focus：
 - Should it be ranked above or below water and signaling tools?
 
 Staff 角色任务：
-Member A: Active speaker. Discuss why the coat may or may not be useful.
-Member B: Active speaker. Respond to A and maintain the two-person discussion.
-Member C: Target member. Prepare a point such as “the coat can protect from sun and reduce dehydration.” Wait for the leader to invite you.
+Member ZHZ: Active speaker. Discuss why the coat may or may not be useful.
+Member DCY: Active speaker. Respond to ZHZ and maintain the two-person discussion.
+Member ZJR: Target member. Prepare a point such as “the coat can protect from sun and reduce dehydration.” Wait for the leader to invite you.
 
 注意：
-Member C 不应打断。如果 leader 邀请 C，则该事件成功。
+Member ZJR 不应打断。如果 leader 邀请 ZJR，则该事件成功。
 ```
 
 ---
@@ -688,7 +688,7 @@ Scenario： 沙漠求生
 - Water per person（每人一份水）
 
 Episode 任务：
-Member A 围绕水说得比其他人更多。Member B 还没有机会表达一个重要观点。
+Member ZHZ 围绕水说得比其他人更多。Member DCY 还没有机会表达一个重要观点。
 
 Discussion focus：
 - Is water the most urgent desert survival need?
@@ -697,12 +697,12 @@ Discussion focus：
 - How should water be ranked relative to signaling or shade items?
 
 Staff 角色任务：
-Member A: Dominant speaker. Lead the discussion and give several reasons, but do not overact.
-Member B: Target member. Prepare a point such as “water is essential, but movement strategy affects how quickly it is consumed.” Wait for the leader to invite you.
-Member C: Secondary responder. Give short responses to A and do not become the target.
+Member ZHZ: Dominant speaker. Lead the discussion and give several reasons, but do not overact.
+Member DCY: Target member. Prepare a point such as “water is essential, but movement strategy affects how quickly it is consumed.” Wait for the leader to invite you.
+Member ZJR: Secondary responder. Give short responses to ZHZ and do not become the target.
 
 注意：
-Member B 是 target。如果 leader 邀请 B，则该事件成功。
+Member DCY 是 target。如果 leader 邀请 DCY，则该事件成功。
 ```
 
 ---
@@ -717,7 +717,7 @@ Scenario： 沙漠求生
 - Flashlight（手电筒）
 
 Episode 任务：
-Member B 和 Member C 正在讨论手电筒。Member A 有补充观点，但还没有获得发言机会。
+Member DCY 和 Member ZJR 正在讨论手电筒。Member ZHZ 有补充观点，但还没有获得发言机会。
 
 Discussion focus：
 - Can the flashlight help with night signaling?
@@ -726,12 +726,12 @@ Discussion focus：
 - Is night movement safe or risky?
 
 Staff 角色任务：
-Member A: Target member. Prepare a point such as “the flashlight is useful mainly for night signaling or movement.” Wait for the leader to invite you.
-Member B: Active speaker. Discuss the item with C.
-Member C: Active speaker. Respond to B and maintain the two-person discussion.
+Member ZHZ: Target member. Prepare a point such as “the flashlight is useful mainly for night signaling or movement.” Wait for the leader to invite you.
+Member DCY: Active speaker. Discuss the item with ZJR.
+Member ZJR: Active speaker. Respond to DCY and maintain the two-person discussion.
 
 注意：
-Member A 不应打断。如果 leader 邀请 A，则该事件成功。
+Member ZHZ 不应打断。如果 leader 邀请 ZHZ，则该事件成功。
 ```
 
 ---
@@ -758,9 +758,9 @@ Discussion focus：
 - Are there any final comments before ending the trial?
 
 Staff 角色任务：
-Member A：如被邀请，可确认讨论结果或简短补充。
-Member B：如被邀请，可确认讨论结果或简短补充。
-Member C：如被邀请，可确认讨论结果或简短补充。
+Member ZHZ：如被邀请，可确认讨论结果或简短补充。
+Member DCY：如被邀请，可确认讨论结果或简短补充。
+Member ZJR：如被邀请，可确认讨论结果或简短补充。
 
 注意：
 不要开启新的主要 speaking-intention event。
@@ -820,9 +820,9 @@ Discussion focus：
 - Is it more useful if the group stays near the crash site?
 
 Staff 角色任务：
-Member A: Active speaker. Begin discussing the item.
-Member B：普通参与者。保持参与感，但不要成为 target。
-Member C：active speaker。回应 A 并继续讨论。
+Member ZHZ: Active speaker. Begin discussing the item.
+Member DCY：普通参与者。保持参与感，但不要成为 target。
+Member ZJR：active speaker。回应 ZHZ 并继续讨论。
 
 注意：
 不要触发正式 speaking-intention event。
@@ -840,7 +840,7 @@ Scenario： 沙漠求生
 - Jack knife（折叠刀）
 
 Episode 任务：
-Member A 和 Member C 正在讨论折叠刀。Member B 有补充观点，但还没有获得发言机会。
+Member ZHZ 和 Member ZJR 正在讨论折叠刀。Member DCY 有补充观点，但还没有获得发言机会。
 
 Discussion focus：
 - Can the jack knife be used for cutting, repairing, or making simple tools?
@@ -849,12 +849,12 @@ Discussion focus：
 - Is it flexible enough to rank highly?
 
 Staff 角色任务：
-Member A: Active speaker. Discuss the item with C.
-Member B: Target member. Prepare a point about the flexible tool value of the jack knife. Wait for the leader to invite you.
-Member C: Active speaker. Respond to A and maintain the discussion.
+Member ZHZ: Active speaker. Discuss the item with ZJR.
+Member DCY: Target member. Prepare a point about the flexible tool value of the jack knife. Wait for the leader to invite you.
+Member ZJR: Active speaker. Respond to ZHZ and maintain the discussion.
 
 注意：
-Member B 不应打断。如果 leader 邀请 B，则该事件成功。
+Member DCY 不应打断。如果 leader 邀请 DCY，则该事件成功。
 ```
 
 ---
@@ -869,7 +869,7 @@ Scenario： 沙漠求生
 - Sunglasses（太阳镜）
 
 Episode 任务：
-Member B 主导了太阳镜的讨论。Member C 还没有表达一个重要观点。
+Member DCY 主导了太阳镜的讨论。Member ZJR 还没有表达一个重要观点。
 
 Discussion focus：
 - Can sunglasses prevent glare and eye fatigue?
@@ -878,12 +878,12 @@ Discussion focus：
 - How do they compare with shade or clothing items?
 
 Staff 角色任务：
-Member A: Secondary responder. Give short responses to B.
-Member B: Dominant speaker. Lead the discussion and give several reasons, but do not overact.
-Member C: Target member. Prepare a point such as “if we stay near the crash site, sunglasses may be less important than signaling or shade.” Wait for the leader to invite you.
+Member ZHZ: Secondary responder. Give short responses to DCY.
+Member DCY: Dominant speaker. Lead the discussion and give several reasons, but do not overact.
+Member ZJR: Target member. Prepare a point such as “if we stay near the crash site, sunglasses may be less important than signaling or shade.” Wait for the leader to invite you.
 
 注意：
-Member C 是 target。如果 leader 邀请 C，则该事件成功。
+Member ZJR 是 target。如果 leader 邀请 ZJR，则该事件成功。
 ```
 
 ---
@@ -898,7 +898,7 @@ Scenario： 沙漠求生
 - Map / compass（地图/指南针）
 
 Episode 任务：
-Member B 和 Member C 正在讨论地图/指南针。Member A 有补充观点，但还没有获得发言机会。
+Member DCY 和 Member ZJR 正在讨论地图/指南针。Member ZHZ 有补充观点，但还没有获得发言机会。
 
 Discussion focus：
 - Is navigation useful if the group decides to move?
@@ -907,12 +907,12 @@ Discussion focus：
 - Can any part of the compass help with signaling or fire?
 
 Staff 角色任务：
-Member A: Target member. Prepare a point such as “map/compass is only valuable if we decide to leave the crash site.” Wait for the leader to invite you.
-Member B: Active speaker. Discuss the item with C.
-Member C: Active speaker. Respond to B and continue the discussion.
+Member ZHZ: Target member. Prepare a point such as “map/compass is only valuable if we decide to leave the crash site.” Wait for the leader to invite you.
+Member DCY: Active speaker. Discuss the item with ZJR.
+Member ZJR: Active speaker. Respond to DCY and continue the discussion.
 
 注意：
-Member A 不应打断。如果 leader 邀请 A，则该事件成功。
+Member ZHZ 不应打断。如果 leader 邀请 ZHZ，则该事件成功。
 ```
 
 ---
@@ -939,9 +939,9 @@ Discussion focus：
 - Are there any final comments before ending the trial?
 
 Staff 角色任务：
-Member A：如被邀请，可确认讨论结果或简短补充。
-Member B：如被邀请，可确认讨论结果或简短补充。
-Member C：如被邀请，可确认讨论结果或简短补充。
+Member ZHZ：如被邀请，可确认讨论结果或简短补充。
+Member DCY：如被邀请，可确认讨论结果或简短补充。
+Member ZJR：如被邀请，可确认讨论结果或简短补充。
 
 注意：
 不要开启新的主要 speaking-intention event。
@@ -1000,7 +1000,7 @@ Scenario： 沙漠求生
 - Plastic raincoat（塑料雨衣）
 
 Episode 任务：
-Leader 介绍新的沙漠求生 item 集合，并把讨论交给成员。Member A 和 Member B 开始讨论塑料雨衣。
+Leader 介绍新的沙漠求生 item 集合，并把讨论交给成员。Member ZHZ 和 Member DCY 开始讨论塑料雨衣。
 
 Discussion focus：
 - Can the raincoat be used as shade or a ground cover?
@@ -1009,9 +1009,9 @@ Discussion focus：
 - Is it less useful than stronger signaling or water-related items?
 
 Staff 角色任务：
-Member A：active speaker。开始讨论该 item。
-Member B：active speaker。回应 A 并继续讨论。
-Member C：普通参与者。保持参与感，但不要成为 target。
+Member ZHZ：active speaker。开始讨论该 item。
+Member DCY：active speaker。回应 ZHZ 并继续讨论。
+Member ZJR：普通参与者。保持参与感，但不要成为 target。
 
 注意：
 不要触发正式 speaking-intention event。
@@ -1033,7 +1033,7 @@ Scenario： 沙漠求生
 - Pistol（手枪）
 
 Episode 任务：
-Member A 和 Member B 正在讨论手枪。Member C 有补充观点，但还没有获得发言机会。
+Member ZHZ 和 Member DCY 正在讨论手枪。Member ZJR 有补充观点，但还没有获得发言机会。
 
 Discussion focus：
 - Can the pistol be used for sound signaling?
@@ -1042,12 +1042,12 @@ Discussion focus：
 - Does noise signaling work better if rescuers are nearby?
 
 Staff 角色任务：
-Member A: Active speaker. Discuss why the pistol may or may not be useful.
-Member B: Active speaker. Respond to A and maintain the two-person discussion.
-Member C: Target member. Prepare a point such as “the pistol may be more useful as a sound signal than as a weapon.” Wait for the leader to invite you.
+Member ZHZ: Active speaker. Discuss why the pistol may or may not be useful.
+Member DCY: Active speaker. Respond to ZHZ and maintain the two-person discussion.
+Member ZJR: Target member. Prepare a point such as “the pistol may be more useful as a sound signal than as a weapon.” Wait for the leader to invite you.
 
 注意：
-Member C 不应打断。如果 leader 邀请 C，则该事件成功。
+Member ZJR 不应打断。如果 leader 邀请 ZJR，则该事件成功。
 ```
 
 ---
@@ -1065,7 +1065,7 @@ Scenario： 沙漠求生
 - Alcohol bottle（酒精瓶）
 
 Episode 任务：
-Member A 围绕酒精瓶说得比其他人更多。Member B 还没有机会表达一个重要观点。
+Member ZHZ 围绕酒精瓶说得比其他人更多。Member DCY 还没有机会表达一个重要观点。
 
 Discussion focus：
 - Can alcohol be used for first aid or disinfection?
@@ -1074,12 +1074,12 @@ Discussion focus：
 - Should it be ranked low because of the dehydration risk?
 
 Staff 角色任务：
-Member A: Dominant speaker. Lead the discussion and give several reasons, but do not overact.
-Member B: Target member. Prepare a point such as “drinking alcohol is risky in the desert, but it may have limited value for disinfection.” Wait for the leader to invite you.
-Member C: Secondary responder. Give short responses to A and do not become the target.
+Member ZHZ: Dominant speaker. Lead the discussion and give several reasons, but do not overact.
+Member DCY: Target member. Prepare a point such as “drinking alcohol is risky in the desert, but it may have limited value for disinfection.” Wait for the leader to invite you.
+Member ZJR: Secondary responder. Give short responses to ZHZ and do not become the target.
 
 注意：
-Member B 是 target。如果 leader 邀请 B，则该事件成功。
+Member DCY 是 target。如果 leader 邀请 DCY，则该事件成功。
 ```
 
 ---
@@ -1097,7 +1097,7 @@ Scenario： 沙漠求生
 - Desert animals guidebook（沙漠动物指南）
 
 Episode 任务：
-Member B 和 Member C 正在讨论沙漠动物指南。Member A 有补充观点，但还没有获得发言机会。
+Member DCY 和 Member ZJR 正在讨论沙漠动物指南。Member ZHZ 有补充观点，但还没有获得发言机会。
 
 Discussion focus：
 - Can the guidebook help identify edible or dangerous desert animals?
@@ -1106,12 +1106,12 @@ Discussion focus：
 - Is it only useful if the group plans to move or forage?
 
 Staff 角色任务：
-Member A: Target member. Prepare a point such as “the guidebook may help only in longer survival situations, but it is not as urgent as water or signaling.” Wait for the leader to invite you.
-Member B: Active speaker. Discuss the item with C.
-Member C: Active speaker. Respond to B and maintain the two-person discussion.
+Member ZHZ: Target member. Prepare a point such as “the guidebook may help only in longer survival situations, but it is not as urgent as water or signaling.” Wait for the leader to invite you.
+Member DCY: Active speaker. Discuss the item with ZJR.
+Member ZJR: Active speaker. Respond to DCY and maintain the two-person discussion.
 
 注意：
-Member A 不应打断。如果 leader 邀请 A，则该事件成功。
+Member ZHZ 不应打断。如果 leader 邀请 ZHZ，则该事件成功。
 ```
 
 ---
@@ -1142,9 +1142,9 @@ Discussion focus：
 - Are there any final comments before ending the trial?
 
 Staff 角色任务：
-Member A：如被邀请，可确认讨论结果或简短补充。
-Member B：如被邀请，可确认讨论结果或简短补充。
-Member C：如被邀请，可确认讨论结果或简短补充。
+Member ZHZ：如被邀请，可确认讨论结果或简短补充。
+Member DCY：如被邀请，可确认讨论结果或简短补充。
+Member ZJR：如被邀请，可确认讨论结果或简短补充。
 
 注意：
 不要开启新的主要 speaking-intention event。
@@ -1205,9 +1205,9 @@ Discussion focus：
 - Should it be ranked very highly?
 
 Staff 角色任务：
-Member A：普通参与者。自然加入讨论。
-Member B：普通参与者。自然加入讨论。
-Member C：普通参与者。自然加入讨论。
+Member ZHZ：普通参与者。自然加入讨论。
+Member DCY：普通参与者。自然加入讨论。
+Member ZJR：普通参与者。自然加入讨论。
 
 注意：
 不要强行持续讲话。自然的短暂停顿是可以接受的。
@@ -1226,7 +1226,7 @@ Scenario： 深山求生
 - Polythene sheeting / heavy canvas（塑料布/厚帆布）
 
 Episode 任务：
-前一段讨论放缓后，小组出现短暂沉默。Member A 是最适合继续庇护相关讨论的人。
+前一段讨论放缓后，小组出现短暂沉默。Member ZHZ 是最适合继续庇护相关讨论的人。
 
 Discussion focus：
 - Can sheeting/canvas protect from wind, rain, and cold?
@@ -1235,9 +1235,9 @@ Discussion focus：
 - Is shelter more important than moving to find help?
 
 Staff 角色任务：
-Member A: Target member. Prepare a point about shelter value. Wait for the leader to invite you, then restart the discussion.
-Member B：waiting member。不要率先重启讨论。
-Member C：waiting member。不要率先重启讨论。
+Member ZHZ: Target member. Prepare a point about shelter value. Wait for the leader to invite you, then restart the discussion.
+Member DCY：waiting member。不要率先重启讨论。
+Member ZJR：waiting member。不要率先重启讨论。
 
 注意：
 在 leader 采取行动前，允许出现自然的短暂停顿。
@@ -1255,7 +1255,7 @@ Scenario： 深山求生
 - First-aid kit（急救包）
 
 Episode 任务：
-短暂停顿后，Member B 和 Member C 都可以继续讨论，但 Member B 是 primary restart target。
+短暂停顿后，Member DCY 和 Member ZJR 都可以继续讨论，但 Member DCY 是 primary restart target。
 
 Discussion focus：
 - Is a first-aid kit necessary for cuts, falls, frostbite, or minor injuries?
@@ -1264,13 +1264,13 @@ Discussion focus：
 - Can it improve the safety of team movement?
 
 Staff 角色任务：
-Member A: Waiting member. Do not compete for the restart.
-Member B: Primary target. Prepare the more relevant continuation point. Wait for the leader to invite you.
-Member C: Secondary candidate. Prepare a possible point, but do not appear stronger than B.
+Member ZHZ: Waiting member. Do not compete for the restart.
+Member DCY: Primary target. Prepare the more relevant continuation point. Wait for the leader to invite you.
+Member ZJR: Secondary candidate. Prepare a possible point, but do not appear stronger than DCY.
 
 注意：
-预期路径：leader 邀请 B。
-如果 leader 先邀请 C，则记录为 target mismatch。
+预期路径：leader 邀请 DCY。
+如果 leader 先邀请 ZJR，则记录为 target mismatch。
 ```
 
 ---
@@ -1285,7 +1285,7 @@ Scenario： 深山求生
 - Signal flares（信号弹）
 
 Episode 任务：
-小组再次出现短暂沉默。Member C 是最适合继续讨论信号弹的人。
+小组再次出现短暂沉默。Member ZJR 是最适合继续讨论信号弹的人。
 
 Discussion focus：
 - Can signal flares attract rescue teams?
@@ -1294,9 +1294,9 @@ Discussion focus：
 - Should they be saved until rescue is likely nearby?
 
 Staff 角色任务：
-Member A：waiting member。不要率先重启讨论。
-Member B：waiting member。不要率先重启讨论。
-Member C: Target member. Prepare a point about rescue signaling. Wait for the leader to invite you.
+Member ZHZ：waiting member。不要率先重启讨论。
+Member DCY：waiting member。不要率先重启讨论。
+Member ZJR: Target member. Prepare a point about rescue signaling. Wait for the leader to invite you.
 
 注意：
 在 leader 采取行动前，允许出现自然的短暂停顿。
@@ -1326,9 +1326,9 @@ Discussion focus：
 - Are there any final comments before ending the trial?
 
 Staff 角色任务：
-Member A：如被邀请，可确认讨论结果或简短补充。
-Member B：如被邀请，可确认讨论结果或简短补充。
-Member C：如被邀请，可确认讨论结果或简短补充。
+Member ZHZ：如被邀请，可确认讨论结果或简短补充。
+Member DCY：如被邀请，可确认讨论结果或简短补充。
+Member ZJR：如被邀请，可确认讨论结果或简短补充。
 
 注意：
 不要开启新的主要 speaking-intention event。
@@ -1388,9 +1388,9 @@ Discussion focus：
 - Is hydration more urgent than warmth or shelter?
 
 Staff 角色任务：
-Member A：普通参与者。自然加入讨论。
-Member B：普通参与者。自然加入讨论。
-Member C：普通参与者。自然加入讨论。
+Member ZHZ：普通参与者。自然加入讨论。
+Member DCY：普通参与者。自然加入讨论。
+Member ZJR：普通参与者。自然加入讨论。
 
 注意：
 自然停顿是可以接受的。
@@ -1409,7 +1409,7 @@ Scenario： 深山求生
 - Toolbox / hand axe / knife（工具箱/手斧/刀）
 
 Episode 任务：
-前一段讨论放缓后，小组出现短暂沉默。Member C 是最适合继续工具类讨论的人。
+前一段讨论放缓后，小组出现短暂沉默。Member ZJR 是最适合继续工具类讨论的人。
 
 Discussion focus：
 - Can tools help cut branches, build shelter, or repair equipment?
@@ -1418,9 +1418,9 @@ Discussion focus：
 - Can they work together with rope, canvas, and fire?
 
 Staff 角色任务：
-Member A：waiting member。不要率先重启讨论。
-Member B：waiting member。不要率先重启讨论。
-Member C: Target member. Prepare a point about the flexible value of tools. Wait for the leader to invite you.
+Member ZHZ：waiting member。不要率先重启讨论。
+Member DCY：waiting member。不要率先重启讨论。
+Member ZJR: Target member. Prepare a point about the flexible value of tools. Wait for the leader to invite you.
 
 注意：
 在 leader 采取行动前，允许出现自然的短暂停顿。
@@ -1438,7 +1438,7 @@ Scenario： 深山求生
 - Extra clothing / blanket（额外衣物/毯子）
 
 Episode 任务：
-短暂停顿后，Member A 和 Member B 都可以继续讨论，但 Member A 是 primary restart target。
+短暂停顿后，Member ZHZ 和 Member DCY 都可以继续讨论，但 Member ZHZ 是 primary restart target。
 
 Discussion focus：
 - Can extra clothing or a blanket prevent hypothermia?
@@ -1447,13 +1447,13 @@ Discussion focus：
 - Should it be ranked above food or tools?
 
 Staff 角色任务：
-Member A: Primary target. Prepare the stronger continuation point about warmth and hypothermia prevention. Wait for the leader to invite you.
-Member B: Secondary candidate. Prepare a possible point, but do not appear stronger than A.
-Member C: Waiting member. Do not compete for the restart.
+Member ZHZ: Primary target. Prepare the stronger continuation point about warmth and hypothermia prevention. Wait for the leader to invite you.
+Member DCY: Secondary candidate. Prepare a possible point, but do not appear stronger than ZHZ.
+Member ZJR: Waiting member. Do not compete for the restart.
 
 注意：
-预期路径：leader 邀请 A。
-如果 leader 先邀请 B，则记录为 target mismatch。
+预期路径：leader 邀请 ZHZ。
+如果 leader 先邀请 DCY，则记录为 target mismatch。
 ```
 
 ---
@@ -1468,7 +1468,7 @@ Scenario： 深山求生
 - Chocolate / high-energy food（巧克力/高能量食物）
 
 Episode 任务：
-小组再次出现短暂沉默。Member B 是最适合继续讨论能量食物的人。
+小组再次出现短暂沉默。Member DCY 是最适合继续讨论能量食物的人。
 
 Discussion focus：
 - Can high-energy food maintain physical energy and body heat?
@@ -1477,9 +1477,9 @@ Discussion focus：
 - Does it matter more if the group needs to walk or wait for rescue?
 
 Staff 角色任务：
-Member A：waiting member。不要率先重启讨论。
-Member B: Target member. Prepare a point about energy and body heat. Wait for the leader to invite you.
-Member C：waiting member。不要率先重启讨论。
+Member ZHZ：waiting member。不要率先重启讨论。
+Member DCY: Target member. Prepare a point about energy and body heat. Wait for the leader to invite you.
+Member ZJR：waiting member。不要率先重启讨论。
 
 注意：
 在 leader 采取行动前，允许出现自然的短暂停顿。
@@ -1509,9 +1509,9 @@ Discussion focus：
 - Are there any final comments before ending the trial?
 
 Staff 角色任务：
-Member A：如被邀请，可确认讨论结果或简短补充。
-Member B：如被邀请，可确认讨论结果或简短补充。
-Member C：如被邀请，可确认讨论结果或简短补充。
+Member ZHZ：如被邀请，可确认讨论结果或简短补充。
+Member DCY：如被邀请，可确认讨论结果或简短补充。
+Member ZJR：如被邀请，可确认讨论结果或简短补充。
 
 注意：
 不要开启新的主要 speaking-intention event。
@@ -1578,9 +1578,9 @@ Discussion focus：
 - Should it be ranked above visual signaling tools?
 
 Staff 角色任务：
-Member A：普通参与者。自然加入讨论。
-Member B：普通参与者。自然加入讨论。
-Member C：普通参与者。自然加入讨论。
+Member ZHZ：普通参与者。自然加入讨论。
+Member DCY：普通参与者。自然加入讨论。
+Member ZJR：普通参与者。自然加入讨论。
 
 注意：
 不要强行持续讲话。自然的短暂停顿是可以接受的。
@@ -1602,7 +1602,7 @@ Scenario： 深山求生
 - Sleeping bag（睡袋）
 
 Episode 任务：
-前一段讨论放缓后，小组出现短暂沉默。Member C 是最适合继续讨论睡袋的人。
+前一段讨论放缓后，小组出现短暂沉默。Member ZJR 是最适合继续讨论睡袋的人。
 
 Discussion focus：
 - Can the sleeping bag prevent hypothermia at night?
@@ -1611,9 +1611,9 @@ Discussion focus：
 - Is it bulky but important for rest and survival?
 
 Staff 角色任务：
-Member A：waiting member。不要率先重启讨论。
-Member B：waiting member。不要率先重启讨论。
-Member C: Target member. Prepare a point about warmth and hypothermia prevention. Wait for the leader to invite you.
+Member ZHZ：waiting member。不要率先重启讨论。
+Member DCY：waiting member。不要率先重启讨论。
+Member ZJR: Target member. Prepare a point about warmth and hypothermia prevention. Wait for the leader to invite you.
 
 注意：
 在 leader 采取行动前，允许出现自然的短暂停顿。
@@ -1634,7 +1634,7 @@ Scenario： 深山求生
 - Metal cup / cooking pot（金属杯/锅）
 
 Episode 任务：
-短暂停顿后，Member A 和 Member B 都可以继续讨论，但 Member A 是 primary restart target。
+短暂停顿后，Member ZHZ 和 Member DCY 都可以继续讨论，但 Member ZHZ 是 primary restart target。
 
 Discussion focus：
 - Can a metal cup or cooking pot be used to boil water?
@@ -1643,13 +1643,13 @@ Discussion focus：
 - Does water preparation make it more important than food?
 
 Staff 角色任务：
-Member A: Primary target. Prepare the stronger continuation point about boiling water or melting snow. Wait for the leader to invite you.
-Member B: Secondary candidate. Prepare a possible point, but do not appear stronger than A.
-Member C: Waiting member. Do not compete for the restart.
+Member ZHZ: Primary target. Prepare the stronger continuation point about boiling water or melting snow. Wait for the leader to invite you.
+Member DCY: Secondary candidate. Prepare a possible point, but do not appear stronger than ZHZ.
+Member ZJR: Waiting member. Do not compete for the restart.
 
 注意：
-预期路径：leader 邀请 A。
-如果 leader 先邀请 B，则记录为 target mismatch。
+预期路径：leader 邀请 ZHZ。
+如果 leader 先邀请 DCY，则记录为 target mismatch。
 ```
 
 ---
@@ -1667,7 +1667,7 @@ Scenario： 深山求生
 - Headlamp（头灯）
 
 Episode 任务：
-小组再次出现短暂沉默。Member B 是最适合继续讨论头灯的人。
+小组再次出现短暂沉默。Member DCY 是最适合继续讨论头灯的人。
 
 Discussion focus：
 - Can the headlamp help the group move safely in low light?
@@ -1676,9 +1676,9 @@ Discussion focus：
 - Should the group avoid night movement even with a headlamp?
 
 Staff 角色任务：
-Member A：waiting member。不要率先重启讨论。
-Member B: Target member. Prepare a point about safe movement or hands-free work. Wait for the leader to invite you.
-Member C：waiting member。不要率先重启讨论。
+Member ZHZ：waiting member。不要率先重启讨论。
+Member DCY: Target member. Prepare a point about safe movement or hands-free work. Wait for the leader to invite you.
+Member ZJR：waiting member。不要率先重启讨论。
 
 注意：
 在 leader 采取行动前，允许出现自然的短暂停顿。
@@ -1712,9 +1712,9 @@ Discussion focus：
 - Are there any final comments before ending the trial?
 
 Staff 角色任务：
-Member A：如被邀请，可确认讨论结果或简短补充。
-Member B：如被邀请，可确认讨论结果或简短补充。
-Member C：如被邀请，可确认讨论结果或简短补充。
+Member ZHZ：如被邀请，可确认讨论结果或简短补充。
+Member DCY：如被邀请，可确认讨论结果或简短补充。
+Member ZJR：如被邀请，可确认讨论结果或简短补充。
 
 注意：
 不要开启新的主要 speaking-intention event。

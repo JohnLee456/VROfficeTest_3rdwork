@@ -41,7 +41,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
     private bool panelVisible = true;
 #if UNITY_EDITOR
     private int editorDebugTrialNumber = 1;
-    private int editorDebugEpisodeNumber = 1;
+    private int editorDebugEpisodeNumber = Study2TrialPhaseInfo.Opening;
 #endif
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -203,7 +203,7 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
         // 记录服务端/房间同步过来的开始时间，后续用 PhotonNetwork.Time 计算经过时间。
         currentBlockNumber = blockNumber;
         currentTrialNumber = trialNumber;
-        currentEpisodeNumber = episodeNumber;
+        currentEpisodeNumber = Mathf.Clamp(episodeNumber, Study2TrialPhaseInfo.FirstPhaseNumber, Study2TrialPhaseInfo.LastPhaseNumber);
         episodeStartTime = startTime;
         hasEpisodeStart = true;
         panelVisible = true;
@@ -222,16 +222,16 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
         // 编辑器调试入口：不用 leader 广播，也能本地验证计时 UI。
         double startTime = PhotonNetwork.InRoom ? PhotonNetwork.Time : Time.time;
         ApplyEpisodeStart(1, editorDebugTrialNumber, editorDebugEpisodeNumber, startTime);
-        Debug.Log("Editor debug episode start simulated: Trial " + editorDebugTrialNumber + ", Episode " + editorDebugEpisodeNumber + ".");
+        Debug.Log("Editor debug phase start simulated: Trial " + editorDebugTrialNumber + ", " + Study2TrialPhaseInfo.GetLabel(editorDebugEpisodeNumber) + ".");
 
         editorDebugEpisodeNumber++;
-        if (editorDebugEpisodeNumber > 3)
+        if (editorDebugEpisodeNumber > Study2TrialPhaseInfo.LastPhaseNumber)
         {
-            editorDebugEpisodeNumber = 1;
+            editorDebugEpisodeNumber = Study2TrialPhaseInfo.Opening;
             editorDebugTrialNumber++;
         }
 
-        if (editorDebugTrialNumber > 2)
+        if (editorDebugTrialNumber > 3)
         {
             editorDebugTrialNumber = 1;
         }
@@ -246,16 +246,16 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
             return;
         }
 
-        titleText.text = "Episode Timer";
+        titleText.text = "Phase Timer";
 
         if (!hasEpisodeStart)
         {
-            statusText.text = "Waiting for episode start";
+            statusText.text = "Waiting for phase start";
             timerText.text = "00:00";
             return;
         }
 
-        statusText.text = "Block " + currentBlockNumber + " / Trial " + currentTrialNumber + " / Episode " + currentEpisodeNumber;
+        statusText.text = "Block " + currentBlockNumber + " / Trial " + currentTrialNumber + " / " + Study2TrialPhaseInfo.GetLabel(currentEpisodeNumber);
         float elapsedSeconds = Mathf.Max(0f, (float)((PhotonNetwork.InRoom ? PhotonNetwork.Time : Time.time) - episodeStartTime));
         int minutes = Mathf.FloorToInt(elapsedSeconds / 60f);
         int seconds = Mathf.FloorToInt(elapsedSeconds % 60f);
@@ -295,8 +295,8 @@ public class Block1MemberEpisodeTimerPanel : MonoBehaviourPunCallbacks, IOnEvent
         panel.raycastTarget = false;
         DashboardOverlayRendering.ApplyToGraphic(panel);
 
-        titleText = CreateText("Title", panelRect, "Episode Timer", new Vector2(0f, 48f), new Vector2(360f, 34f), 24f, FontStyles.Bold, TextAlignmentOptions.Center);
-        statusText = CreateText("Status", panelRect, "Waiting for episode start", new Vector2(0f, 8f), new Vector2(350f, 30f), 18f, FontStyles.Normal, TextAlignmentOptions.Center);
+        titleText = CreateText("Title", panelRect, "Phase Timer", new Vector2(0f, 48f), new Vector2(360f, 34f), 24f, FontStyles.Bold, TextAlignmentOptions.Center);
+        statusText = CreateText("Status", panelRect, "Waiting for phase start", new Vector2(0f, 8f), new Vector2(350f, 30f), 18f, FontStyles.Normal, TextAlignmentOptions.Center);
         timerText = CreateText("Timer", panelRect, "00:00", new Vector2(0f, -42f), new Vector2(320f, 48f), 36f, FontStyles.Bold, TextAlignmentOptions.Center);
 
         EnsureCameraAttachment();

@@ -32,10 +32,10 @@ public class Block1SpeakingIntentionController : MonoBehaviour
     public bool IsTrialRunning => trialRunning;
     public bool IsEpisodeRunning => episodeRunning;
     public bool IsPaused => paused;
-    public int EpisodeCount => trialRunning && trials.ContainsKey(currentTrialNumber) ? trials[currentTrialNumber].Length : 3;
+    public int EpisodeCount => trialRunning && trials.ContainsKey(currentTrialNumber) ? trials[currentTrialNumber].Length - 1 : Study2TrialPhaseInfo.LastPhaseNumber;
     public float EpisodeElapsedSeconds => episodeElapsedSeconds;
     public float EpisodeRemainingSeconds => episodeRunning && currentEpisode != null ? Mathf.Max(0f, currentEpisode.EndSecond - (currentEpisode.StartSecond + episodeElapsedSeconds)) : 0f;
-    public string CurrentEpisodeTitle => currentEpisode != null ? "Episode " + currentEpisodeNumber + ": " + currentEpisode.Name : string.Empty;
+    public string CurrentEpisodeTitle => currentEpisode != null ? Study2TrialPhaseInfo.GetLabel(currentEpisodeNumber) + ": " + currentEpisode.Name : string.Empty;
 
     public string CurrentStatus
     {
@@ -56,7 +56,7 @@ public class Block1SpeakingIntentionController : MonoBehaviour
                 return "Trial " + currentTrialNumber + " ready";
             }
 
-            return "Trial " + currentTrialNumber + " / Episode " + currentEpisodeNumber + " / " + Mathf.FloorToInt(episodeElapsedSeconds) + "s";
+            return "Trial " + currentTrialNumber + " / " + Study2TrialPhaseInfo.GetLabel(currentEpisodeNumber) + " / " + Mathf.FloorToInt(episodeElapsedSeconds) + "s";
         }
     }
 
@@ -68,12 +68,12 @@ public class Block1SpeakingIntentionController : MonoBehaviour
         }
 
         EpisodeSchedule[] episodes = trials[trialNumber];
-        if (episodeNumber < 1 || episodeNumber > episodes.Length)
+        if (episodeNumber < Study2TrialPhaseInfo.FirstPhaseNumber || episodeNumber >= episodes.Length)
         {
             return string.Empty;
         }
 
-        return "Episode " + episodeNumber + ": " + episodes[episodeNumber - 1].Name;
+        return Study2TrialPhaseInfo.GetLabel(episodeNumber) + ": " + episodes[episodeNumber].Name;
     }
 
     private void Awake()
@@ -96,7 +96,7 @@ public class Block1SpeakingIntentionController : MonoBehaviour
         if (IsControlledScene(SceneManager.GetActiveScene()))
         {
             BindTargets();
-            ApplyBackgroundValues();
+            ApplyZeroValues();
         }
     }
 
@@ -166,7 +166,7 @@ public class Block1SpeakingIntentionController : MonoBehaviour
         cueRunning = false;
         manualCueActive = false;
         paused = false;
-        ApplyBackgroundValues();
+        ApplyZeroValues();
         Debug.Log("Block1 Speaking Context started: Trial " + currentTrialNumber);
     }
 
@@ -198,9 +198,9 @@ public class Block1SpeakingIntentionController : MonoBehaviour
         }
 
         EpisodeSchedule[] episodes = trials[currentTrialNumber];
-        if (episodeNumber < 1 || episodeNumber > episodes.Length)
+        if (episodeNumber < Study2TrialPhaseInfo.FirstPhaseNumber || episodeNumber >= episodes.Length)
         {
-            Debug.LogWarning("Block1 episode " + episodeNumber + " is not configured.");
+            Debug.LogWarning("Block1 phase " + episodeNumber + " is not configured.");
             return;
         }
 
@@ -210,7 +210,7 @@ public class Block1SpeakingIntentionController : MonoBehaviour
         }
 
         currentEpisodeNumber = episodeNumber;
-        currentEpisode = episodes[episodeNumber - 1];
+        currentEpisode = episodes[episodeNumber];
         episodeElapsedSeconds = 0f;
         episodeRunning = true;
         cueRunning = false;
@@ -218,7 +218,7 @@ public class Block1SpeakingIntentionController : MonoBehaviour
         paused = false;
 
         ApplyEpisodeValues(currentEpisode.StartSecond, false);
-        Debug.Log("Block1 Trial " + currentTrialNumber + " Episode " + currentEpisodeNumber + " started: " + currentEpisode.Name);
+        Debug.Log("Block1 Trial " + currentTrialNumber + " " + Study2TrialPhaseInfo.GetLabel(currentEpisodeNumber) + " started: " + currentEpisode.Name);
     }
 
     public void EndEpisode()
@@ -233,14 +233,14 @@ public class Block1SpeakingIntentionController : MonoBehaviour
             EndCueInternal("EpisodeEnded");
         }
 
-        Debug.Log("Block1 Trial " + currentTrialNumber + " Episode " + currentEpisodeNumber + " ended at " + episodeElapsedSeconds.ToString("0.0") + "s.");
+        Debug.Log("Block1 Trial " + currentTrialNumber + " " + Study2TrialPhaseInfo.GetLabel(currentEpisodeNumber) + " ended at " + episodeElapsedSeconds.ToString("0.0") + "s.");
         episodeRunning = false;
         manualCueActive = false;
         currentEpisode = null;
 
         if (resetValuesWhenEpisodeEnds)
         {
-            ApplyBackgroundValues();
+            ApplyZeroValues();
         }
     }
 
@@ -331,7 +331,7 @@ public class Block1SpeakingIntentionController : MonoBehaviour
         }
 
         BindTargets();
-        ApplyBackgroundValues();
+        ApplyZeroValues();
     }
 
     private bool CanRunHere()
@@ -377,7 +377,7 @@ public class Block1SpeakingIntentionController : MonoBehaviour
     private void BeginCue(string reason)
     {
         cueRunning = true;
-        Debug.Log("Block1 cue started: Trial " + currentTrialNumber + ", Episode " + currentEpisodeNumber + ", target " + currentEpisode.PrimaryTarget + ", reason " + reason + ".");
+        Debug.Log("Block1 cue started: Trial " + currentTrialNumber + ", " + Study2TrialPhaseInfo.GetLabel(currentEpisodeNumber) + ", target " + currentEpisode.PrimaryTarget + ", reason " + reason + ".");
     }
 
     private void EndCueInternal(string reason)
@@ -388,7 +388,7 @@ public class Block1SpeakingIntentionController : MonoBehaviour
         }
 
         cueRunning = false;
-        Debug.Log("Block1 cue ended: Trial " + currentTrialNumber + ", Episode " + currentEpisodeNumber + ", reason " + reason + ".");
+        Debug.Log("Block1 cue ended: Trial " + currentTrialNumber + ", " + Study2TrialPhaseInfo.GetLabel(currentEpisodeNumber) + ", reason " + reason + ".");
     }
 
     private void ApplyEpisodeValues(float absoluteTrialTime, bool forceCuePeak)
@@ -422,16 +422,16 @@ public class Block1SpeakingIntentionController : MonoBehaviour
         return schedule.BackgroundValue;
     }
 
-    private void ApplyBackgroundValues()
+    private void ApplyZeroValues()
     {
         if (!HasTargets())
         {
             return;
         }
 
-        zhz.speaking_intention = BackgroundProbability;
-        dcy.speaking_intention = BackgroundProbability;
-        zjr.speaking_intention = BackgroundProbability;
+        zhz.speaking_intention = 0f;
+        dcy.speaking_intention = 0f;
+        zjr.speaking_intention = 0f;
     }
 
     private void ClearRuntimeState()
@@ -452,6 +452,7 @@ public class Block1SpeakingIntentionController : MonoBehaviour
         trials.Clear();
         trials.Add(1, new[]
         {
+            ZeroPhase("Opening Phase", 0f, 40f),
             new EpisodeSchedule(
                 "Clear Single Entry Request",
                 40f,
@@ -460,12 +461,7 @@ public class Block1SpeakingIntentionController : MonoBehaviour
                 65f,
                 "ZHZ",
                 "",
-                MemberSchedule.WithSegments(88f, new[]
-                {
-                    ProbabilitySegment.Linear(56f, 60f, 20f, 74f),
-                    ProbabilitySegment.Peaked(60f, 65f, 74f, 88f, 74f),
-                    ProbabilitySegment.Linear(65f, 68f, 74f, 20f)
-                }),
+                SingleEntry(),
                 MemberSchedule.Background(),
                 MemberSchedule.Background()),
             new EpisodeSchedule(
@@ -477,18 +473,8 @@ public class Block1SpeakingIntentionController : MonoBehaviour
                 "DCY",
                 "ZJR",
                 MemberSchedule.Background(),
-                MemberSchedule.WithSegments(92f, new[]
-                {
-                    ProbabilitySegment.Linear(126f, 130f, 25f, 78f),
-                    ProbabilitySegment.Peaked(130f, 135f, 78f, 92f, 78f),
-                    ProbabilitySegment.Linear(135f, 138f, 78f, 25f)
-                }),
-                MemberSchedule.WithSegments(80f, new[]
-                {
-                    ProbabilitySegment.Linear(127f, 130f, 20f, 72f),
-                    ProbabilitySegment.Peaked(130f, 135f, 72f, 80f, 71f),
-                    ProbabilitySegment.Linear(135f, 138f, 71f, 20f)
-                })),
+                PrimaryCompetition(),
+                SecondaryCompetition()),
             new EpisodeSchedule(
                 "Repeated Single Entry Request",
                 170f,
@@ -499,16 +485,13 @@ public class Block1SpeakingIntentionController : MonoBehaviour
                 "",
                 MemberSchedule.Background(),
                 MemberSchedule.Background(),
-                MemberSchedule.WithSegments(86f, new[]
-                {
-                    ProbabilitySegment.Linear(196f, 200f, 20f, 74f),
-                    ProbabilitySegment.Peaked(200f, 205f, 74f, 86f, 74f),
-                    ProbabilitySegment.Linear(205f, 208f, 74f, 20f)
-                }))
+                RepeatedSingle()),
+            ZeroPhase("Summary Stage", 240f, 300f)
         });
 
         trials.Add(2, new[]
         {
+            ZeroPhase("Opening Phase", 0f, 40f),
             new EpisodeSchedule(
                 "Clear Single Entry Request",
                 40f,
@@ -518,12 +501,7 @@ public class Block1SpeakingIntentionController : MonoBehaviour
                 "DCY",
                 "",
                 MemberSchedule.Background(),
-                MemberSchedule.WithSegments(88f, new[]
-                {
-                    ProbabilitySegment.Linear(56f, 60f, 20f, 74f),
-                    ProbabilitySegment.Peaked(60f, 65f, 74f, 88f, 74f),
-                    ProbabilitySegment.Linear(65f, 68f, 74f, 20f)
-                }),
+                SingleEntry(),
                 MemberSchedule.Background()),
             new EpisodeSchedule(
                 "Competing Entry Requests",
@@ -533,19 +511,9 @@ public class Block1SpeakingIntentionController : MonoBehaviour
                 135f,
                 "ZJR",
                 "ZHZ",
-                MemberSchedule.WithSegments(80f, new[]
-                {
-                    ProbabilitySegment.Linear(127f, 130f, 20f, 72f),
-                    ProbabilitySegment.Peaked(130f, 135f, 72f, 80f, 71f),
-                    ProbabilitySegment.Linear(135f, 138f, 71f, 20f)
-                }),
+                SecondaryCompetition(),
                 MemberSchedule.Background(),
-                MemberSchedule.WithSegments(92f, new[]
-                {
-                    ProbabilitySegment.Linear(126f, 130f, 25f, 78f),
-                    ProbabilitySegment.Peaked(130f, 135f, 78f, 92f, 78f),
-                    ProbabilitySegment.Linear(135f, 138f, 78f, 25f)
-                })),
+                PrimaryCompetition()),
             new EpisodeSchedule(
                 "Repeated Single Entry Request",
                 170f,
@@ -554,14 +522,104 @@ public class Block1SpeakingIntentionController : MonoBehaviour
                 205f,
                 "ZHZ",
                 "",
-                MemberSchedule.WithSegments(86f, new[]
-                {
-                    ProbabilitySegment.Linear(196f, 200f, 20f, 74f),
-                    ProbabilitySegment.Peaked(200f, 205f, 74f, 86f, 74f),
-                    ProbabilitySegment.Linear(205f, 208f, 74f, 20f)
-                }),
+                RepeatedSingle(),
                 MemberSchedule.Background(),
-                MemberSchedule.Background())
+                MemberSchedule.Background()),
+            ZeroPhase("Summary Stage", 240f, 300f)
+        });
+
+        trials.Add(3, new[]
+        {
+            ZeroPhase("Opening Phase", 0f, 40f),
+            new EpisodeSchedule(
+                "Clear Single Entry Request",
+                40f,
+                100f,
+                60f,
+                65f,
+                "ZJR",
+                "",
+                MemberSchedule.Background(),
+                MemberSchedule.Background(),
+                SingleEntry()),
+            new EpisodeSchedule(
+                "Competing Entry Requests",
+                100f,
+                170f,
+                130f,
+                135f,
+                "ZHZ",
+                "DCY",
+                PrimaryCompetition(),
+                SecondaryCompetition(),
+                MemberSchedule.Background()),
+            new EpisodeSchedule(
+                "Repeated Single Entry Request",
+                170f,
+                240f,
+                200f,
+                205f,
+                "DCY",
+                "",
+                MemberSchedule.Background(),
+                RepeatedSingle(),
+                MemberSchedule.Background()),
+            ZeroPhase("Summary Stage", 240f, 300f)
+        });
+    }
+
+    private static EpisodeSchedule ZeroPhase(string name, float startSecond, float endSecond)
+    {
+        return new EpisodeSchedule(
+            name,
+            startSecond,
+            endSecond,
+            startSecond,
+            startSecond,
+            "",
+            "",
+            MemberSchedule.Zero(),
+            MemberSchedule.Zero(),
+            MemberSchedule.Zero());
+    }
+
+    private static MemberSchedule SingleEntry()
+    {
+        return MemberSchedule.WithSegments(88f, new[]
+        {
+            ProbabilitySegment.Linear(56f, 60f, 20f, 74f),
+            ProbabilitySegment.Peaked(60f, 65f, 74f, 88f, 74f),
+            ProbabilitySegment.Linear(65f, 68f, 74f, 20f)
+        });
+    }
+
+    private static MemberSchedule PrimaryCompetition()
+    {
+        return MemberSchedule.WithSegments(92f, new[]
+        {
+            ProbabilitySegment.Linear(126f, 130f, 25f, 78f),
+            ProbabilitySegment.Peaked(130f, 135f, 78f, 92f, 78f),
+            ProbabilitySegment.Linear(135f, 138f, 78f, 25f)
+        });
+    }
+
+    private static MemberSchedule SecondaryCompetition()
+    {
+        return MemberSchedule.WithSegments(80f, new[]
+        {
+            ProbabilitySegment.Linear(127f, 130f, 20f, 72f),
+            ProbabilitySegment.Peaked(130f, 135f, 72f, 80f, 71f),
+            ProbabilitySegment.Linear(135f, 138f, 71f, 20f)
+        });
+    }
+
+    private static MemberSchedule RepeatedSingle()
+    {
+        return MemberSchedule.WithSegments(86f, new[]
+        {
+            ProbabilitySegment.Linear(196f, 200f, 20f, 74f),
+            ProbabilitySegment.Peaked(200f, 205f, 74f, 86f, 74f),
+            ProbabilitySegment.Linear(205f, 208f, 74f, 20f)
         });
     }
 
@@ -644,6 +702,11 @@ public class Block1SpeakingIntentionController : MonoBehaviour
         public static MemberSchedule Background()
         {
             return new MemberSchedule(BackgroundProbability, 0f, new ProbabilitySegment[0]);
+        }
+
+        public static MemberSchedule Zero()
+        {
+            return new MemberSchedule(0f, 0f, new ProbabilitySegment[0]);
         }
 
         public static MemberSchedule WithSegments(float cuePeakValue, ProbabilitySegment[] segments)

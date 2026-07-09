@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class LeaderEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallback
 {
     private const string ControlledSceneName = OfficeSceneSupport.OfficeLoggedInNoBot;
+    private const int BoardSortingOrder = 930;
     [SerializeField] private Vector3 cameraLocalPosition = new Vector3(0f, 0.08f, 1.05f);
     [SerializeField] private Vector2 panelSize = new Vector2(780f, 560f);
     [SerializeField] private float worldScale = 0.00155f;
@@ -316,8 +317,8 @@ public class LeaderEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallb
 
         Canvas canvas = boardRoot.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
-        canvas.sortingOrder = 880;
-        DashboardOverlayRendering.ConfigureCanvas(canvas, 880);
+        canvas.sortingOrder = BoardSortingOrder;
+        DashboardOverlayRendering.ConfigureCanvas(canvas, BoardSortingOrder);
 
         boardRoot.AddComponent<CanvasScaler>().dynamicPixelsPerUnit = 12f;
 

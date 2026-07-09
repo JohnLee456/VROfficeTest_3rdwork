@@ -9,6 +9,7 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 
 public static class DashboardOverlayRendering
 {
+    private const int AlwaysOnTopRenderQueue = 5000;
     private static Material uiOverlayMaterial;
 
     public static void ConfigureCanvas(Canvas canvas, int sortingOrder)
@@ -95,7 +96,7 @@ public static class DashboardOverlayRendering
         SetIntIfPresent(material, "_ZTestMode", (int)CompareFunction.Always);
         SetIntIfPresent(material, "unity_GUIZTestMode", (int)CompareFunction.Always);
         SetIntIfPresent(material, "_ZWrite", 0);
-        material.renderQueue = (int)RenderQueue.Overlay;
+        material.renderQueue = AlwaysOnTopRenderQueue;
     }
 
     private static void SetIntIfPresent(Material material, string propertyName, int value)

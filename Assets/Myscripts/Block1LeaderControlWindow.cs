@@ -11,12 +11,14 @@ public class Block1LeaderControlWindow : MonoBehaviour
     private const string ControlledAvatarName = "GCHbot";
     private const int LastTrialNumber = 3;
     private const int LastBlockNumber = 3;
+    private static readonly Vector2 SingleButtonPosition = new Vector2(0f, -104f);
+    private static readonly Vector2 LeftButtonPosition = new Vector2(-118f, -104f);
+    private static readonly Vector2 RightButtonPosition = new Vector2(118f, -104f);
 
     [SerializeField] private Vector3 cameraLocalPosition = new Vector3(0f, -0.08f, 1.05f);
     [SerializeField] private Vector2 panelSize = new Vector2(620f, 330f);
     [SerializeField] private float worldScale = 0.0017f;
     [SerializeField] private float warningSecondsBeforeEpisodeEnd = 0f;
-    [SerializeField] private float stayExtensionSeconds = 20f;
     [SerializeField] private KeyCode reopenTrialEndKey = KeyCode.T;
 
     private Block1SpeakingIntentionController block1Controller;
@@ -37,9 +39,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
     private int pendingEpisodeNumber = Study2TrialPhaseInfo.Opening;
     private int activeBlockNumber = 1;
     private bool warningShownForCurrentEpisode;
-    private bool stayExtensionActive;
     private bool trialEndHidden;
-    private float stayExtensionRemaining;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void CreateForScene()
@@ -117,20 +117,6 @@ public class Block1LeaderControlWindow : MonoBehaviour
             ShowTrialEnd();
         }
 
-        if (stayExtensionActive)
-        {
-            stayExtensionRemaining -= Time.deltaTime;
-            timerText.text = "Stay extension: " + Mathf.CeilToInt(Mathf.Max(0f, stayExtensionRemaining)) + "s";
-
-            if (stayExtensionRemaining <= 0f)
-            {
-                stayExtensionActive = false;
-                GoToNextEpisodeOrTrialEnd();
-            }
-
-            return;
-        }
-
         if (!IsEpisodeRunningForActiveBlock() || warningShownForCurrentEpisode)
         {
             return;
@@ -162,13 +148,13 @@ public class Block1LeaderControlWindow : MonoBehaviour
         pendingTrialNumber = trialNumber;
         pendingEpisodeNumber = episodeNumber;
         warningShownForCurrentEpisode = false;
-        stayExtensionActive = false;
         trialEndHidden = false;
         Block1EpisodeSync.BroadcastEpisodeReady(activeBlockNumber, trialNumber, episodeNumber);
         string title = GetEpisodeTitleForActiveBlock(trialNumber, episodeNumber);
         headerText.text = string.IsNullOrEmpty(title) ? Study2TrialPhaseInfo.GetLabel(episodeNumber) : title;
         bodyText.text = "Block " + activeBlockNumber + " / Trial " + trialNumber + " is ready. Start this phase when the discussion reaches this segment.";
         timerText.text = string.Empty;
+        SetButtonAnchoredPosition(primaryButton, SingleButtonPosition);
         ConfigureButton(primaryButton, primaryButtonText, "Start", OnStartEpisodeClicked, true);
         ConfigureButton(secondaryButton, secondaryButtonText, string.Empty, null, false);
         SetWindowVisible(true);
@@ -181,34 +167,21 @@ public class Block1LeaderControlWindow : MonoBehaviour
 
         int currentPhase = GetCurrentEpisodeNumberForActiveBlock();
         headerText.text = "Block " + activeBlockNumber + " / " + Study2TrialPhaseInfo.GetLabel(currentPhase) + " complete";
-        bodyText.text = "This phase has reached the scheduled end. Go to the next phase or stay for 20 seconds.";
+        bodyText.text = "This phase has reached the scheduled end. Go to the next phase.";
         timerText.text = "Remaining: " + Mathf.CeilToInt(GetEpisodeRemainingSecondsForActiveBlock()) + "s";
-        ConfigureButton(primaryButton, primaryButtonText, "Stay", OnStayClicked, true);
-        ConfigureButton(secondaryButton, secondaryButtonText, currentPhase < GetEpisodeCountForActiveBlock() ? "Next Phase" : "End Trial", OnNextEpisodeClicked, true);
-        SetWindowVisible(true);
-    }
-
-    private void ShowStayExtension()
-    {
-        stayExtensionActive = true;
-        stayExtensionRemaining = stayExtensionSeconds;
-        PauseActiveBlock();
-
-        headerText.text = "Stay in current phase";
-        bodyText.text = "Speaking intention values are frozen. The next phase panel will open automatically.";
-        timerText.text = "Stay extension: " + Mathf.CeilToInt(stayExtensionRemaining) + "s";
-        ConfigureButton(primaryButton, primaryButtonText, string.Empty, null, false);
+        SetButtonAnchoredPosition(primaryButton, SingleButtonPosition);
+        ConfigureButton(primaryButton, primaryButtonText, currentPhase < GetEpisodeCountForActiveBlock() ? "Next Phase" : "End Trial", OnNextEpisodeClicked, true);
         ConfigureButton(secondaryButton, secondaryButtonText, string.Empty, null, false);
         SetWindowVisible(true);
     }
 
     private void ShowTrialEnd()
     {
-        stayExtensionActive = false;
-
         headerText.text = "Block " + activeBlockNumber + " / Trial " + GetCurrentTrialNumberForActiveBlock() + " complete";
         bodyText.text = GetTrialEndMessage();
         timerText.text = "Press T to reopen this window after hiding it.";
+        SetButtonAnchoredPosition(primaryButton, LeftButtonPosition);
+        SetButtonAnchoredPosition(secondaryButton, RightButtonPosition);
         ConfigureButton(primaryButton, primaryButtonText, "Hide", OnHideTrialEndClicked, true);
         ConfigureButton(secondaryButton, secondaryButtonText, GetNextStepButtonText(), OnNextTrialClicked, HasNextStep());
         SetWindowVisible(true);
@@ -224,13 +197,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
         StartEpisodeForActiveBlock(pendingEpisodeNumber);
         Block1EpisodeSync.BroadcastEpisodeStarted(activeBlockNumber, pendingTrialNumber, pendingEpisodeNumber);
         warningShownForCurrentEpisode = false;
-        stayExtensionActive = false;
         SetWindowVisible(false);
-    }
-
-    private void OnStayClicked()
-    {
-        ShowStayExtension();
     }
 
     private void OnNextEpisodeClicked()
@@ -523,8 +490,8 @@ public class Block1LeaderControlWindow : MonoBehaviour
         bodyText.enableWordWrapping = true;
         timerText = CreateText("Timer", panelRect, string.Empty, new Vector2(0f, -42f), new Vector2(480f, 32f), 18f, FontStyles.Bold, TextAlignmentOptions.Center);
 
-        primaryButton = CreateButton("Primary Button", panelRect, new Vector2(-118f, -104f), new Vector2(190f, 54f), "Start", out primaryButtonText);
-        secondaryButton = CreateButton("Secondary Button", panelRect, new Vector2(118f, -104f), new Vector2(190f, 54f), "Next", out secondaryButtonText);
+        primaryButton = CreateButton("Primary Button", panelRect, LeftButtonPosition, new Vector2(190f, 54f), "Start", out primaryButtonText);
+        secondaryButton = CreateButton("Secondary Button", panelRect, RightButtonPosition, new Vector2(190f, 54f), "Next", out secondaryButtonText);
 
         EnsureCameraAttachment();
         DashboardOverlayRendering.ApplyToRoot(windowRoot);
@@ -613,6 +580,20 @@ public class Block1LeaderControlWindow : MonoBehaviour
         {
             label.text = text;
             ApplyReadableWhiteText(label);
+        }
+    }
+
+    private static void SetButtonAnchoredPosition(Button button, Vector2 anchoredPosition)
+    {
+        if (button == null)
+        {
+            return;
+        }
+
+        RectTransform rect = button.GetComponent<RectTransform>();
+        if (rect != null)
+        {
+            rect.anchoredPosition = anchoredPosition;
         }
     }
 

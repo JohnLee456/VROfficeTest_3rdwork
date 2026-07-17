@@ -9,9 +9,9 @@ using UnityEngine.UI;
 public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallback
 {
     private const string ControlledSceneName = OfficeSceneSupport.OfficeLoggedInNoBot;
-    [SerializeField] private Vector3 cameraLocalPosition = new Vector3(0f, 0.08f, 1.05f);
+    [SerializeField] private Vector3 cameraLocalPosition = new Vector3(0f, -0.1f, 0.68f);
     [SerializeField] private Vector2 panelSize = new Vector2(780f, 560f);
-    [SerializeField] private float worldScale = 0.00155f;
+    [SerializeField] private float worldScale = 0.001f;
     [SerializeField] private KeyCode toggleKey = KeyCode.N;
 #if UNITY_EDITOR
     [SerializeField] private KeyCode editorDebugStartKey = KeyCode.B;

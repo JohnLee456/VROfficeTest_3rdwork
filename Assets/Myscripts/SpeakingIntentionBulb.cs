@@ -22,12 +22,12 @@ public class SpeakingIntentionBulb : MonoBehaviour
 
         renderers = GetComponentsInChildren<Renderer>(true);
         lights = GetComponentsInChildren<Light>(true);
-        ApplyState(false, DiskSelectorController.IsBinaryHaloSelected);
+        ApplyState(false, ShouldShowBinaryHalo());
     }
 
     private void Update()
     {
-        bool shouldBeVisible = DiskSelectorController.IsBinaryHaloSelected;
+        bool shouldBeVisible = ShouldShowBinaryHalo();
         bool shouldBeOn = speakingIntention != null && speakingIntention.speaking_intention >= onThreshold;
         if (shouldBeOn != isOn || shouldBeVisible != isVisibleForCurrentMode)
         {
@@ -73,5 +73,11 @@ public class SpeakingIntentionBulb : MonoBehaviour
                 lights[i].enabled = shouldShowBulb;
             }
         }
+    }
+
+    private static bool ShouldShowBinaryHalo()
+    {
+        return DiskSelectorController.IsBinaryHaloSelected &&
+            !Study2HaloVisibilityPolicy.ShouldSuppressHaloForCurrentPhase();
     }
 }

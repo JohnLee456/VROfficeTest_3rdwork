@@ -39,7 +39,8 @@ public class ProbabilityHaloDisplayManager : MonoBehaviour
 
     private void Update()
     {
-        bool shouldShow = DiskSelectorController.IsProbabilityHaloSelected;
+        bool shouldShow = DiskSelectorController.IsProbabilityHaloSelected &&
+            !Study2HaloVisibilityPolicy.ShouldSuppressHaloForCurrentPhase();
         if (!shouldShow)
         {
             HideDisplays();

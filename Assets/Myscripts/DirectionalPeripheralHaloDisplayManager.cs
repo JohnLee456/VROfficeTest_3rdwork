@@ -60,7 +60,8 @@ public class DirectionalPeripheralHaloDisplayManager : MonoBehaviour
             RebuildTargets();
         }
 
-        bool selected = DiskSelectorController.IsDirectionalPeripheralHaloSelected;
+        bool selected = DiskSelectorController.IsDirectionalPeripheralHaloSelected &&
+            !Study2HaloVisibilityPolicy.ShouldSuppressHaloForCurrentPhase();
         if (!selected || cachedCamera == null || leftHalo == null || rightHalo == null)
         {
             SetHaloVisible(false, false);

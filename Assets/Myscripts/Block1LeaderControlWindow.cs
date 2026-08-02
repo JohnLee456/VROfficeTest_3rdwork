@@ -20,6 +20,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
     [SerializeField] private float worldScale = 0.0017f;
     [SerializeField] private float warningSecondsBeforeEpisodeEnd = 0f;
     [SerializeField] private KeyCode reopenTrialEndKey = KeyCode.T;
+    [SerializeField] private KeyCode skipPhaseCountdownKey = KeyCode.P;
 
     private Block1SpeakingIntentionController block1Controller;
     private Block2SpeakingIntentionController block2Controller;
@@ -122,9 +123,15 @@ public class Block1LeaderControlWindow : MonoBehaviour
             return;
         }
 
+        if (Input.GetKeyDown(skipPhaseCountdownKey))
+        {
+            ShowEpisodeEndWarning(true);
+            return;
+        }
+
         if (GetEpisodeRemainingSecondsForActiveBlock() <= warningSecondsBeforeEpisodeEnd)
         {
-            ShowEpisodeEndWarning();
+            ShowEpisodeEndWarning(false);
         }
     }
 
@@ -160,15 +167,20 @@ public class Block1LeaderControlWindow : MonoBehaviour
         SetWindowVisible(true);
     }
 
-    private void ShowEpisodeEndWarning()
+    private void ShowEpisodeEndWarning(bool skippedByDebugKey)
     {
         warningShownForCurrentEpisode = true;
+        float remainingSeconds = GetEpisodeRemainingSecondsForActiveBlock();
         PauseActiveBlock();
 
         int currentPhase = GetCurrentEpisodeNumberForActiveBlock();
         headerText.text = "Block " + activeBlockNumber + " / " + Study2TrialPhaseInfo.GetLabel(currentPhase) + " complete";
-        bodyText.text = "This phase has reached the scheduled end. Go to the next phase.";
-        timerText.text = "Remaining: " + Mathf.CeilToInt(GetEpisodeRemainingSecondsForActiveBlock()) + "s";
+        bodyText.text = skippedByDebugKey
+            ? "Debug skip: choose whether to enter the next phase."
+            : "This phase has reached the scheduled end. Go to the next phase.";
+        timerText.text = skippedByDebugKey
+            ? "Skipped with P. Remaining before skip: " + Mathf.CeilToInt(Mathf.Max(0f, remainingSeconds)) + "s"
+            : "Remaining: " + Mathf.CeilToInt(remainingSeconds) + "s";
         SetButtonAnchoredPosition(primaryButton, SingleButtonPosition);
         ConfigureButton(primaryButton, primaryButtonText, currentPhase < GetEpisodeCountForActiveBlock() ? "Next Phase" : "End Trial", OnNextEpisodeClicked, true);
         ConfigureButton(secondaryButton, secondaryButtonText, string.Empty, null, false);

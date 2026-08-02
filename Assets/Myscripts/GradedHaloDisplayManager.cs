@@ -42,7 +42,8 @@ public class GradedHaloDisplayManager : MonoBehaviour
 
     private void Update()
     {
-        bool shouldShow = DiskSelectorController.IsGradedHaloSelected;
+        bool shouldShow = DiskSelectorController.IsGradedHaloSelected &&
+            !Study2HaloVisibilityPolicy.ShouldSuppressHaloForCurrentPhase();
         if (cachedCamera == null)
         {
             cachedCamera = Camera.main;

@@ -57,12 +57,19 @@ public class GradedHaloDisplayManager : MonoBehaviour
                 continue;
             }
 
-            if (display.Root.activeSelf != shouldShow)
+            float value = display.Intention.speaking_intention;
+            bool shouldShowDisplay = shouldShow && value >= 60f;
+            if (display.Root.activeSelf != shouldShowDisplay)
             {
-                display.Root.SetActive(shouldShow);
+                display.Root.SetActive(shouldShowDisplay);
             }
 
-            Color color = GetGradedColor(display.Intention.speaking_intention);
+            if (!shouldShowDisplay)
+            {
+                continue;
+            }
+
+            Color color = GetGradedColor(value);
             float pulse = 0.76f + Mathf.PingPong(Time.time * 0.55f, 0.16f);
             Color darkColor = Color.Lerp(color, Color.black, 0.38f);
 
@@ -73,7 +80,7 @@ public class GradedHaloDisplayManager : MonoBehaviour
             display.Body.color = new Color(color.r, color.g, color.b, 0.98f);
             display.Gloss.color = new Color(1f, 1f, 1f, 0.2f);
 
-            if (shouldShow && cachedCamera != null)
+            if (cachedCamera != null)
             {
                 Vector3 direction = display.Root.transform.position - cachedCamera.transform.position;
                 direction.y = 0f;

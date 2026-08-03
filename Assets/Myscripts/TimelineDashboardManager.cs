@@ -24,6 +24,9 @@ public class TimelineDashboardManager : MonoBehaviour
     private Sprite roundedFrameSprite;
     private bool dashboardVisible = true;
     private float segmentTimer;
+    private bool trial3PhysioTimelineRecording;
+    private int lastTrial3PhysioBlockNumber = -1;
+    private int lastTrial3PhysioPhaseNumber = -1;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void CreateForScene()
@@ -67,14 +70,25 @@ public class TimelineDashboardManager : MonoBehaviour
             dashboardVisible = !dashboardVisible;
         }
 
-        segmentTimer += Time.deltaTime;
-        while (segmentTimer >= segmentDuration)
+        bool forceTrial3SummaryDashboard = Study2Trial3PhysioFeedbackTestController.ShouldForceTimelineDashboardForTrial3Summary();
+        if (forceTrial3SummaryDashboard)
         {
-            segmentTimer -= segmentDuration;
-            AdvanceTimeline();
+            dashboardVisible = true;
         }
 
-        bool shouldShow = DiskSelectorController.IsTimelineDashboardSelected && dashboardVisible;
+        bool holdTrial3SummaryDashboard = Study2Trial3PhysioFeedbackTestController.ShouldHoldTimelineDashboardUntilSummaryStart();
+        bool recordTimeline = ShouldRecordTimelineSamples(forceTrial3SummaryDashboard);
+        if (recordTimeline)
+        {
+            segmentTimer += Time.deltaTime;
+            while (segmentTimer >= segmentDuration)
+            {
+                segmentTimer -= segmentDuration;
+                AdvanceTimeline();
+            }
+        }
+
+        bool shouldShow = DiskSelectorController.IsTimelineDashboardSelected && dashboardVisible && !holdTrial3SummaryDashboard;
         if (!shouldShow)
         {
             if (dashboardRoot != null && dashboardRoot.activeSelf)
@@ -87,7 +101,7 @@ public class TimelineDashboardManager : MonoBehaviour
 
         EnsureDashboardBuilt();
         EnsureCameraAttachment();
-        RefreshAllRows();
+        RefreshAllRows(recordTimeline);
 
         if (dashboardRoot != null && dashboardRoot.activeSelf != shouldShow)
         {
@@ -289,6 +303,89 @@ public class TimelineDashboardManager : MonoBehaviour
         }
     }
 
+    private bool ShouldRecordTimelineSamples(bool forceTrial3SummaryDashboard)
+    {
+        bool trial3PhysioActive = Study2Trial3PhysioFeedbackTestController.IsFeedbackOverrideActive;
+        if (!trial3PhysioActive)
+        {
+            trial3PhysioTimelineRecording = false;
+            lastTrial3PhysioBlockNumber = -1;
+            lastTrial3PhysioPhaseNumber = -1;
+            return true;
+        }
+
+        int phaseNumber = Study2Trial3PhysioFeedbackTestController.ActivePhaseNumber;
+        bool isEpisodePhase = phaseNumber >= Study2TrialPhaseInfo.Episode1 &&
+            phaseNumber <= Study2TrialPhaseInfo.Episode3;
+
+        if (isEpisodePhase)
+        {
+            int blockNumber = Study2Trial3PhysioFeedbackTestController.ActiveBlockNumber;
+            if (!trial3PhysioTimelineRecording ||
+                lastTrial3PhysioBlockNumber != blockNumber ||
+                phaseNumber == Study2TrialPhaseInfo.Episode1 && lastTrial3PhysioPhaseNumber != Study2TrialPhaseInfo.Episode1)
+            {
+                ResetTimelineSamples();
+                segmentTimer = 0f;
+            }
+
+            trial3PhysioTimelineRecording = true;
+            lastTrial3PhysioBlockNumber = blockNumber;
+            lastTrial3PhysioPhaseNumber = phaseNumber;
+            return true;
+        }
+
+        if (forceTrial3SummaryDashboard)
+        {
+            lastTrial3PhysioPhaseNumber = Study2TrialPhaseInfo.Summary;
+            return false;
+        }
+
+        return false;
+    }
+
+    private void ResetTimelineSamples()
+    {
+        EnsureMembersReadyForTimelineReset();
+
+        for (int i = 0; i < members.Count; i++)
+        {
+            MemberEntry member = members[i];
+            if (member.Samples == null)
+            {
+                continue;
+            }
+
+            for (int j = 0; j < member.Samples.Length; j++)
+            {
+                member.Samples[j] = Color.black;
+            }
+
+            if (member.Samples.Length > 0 && member.Intention != null)
+            {
+                member.Samples[member.Samples.Length - 1] = GetTimelineColor(member.Intention.speaking_intention);
+            }
+        }
+    }
+
+    private void EnsureMembersReadyForTimelineReset()
+    {
+        if (members.Count == 0)
+        {
+            RebuildMembers();
+            return;
+        }
+
+        for (int i = 0; i < members.Count; i++)
+        {
+            if (members[i].Intention == null || members[i].Samples == null)
+            {
+                RebuildMembers();
+                return;
+            }
+        }
+    }
+
     private void AdvanceTimeline()
     {
         for (int i = 0; i < members.Count; i++)
@@ -337,7 +434,7 @@ public class TimelineDashboardManager : MonoBehaviour
         }
     }
 
-    private void RefreshAllRows()
+    private void RefreshAllRows(bool updateCurrentSample)
     {
         for (int i = 0; i < members.Count; i++)
         {
@@ -347,7 +444,10 @@ public class TimelineDashboardManager : MonoBehaviour
                 continue;
             }
 
-            member.Samples[member.Samples.Length - 1] = GetTimelineColor(member.Intention.speaking_intention);
+            if (updateCurrentSample)
+            {
+                member.Samples[member.Samples.Length - 1] = GetTimelineColor(member.Intention.speaking_intention);
+            }
 
             if (member.NameText != null)
             {

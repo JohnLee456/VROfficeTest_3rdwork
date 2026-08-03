@@ -1,0 +1,62 @@
+{
+  "protocol": "physio_aware_feedback_v1",
+  "source": "polar_verity_sense_pc",
+  "timestamp_unix": 1783140002.123,
+  "time_str": "14:21:10",
+  "participant_role": "leader",
+
+  "static_state": {
+    "final": "Neutral",
+    "final_simple": "Neutral",
+    "absolute": "Neutral",
+    "baseline_shift": "Near personal baseline",
+    "baseline_ready": true,
+    "z": {
+      "hr": 0.48,
+      "rmssd": -0.35,
+      "sdnn": -0.22
+    }
+  },
+
+  "temporal_dynamics": {
+    "trend": "Physiological Fluctuation",
+    "hr_norm_change": 0.18,
+    "hrv_norm_change": -0.14
+  },
+
+  "co_occurrence": "Neutral + Physiological Fluctuation",
+
+  "metrics": {
+    "hr_bpm": 84,
+    "rmssd_ms": 29.3,
+    "sdnn_ms": 35.7,
+    "pnn50_percent": 8.1
+  },
+
+  "quality": {
+    "level": "medium",
+    "hold_used": false,
+    "strict": {
+      "usable": true,
+      "enough_ppi": true,
+      "range_ok": true,
+      "stability_ok": false,
+      "raw_count": 29,
+      "clean_count": 22
+    },
+    "soft": {
+      "usable": true,
+      "enough_ppi": true,
+      "range_ok": true,
+      "stability_ok": true,
+      "raw_count": 33,
+      "clean_count": 27
+    }
+  },
+
+  "recommended_feedback": {
+    "display_mode": "subtle_realtime",
+    "interface_strength": "low",
+    "reason": "physiological_fluctuation_detected"
+  }
+}

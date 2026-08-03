@@ -1,3 +1,5 @@
 生理信号作用
 dashboard出现时机
 每个episode提示样式
+a2的颜色有问题，低于阈值不显示而不是黑色d
+timelinedashboard在summary阶段依旧在进行

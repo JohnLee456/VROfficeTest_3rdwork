@@ -45,13 +45,18 @@ public class DiskSelectorController : MonoBehaviour
     private Sprite circleSprite;
 
     public static string ActiveSelection { get; private set; } = BinaryHaloOption;
-    public static bool IsBinaryHaloSelected => ActiveSelection == BinaryHaloOption;
-    public static bool IsGradedHaloSelected => ActiveSelection == GradedHaloOption || ActiveSelection == LegacyGrandeHaloOption;
-    public static bool IsProbabilityHaloSelected => ActiveSelection == ProbabilityHaloOption;
-    public static bool IsDirectionalPeripheralHaloSelected => ActiveSelection == DirectionalPeripheralHaloOption;
-    public static bool IsRepeatAttemptDashboardSelected => ActiveSelection == RepeatAttemptDashboardOption;
-    public static bool IsTimelineDashboardSelected => ActiveSelection == TimelineDashboardOption;
-    public static bool IsArousalDashboardSelected => ActiveSelection == ArousalDashboardOption;
+    public static string EffectiveSelection => hasSelectionOverride ? selectionOverride : ActiveSelection;
+    public static bool HasSelectionOverride => hasSelectionOverride;
+    public static bool IsBinaryHaloSelected => EffectiveSelection == BinaryHaloOption;
+    public static bool IsGradedHaloSelected => EffectiveSelection == GradedHaloOption || EffectiveSelection == LegacyGrandeHaloOption;
+    public static bool IsProbabilityHaloSelected => EffectiveSelection == ProbabilityHaloOption;
+    public static bool IsDirectionalPeripheralHaloSelected => EffectiveSelection == DirectionalPeripheralHaloOption;
+    public static bool IsRepeatAttemptDashboardSelected => EffectiveSelection == RepeatAttemptDashboardOption;
+    public static bool IsTimelineDashboardSelected => EffectiveSelection == TimelineDashboardOption;
+    public static bool IsArousalDashboardSelected => EffectiveSelection == ArousalDashboardOption;
+
+    private static bool hasSelectionOverride;
+    private static string selectionOverride = string.Empty;
 
     public string CurrentSelection
     {
@@ -220,6 +225,24 @@ public class DiskSelectorController : MonoBehaviour
     {
         selectedIndex = Mathf.Clamp(index, 0, options.Length - 1);
         RefreshSelection();
+    }
+
+    public static void SetSelectionOverride(string option)
+    {
+        if (string.IsNullOrWhiteSpace(option))
+        {
+            ClearSelectionOverride();
+            return;
+        }
+
+        selectionOverride = option;
+        hasSelectionOverride = true;
+    }
+
+    public static void ClearSelectionOverride()
+    {
+        selectionOverride = string.Empty;
+        hasSelectionOverride = false;
     }
 
     private void EndRun()

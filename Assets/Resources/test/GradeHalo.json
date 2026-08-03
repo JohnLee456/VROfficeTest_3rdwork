@@ -1,0 +1,62 @@
+{
+  "protocol": "physio_aware_feedback_v1",
+  "source": "polar_verity_sense_pc",
+  "timestamp_unix": 1783140001.123,
+  "time_str": "14:21:09",
+  "participant_role": "leader",
+
+  "static_state": {
+    "final": "Neutral",
+    "final_simple": "Neutral",
+    "absolute": "Neutral",
+    "baseline_shift": "Near personal baseline",
+    "baseline_ready": true,
+    "z": {
+      "hr": 0.12,
+      "rmssd": -0.18,
+      "sdnn": -0.05
+    }
+  },
+
+  "temporal_dynamics": {
+    "trend": "Stable Pattern",
+    "hr_norm_change": 0.03,
+    "hrv_norm_change": -0.02
+  },
+
+  "co_occurrence": "Neutral + Stable Pattern",
+
+  "metrics": {
+    "hr_bpm": 76,
+    "rmssd_ms": 34.5,
+    "sdnn_ms": 42.1,
+    "pnn50_percent": 12.5
+  },
+
+  "quality": {
+    "level": "high",
+    "hold_used": false,
+    "strict": {
+      "usable": true,
+      "enough_ppi": true,
+      "range_ok": true,
+      "stability_ok": true,
+      "raw_count": 32,
+      "clean_count": 29
+    },
+    "soft": {
+      "usable": true,
+      "enough_ppi": true,
+      "range_ok": true,
+      "stability_ok": true,
+      "raw_count": 35,
+      "clean_count": 32
+    }
+  },
+
+  "recommended_feedback": {
+    "display_mode": "realtime_or_rich",
+    "interface_strength": "medium_high",
+    "reason": "leader_available_for_feedback"
+  }
+}

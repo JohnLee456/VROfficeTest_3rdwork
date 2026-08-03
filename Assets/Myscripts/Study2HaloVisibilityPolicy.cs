@@ -10,6 +10,11 @@ public static class Study2HaloVisibilityPolicy
             return false;
         }
 
+        if (Study2Trial3PhysioFeedbackTestController.ShouldAllowHaloForTrial3Feedback(trialNumber, episodeNumber))
+        {
+            return false;
+        }
+
         return (trialNumber == 2 || trialNumber == 3) &&
             episodeNumber >= Study2TrialPhaseInfo.Episode1 &&
             episodeNumber <= Study2TrialPhaseInfo.Episode3;

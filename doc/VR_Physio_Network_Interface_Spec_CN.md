@@ -292,11 +292,11 @@ else {
 
 | interfaceMode | 建议 UI 行为 | 推荐interface |
 |---|---|---|
-| realtime_or_rich | 可以显示较明确的实时 speaking-intention cue | A2 |
-| subtle_realtime | 显示轻量 peripheral cue 或低强度 cue | A4 |
-| subtle_or_delayed | 降低即时反馈强度，必要时推迟到 summary | A1 |
-| summary_or_fallback | 不依赖生理状态，只使用普通 summary 或默认界面 | D1 |
-| subtle_or_summary | 使用保守策略 | D2 |
+| realtime_or_rich | 可以显示较明确的实时 speaking-intention cue | GradeHalo |
+| subtle_realtime | 显示轻量 peripheral cue 或低强度 cue | DirectionalPeripheralHalo |
+| subtle_or_delayed | 降低即时反馈强度，必要时推迟到 summary |BinaryHalo |
+| summary_or_fallback | 不依赖生理状态，只使用普通 summary 或默认界面 | Repeat Attempt Dashboard |
+| subtle_or_summary | 使用保守策略 | TimelineDashboard |
 
 ---
 

@@ -11,6 +11,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
     private const string ControlledAvatarName = "GCHbot";
     private const int LastTrialNumber = 3;
     private const int LastBlockNumber = 3;
+    private const int WindowSortingOrder = 920;
     private static readonly Vector2 SingleButtonPosition = new Vector2(0f, -104f);
     private static readonly Vector2 LeftButtonPosition = new Vector2(-118f, -104f);
     private static readonly Vector2 RightButtonPosition = new Vector2(118f, -104f);
@@ -91,6 +92,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
             return;
         }
 
+        Study2Trial3PhysioFeedbackTestController.ClearFeedbackOverride();
         EnsureControllers();
         OfficeXrUiSupport.EnsureEventSystem();
         BuildWindow();
@@ -225,6 +227,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
 
     private void OnNextTrialClicked()
     {
+        Study2Trial3PhysioFeedbackTestController.ClearFeedbackOverride();
         int nextTrial = GetCurrentTrialNumberForActiveBlock() + 1;
         if (nextTrial <= LastTrialNumber)
         {
@@ -250,6 +253,7 @@ public class Block1LeaderControlWindow : MonoBehaviour
         int nextEpisode = currentEpisode + 1;
         if (nextEpisode <= GetEpisodeCountForActiveBlock())
         {
+            Study2Trial3PhysioFeedbackTestController.ApplyFeedbackForNextPhase(activeBlockNumber, currentTrial, nextEpisode);
             ShowEpisodeStart(currentTrial, nextEpisode);
         }
         else
@@ -473,8 +477,8 @@ public class Block1LeaderControlWindow : MonoBehaviour
 
         Canvas canvas = windowRoot.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
-        canvas.sortingOrder = 900;
-        DashboardOverlayRendering.ConfigureCanvas(canvas, 900);
+        canvas.sortingOrder = WindowSortingOrder;
+        DashboardOverlayRendering.ConfigureCanvas(canvas, WindowSortingOrder);
 
         windowRoot.AddComponent<CanvasScaler>().dynamicPixelsPerUnit = 12f;
         windowRoot.AddComponent<GraphicRaycaster>();

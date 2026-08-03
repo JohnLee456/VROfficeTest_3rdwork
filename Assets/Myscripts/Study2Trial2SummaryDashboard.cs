@@ -245,7 +245,7 @@ public class Study2Trial2SummaryDashboard : MonoBehaviour
         dashboardRoot = new GameObject("Trial2 SpeakingIntention Summary Dashboard", typeof(RectTransform));
         Canvas canvas = dashboardRoot.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
-        DashboardOverlayRendering.ConfigureCanvas(canvas, 935);
+        DashboardOverlayRendering.ConfigureCanvas(canvas, 650);
         dashboardRoot.AddComponent<CanvasScaler>().dynamicPixelsPerUnit = 12f;
 
         RectTransform rootRect = dashboardRoot.GetComponent<RectTransform>();

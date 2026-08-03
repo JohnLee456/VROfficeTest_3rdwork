@@ -346,8 +346,8 @@ public class StaffEpisodePromptBoard : MonoBehaviourPunCallbacks, IOnEventCallba
 
         Canvas canvas = boardRoot.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
-        canvas.sortingOrder = 880;
-        DashboardOverlayRendering.ConfigureCanvas(canvas, 880);
+        canvas.sortingOrder = 940;
+        DashboardOverlayRendering.ConfigureCanvas(canvas, 940);
 
         boardRoot.AddComponent<CanvasScaler>().dynamicPixelsPerUnit = 12f;
 

@@ -1,0 +1,62 @@
+{
+  "protocol": "physio_aware_feedback_v1",
+  "source": "polar_verity_sense_pc",
+  "timestamp_unix": 1783140000.123,
+  "time_str": "14:21:08",
+  "participant_role": "leader",
+
+  "static_state": {
+    "final": "Stress",
+    "final_simple": "Stress",
+    "absolute": "Stress",
+    "baseline_shift": "Above personal baseline",
+    "baseline_ready": true,
+    "z": {
+      "hr": 1.15,
+      "rmssd": -0.92,
+      "sdnn": -0.71
+    }
+  },
+
+  "temporal_dynamics": {
+    "trend": "Pressure Increase",
+    "hr_norm_change": 0.31,
+    "hrv_norm_change": -0.26
+  },
+
+  "co_occurrence": "Stress + Pressure Increase",
+
+  "metrics": {
+    "hr_bpm": 96,
+    "rmssd_ms": 20.4,
+    "sdnn_ms": 27.8,
+    "pnn50_percent": 4.2
+  },
+
+  "quality": {
+    "level": "medium",
+    "hold_used": false,
+    "strict": {
+      "usable": true,
+      "enough_ppi": true,
+      "range_ok": true,
+      "stability_ok": true,
+      "raw_count": 28,
+      "clean_count": 21
+    },
+    "soft": {
+      "usable": true,
+      "enough_ppi": true,
+      "range_ok": true,
+      "stability_ok": true,
+      "raw_count": 31,
+      "clean_count": 25
+    }
+  },
+
+  "recommended_feedback": {
+    "display_mode": "subtle_or_delayed",
+    "interface_strength": "low",
+    "reason": "pressure_increase_detected"
+  }
+}

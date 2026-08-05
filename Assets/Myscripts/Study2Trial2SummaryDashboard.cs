@@ -95,7 +95,7 @@ public class Study2Trial2SummaryDashboard : MonoBehaviour
         int blockNumber;
         int trialNumber;
         int phaseNumber;
-        bool shouldShow = TryGetLatestPhase(out blockNumber, out trialNumber, out phaseNumber) &&
+        bool shouldShow = Block1EpisodeSync.TryReadRoomState(out blockNumber, out trialNumber, out phaseNumber, out _) &&
             trialNumber == TargetTrialNumber &&
             phaseNumber == Study2TrialPhaseInfo.Summary;
 
@@ -487,33 +487,6 @@ public class Study2Trial2SummaryDashboard : MonoBehaviour
         }
 
         enabled = false;
-    }
-
-    private static bool TryGetLatestPhase(out int blockNumber, out int trialNumber, out int phaseNumber)
-    {
-        double readyTime;
-        bool hasReadyState = Block1EpisodeSync.TryReadPromptRoomState(out blockNumber, out trialNumber, out phaseNumber, out readyTime);
-
-        int startedBlockNumber;
-        int startedTrialNumber;
-        int startedPhaseNumber;
-        double startedTime;
-        bool hasStartedState = Block1EpisodeSync.TryReadRoomState(out startedBlockNumber, out startedTrialNumber, out startedPhaseNumber, out startedTime);
-
-        if (hasReadyState && (!hasStartedState || readyTime > startedTime))
-        {
-            return true;
-        }
-
-        if (hasStartedState)
-        {
-            blockNumber = startedBlockNumber;
-            trialNumber = startedTrialNumber;
-            phaseNumber = startedPhaseNumber;
-            return true;
-        }
-
-        return false;
     }
 
     private static bool ShouldCreateForScene(Scene scene)
